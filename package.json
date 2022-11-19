@@ -14,6 +14,10 @@
   "devDependencies": {
     "typescript": "^4.9.3"
   },
+  "ci": {
+    "version": "16, 18, 19",
+    "type": "github"
+  },
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": [
