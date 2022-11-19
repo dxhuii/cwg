@@ -7,18 +7,16 @@
     "start": "pnpm web dev",
     "start:admin": "pnpm admin dev",
     "start:api": "pnpm api dev",
+    "start:newtab": "pnpm newtab dev",
     "debug": "pnpm --filter=@cwg/api debug",
     "web": "pnpm --filter=@cwg/web",
     "admin": "pnpm --filter=@cwg/admin",
     "api": "pnpm --filter=@cwg/api",
+    "newtab": "pnpm --filter=@cwg/newtab",
     "ci": "pnpm --filter=@cwg/api ci"
   },
   "devDependencies": {
     "typescript": "^4.9.3"
-  },
-  "ci": {
-    "version": "16, 18, 19",
-    "type": "github"
   },
   "pnpm": {
     "peerDependencyRules": {

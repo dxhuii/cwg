@@ -52,3 +52,17 @@ env*
 .output
 .nuxt
 .env
+
+# newtab
+.vite-ssg-dist
+.vite-ssg-temp
+*.crx
+*.local
+*.log
+*.pem
+*.xpi
+*.zip
+dist-ssr
+extension/manifest.json
+src/auto-imports.d.ts
+src/components.d.ts
