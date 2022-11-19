@@ -2,6 +2,7 @@
   "name": "cwg",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@7.16.1",
   "scripts": {
     "start": "pnpm web dev",
     "start:admin": "pnpm admin dev",
