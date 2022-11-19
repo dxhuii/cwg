@@ -10,8 +10,6 @@ on:
   pull_request:
     branches:
       - main
-  # schedule:
-  # - cron: '0 2 * * *'
 
 jobs:
   build:
@@ -25,7 +23,10 @@ jobs:
 
     steps:
       - name: Checkout Git Source
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -33,10 +34,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install Dependencies
-        run: npm i
+        run: pnpm i
 
       - name: Continuous Integration
-        run: npm run ci
+        run: pnpm run ci
 
       - name: Code Coverage
         uses: codecov/codecov-action@v3
