@@ -9,7 +9,8 @@
     "debug": "pnpm --filter=@cwg/api debug",
     "web": "pnpm --filter=@cwg/web",
     "admin": "pnpm --filter=@cwg/admin",
-    "api": "pnpm --filter=@cwg/api"
+    "api": "pnpm --filter=@cwg/api",
+    "ci": "pnpm --filter=@cwg/api ci"
   },
   "devDependencies": {
     "typescript": "^4.9.3"

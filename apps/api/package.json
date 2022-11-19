@@ -7,11 +7,6 @@
     "declarations": true
   },
   "author": "plain",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
   "engines": {
     "node": ">=16.0.0"
   },
