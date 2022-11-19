@@ -1,0 +1,25 @@
+{
+  "name": "cwg",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "pnpm web dev",
+    "start:admin": "pnpm admin dev",
+    "start:api": "pnpm api dev",
+    "debug": "pnpm --filter=@cwg/api debug",
+    "web": "pnpm --filter=@cwg/web",
+    "admin": "pnpm --filter=@cwg/admin",
+    "api": "pnpm --filter=@cwg/api"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "webpack",
+        "@babel/*"
+      ]
+    }
+  }
+}

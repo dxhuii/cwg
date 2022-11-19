@@ -1,0 +1,9 @@
+{
+    "name": "@cwg/types",
+    "version": "0.0.0",
+    "type": "module",
+    "private": true,
+    "devDependencies": {
+      "typescript": "^4.9.3"
+    }
+  }

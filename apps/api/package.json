@@ -1,0 +1,89 @@
+{
+  "name": "@cwg/api",
+  "version": "0.0.0",
+  "private": true,
+  "egg": {
+    "typescript": true,
+    "declarations": true
+  },
+  "author": "plain",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "start": "npm run ci && egg-scripts start --sticky --daemon --title=egg-server-cwg",
+    "stop": "egg-scripts stop --title=egg-server-cwg",
+    "dev": "egg-bin dev --sticky --inspect",
+    "debug": "egg-bin debug",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "tsc": "ets && tsc -p tsconfig.json",
+    "lint": "eslint . --ext .ts",
+    "clean": "ets clean",
+    "ci": "npm run lint && npm run cov && npm run tsc",
+    "db": "npx sequelize db:migrate",
+    "db-prod": "npx sequelize db:migrate --env=production"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.6",
+    "egg": "^3.3.3",
+    "egg-alinode": "^2.0.1",
+    "egg-cors": "^2.2.3",
+    "egg-jwt": "^3.1.7",
+    "egg-mysql": "^3.1.1",
+    "egg-redis": "^2.4.0",
+    "egg-scripts": "^2.15.2",
+    "egg-sequelize": "^6.0.0",
+    "egg-socket.io": "^4.1.6",
+    "egg-validate": "^2.0.2",
+    "egg-view-nunjucks": "^2.3.0",
+    "got": "^12.5.2",
+    "got-cjs": "^12.5.4",
+    "module-alias": "^2.2.2",
+    "mysql2": "^2.3.3",
+    "node-fetch": "^3.3.0",
+    "nodemailer": "^6.8.0",
+    "ohmyfetch": "^0.4.21",
+    "pg": "^8.8.0",
+    "pinyin": "^3.0.0-alpha.5",
+    "qcloud-cos-sts": "^3.0.6",
+    "svg-captcha": "^1.4.0",
+    "unsplash-js": "^7.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@types/nodemailer": "^6.4.6",
+    "@types/socket.io": "^3.0.2",
+    "egg-bin": "^5.4.0",
+    "egg-ci": "^2.2.0",
+    "egg-mock": "^5.2.1",
+    "eslint": "^8.27.0",
+    "eslint-config-egg": "^12.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "sequelize-cli": "^6.5.2",
+    "tslib": "^2.4.1",
+    "typescript": "^4.8.4"
+  },
+  "ci": {
+    "version": "16, 18",
+    "type": "github"
+  },
+  "eslintIgnore": [
+    "coverage"
+  ],
+  "_moduleAliases": {
+    "@root": ".",
+    "@app": "app",
+    "@config": "config"
+  }
+}

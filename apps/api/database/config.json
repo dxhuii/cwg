@@ -1,0 +1,56 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "DXh19880611",
+    "database": "cang",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "timezone": "+08:00",
+    "define": {
+      "charset": "utf8",
+      "timestamps": true,
+      "freezeTableName": true,
+      "underscored": true,
+      "dialectOptions": {
+        "collate": "utf8_general_ci"
+      }
+    }
+  },
+  "test": {
+    "username": "root",
+    "password": "root",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "port": 8889,
+    "dialect": "mysql",
+    "timezone": "+08:00",
+    "define": {
+      "charset": "utf8",
+      "timestamps": false,
+      "freezeTableName": true,
+      "underscored": false,
+      "dialectOptions": {
+        "collate": "utf8_general_ci"
+      }
+    }
+  },
+  "production": {
+    "username": "cangwangge",
+    "password": "aRsHANfYJh72",
+    "database": "cangwangge",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "timezone": "+08:00",
+    "define": {
+      "charset": "utf8",
+      "timestamps": true,
+      "freezeTableName": true,
+      "underscored": true,
+      "dialectOptions": {
+        "collate": "utf8_general_ci"
+      }
+    }
+  }
+}

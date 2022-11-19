@@ -1,0 +1,54 @@
+# admin
+# dependencies
+**/node_modules
+/src/utils/request-temp.js
+_roadhog-api-doc
+
+# production
+dist
+
+# misc
+.DS_Store
+npm-debug.log*
+yarn-error.log
+
+/coverage
+.idea
+*bak
+
+
+# visual studio code
+.history
+*.log
+functions/*
+.temp/**
+
+# umi
+.umi
+.umi-production
+.umi-test
+
+# screenshot
+screenshot
+.firebase
+.eslintcache
+
+build
+
+# api
+**/logs
+**/run
+*.swp
+*-lock.json
+*.lock
+
+**/typings/app
+**/typings/config
+env*
+
+
+# web
+*.log
+.output
+.nuxt
+.env
