@@ -12,7 +12,7 @@ export interface IResponse {
   message?: string
 }
 
-export type IPages = {
+export interface IPages {
   current?: number
   pageSize?: number
   total?: number
@@ -31,7 +31,7 @@ export interface IId {
   cid?: number
   uid?: number
   sid?: number
-  aid?: number
+  aid?: number | string
   status?: string
 }
 
@@ -69,13 +69,19 @@ export interface IUser extends IDate {
 }
 
 export interface IFeed extends IHits, IDate, Omit<IId, 'cid'> {
-  type: number
+  type: 'follow' | 'score' | 'evaluate' | 'add' | 'update' | 'wish' | 'seen' | 'do' | 'on_hold' | 'dropped' | 'add_friend' | 'feed' // 类型:follow关注|score评分|evaluate评价|add添加|update更新|想看wish|看过seen|在看do|搁置on_hold|抛弃dropped|add_friend加好友|feed动态
   ip: number
   expired_at: string
   comment_count: number
-  like_count: number
+  up: number
+  down: number
   forward_count: number
   collection_count: number
+  time: string
+  subject: ISubject
+  user: IUser
+  pin: IPin
+  collect: ICollect
 }
 
 export interface IMcat {
@@ -113,8 +119,18 @@ export interface IList extends Omit<IId, 'uid' | 'aid' | 'cid'> {
   seo_description?: string
 }
 
+export interface PlayList { pid?: number; name?: string; path?: string; pic?: string; miao?: number; fen?: number; source?: string }
+export interface IPlayList {
+  sid: number
+  title: string
+  name?: string
+  count: any
+  price: string
+  urls: any
+}
+
 export interface ISubject extends IHits, IDate, Omit<IId, 'sid' | 'aid'> {
-  mcid: (string | number)[]
+  mcid: string[] | IMcat[]
   mcat: IMcat[]
   name: string
   foreign: string
@@ -122,6 +138,7 @@ export interface ISubject extends IHits, IDate, Omit<IId, 'sid' | 'aid'> {
   title: string
   tag: string
   label: string
+  associate: string[]
   color: string
   bg_color: string
   star: string
@@ -137,7 +154,9 @@ export interface ISubject extends IHits, IDate, Omit<IId, 'sid' | 'aid'> {
   time: string
   area: string
   language: string
-  play: string
+  play?: { title: string; urls: string }[]
+  url?: IPlayList[]
+  visits: any
   inputer: string
   jumpurl: string
   letter: string
@@ -148,6 +167,8 @@ export interface ISubject extends IHits, IDate, Omit<IId, 'sid' | 'aid'> {
   filmtime: string
   length: string
   roles: string
+  key: string
+  playback_source: any
   content: string
   other: string
   prty: number
@@ -160,13 +181,13 @@ export interface ISubject extends IHits, IDate, Omit<IId, 'sid' | 'aid'> {
   down: number
   rank: number
   gold: number
-  weekday: string[]
+  weekday: number
   douban: number
   imdb: number
   broadcast: number
   ip: number
   comment_count: number
-  like_count: number
+  collect_count: number
   forward_count: number
   collection_count: number
   association?: IAssociation
@@ -197,7 +218,7 @@ export interface ISetting {
   tag: string
 }
 
-export interface IFavorite extends IDate, Omit<IId, 'status'> {
+export interface ICollect extends IDate, Omit<IId, 'status'> {
   tags: string
   content: string
   ip: number
@@ -213,7 +234,7 @@ export interface IFollow extends IDate {
 }
 
 export interface ITag extends IDate {
-  id: number
+  id?: number
   name: string
   aid: number
   sid: number
@@ -315,6 +336,17 @@ export interface IActors {
   type: number
 }
 
+export interface IStaff {
+  id: number
+  dir: string
+  name: string
+  url: string
+  content: string
+  rank: number
+  intro: string
+  status: string
+}
+
 export interface IRole extends IDate, IHits, IId {
   name: string
   content: string
@@ -397,7 +429,7 @@ export interface ILog extends Omit<IDate, 'updated_at'> {
   ip: number
 }
 
-export interface IDetailedlist extends IDate, IHits, IId {
+export interface ILists extends IDate, IHits, IId {
   tsid: number
   taid: number
   rank: number
@@ -410,10 +442,9 @@ export interface IListcategory extends IDate, IId {
   remark: string
 }
 
-export interface IDigg extends Omit<IDate, 'updated_at'>, Omit<IId, 'status'> {
-  up: number
-  down: number
-  ip: number
+export interface IDigg extends Omit<IDate, 'updated_at'>, Omit<IId, 'status' | 'cid'> {
+  type: 'up' | 'down'
+  ip?: number
 }
 
 export interface ISts {
@@ -426,6 +457,10 @@ export interface ISts {
   expiredTime: number
   region: string
   bucket: string
+}
+
+export interface PageResult<T> extends IResponse {
+  data: T
 }
 
 export interface IListResponse<T> extends IResponse {

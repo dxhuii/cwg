@@ -1,4 +1,4 @@
-import { modelName } from '@root/app/typings/enum'
+import { modelName } from '@cwg/types/enum'
 import { Controller } from 'egg'
 
 export default class Pin extends Controller {
@@ -24,18 +24,19 @@ export default class Pin extends Controller {
     params.sid = modelName.PIN
     if (params.id) {
       const result = await service.pin.edit(params)
-      if (result) {
+      if (result)
         ctx.helper.success(ctx, { data: result, message: '更新成功' })
-      } else {
+
+      else
         ctx.helper.fail(ctx, { data: 0, message: '更新失败' })
-      }
-    } else {
+    }
+    else {
       const result = await service.pin.add(params)
-      if (result) {
+      if (result)
         ctx.helper.success(ctx, { data: result, message: '添加成功' })
-      } else {
+
+      else
         ctx.helper.fail(ctx, { data: 0, message: '添加失败' })
-      }
     }
   }
 

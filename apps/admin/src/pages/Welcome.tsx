@@ -1,6 +1,7 @@
 import { PageContainer } from '@ant-design/pro-components'
 import { Alert, Card, Typography } from 'antd'
-import React, { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import React from 'react'
 import styles from './Welcome.less'
 
 const CodePreview: React.FC<{ children: ReactNode }> = ({ children }) => (
@@ -22,7 +23,7 @@ export default (): React.ReactNode => {
           banner
           style={{
             margin: -12,
-            marginBottom: 24
+            marginBottom: 24,
           }}
         />
         <Typography.Text strong>
@@ -35,7 +36,7 @@ export default (): React.ReactNode => {
         <Typography.Text
           strong
           style={{
-            marginBottom: 12
+            marginBottom: 12,
           }}
         >
           高级布局{' '}

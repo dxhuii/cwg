@@ -30,6 +30,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.3.30",
+    "@cwg/types": "workspace:*",
+    "@cwg/utils": "workspace:*",
     "antd": "4.24.1",
     "classnames": "^2.3.2",
     "cos-js-sdk-v5": "^1.4.11",

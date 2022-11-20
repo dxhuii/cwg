@@ -1,5 +1,5 @@
 import { Controller } from 'egg'
-import { sidName } from '../../utils'
+import { sidName } from '@cwg/types/enum'
 
 export default class Digg extends Controller {
   public async add() {

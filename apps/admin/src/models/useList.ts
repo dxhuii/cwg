@@ -1,7 +1,7 @@
-import { list } from '@/services/list'
-import type { IList } from '@/services/typings'
-import { idToStr } from '@/utils'
+import type { IList } from '@cwg/types'
 import { useCallback, useState } from 'react'
+import { list } from '@/services/list'
+import { idToStr } from '@/utils'
 
 export default function useList() {
   const [categoryList, setCategoryList] = useState<IList[]>([])
@@ -13,6 +13,6 @@ export default function useList() {
 
   return {
     categoryList: idToStr(categoryList) as IList[],
-    getCategoryList
+    getCategoryList,
   }
 }

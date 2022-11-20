@@ -1,8 +1,9 @@
 import { ModalForm } from '@ant-design/pro-components'
 import { Button, List, Tag } from 'antd'
-import { FC, useEffect } from 'react'
+import type { FC } from 'react'
+import { useEffect } from 'react'
 
-type ValueType = { id: number; name: string }
+interface ValueType { id: number; name: string }
 
 interface ITagFormProps {
   value?: ValueType[]
@@ -10,8 +11,8 @@ interface ITagFormProps {
   list?: any[]
 }
 
-const TagForm: FC<ITagFormProps> = props => {
-  const { value, onChange, list } = props
+const TagForm: FC<ITagFormProps> = (props) => {
+  const { value, list } = props
   useEffect(() => {
     console.log(value, 'tag')
   }, [value])

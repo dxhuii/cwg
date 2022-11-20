@@ -1,34 +1,34 @@
-import { mcatAdd } from '@/services/mcat'
-import type { IList, IMcat } from '@/services/typings'
-import { getListMcat, sidEnum } from '@/utils'
+import type { IList, IMcat } from '@cwg/types'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { EditableProTable, PageContainer, ProTable } from '@ant-design/pro-components'
 import { Link, useModel } from '@umijs/max'
 import { message } from 'antd'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { getListMcat, sidEnum } from '@/utils'
+import { mcatAdd } from '@/services/mcat'
 
 const columns: ProColumns<IList>[] = [
   {
     title: '名称',
     width: 120,
-    dataIndex: 'name'
+    dataIndex: 'name',
   },
   {
     title: '目录',
     width: 120,
-    dataIndex: 'dir'
+    dataIndex: 'dir',
   },
   {
     title: '排序',
     width: 120,
-    dataIndex: 'rank'
+    dataIndex: 'rank',
   },
   {
     title: '模型',
     width: 140,
     dataIndex: 'sid',
     valueType: 'select',
-    valueEnum: sidEnum()
+    valueEnum: sidEnum(),
   },
   {
     title: '状态',
@@ -37,8 +37,8 @@ const columns: ProColumns<IList>[] = [
     valueType: 'select',
     valueEnum: {
       0: { text: '正常', status: 'Success' },
-      1: { text: '禁用', status: 'Error' }
-    }
+      1: { text: '禁用', status: 'Error' },
+    },
   },
   {
     title: '操作',
@@ -46,14 +46,14 @@ const columns: ProColumns<IList>[] = [
     key: 'option',
     valueType: 'option',
     render: () => [
-      <Link to={`typelist`} key="edit">
+      <Link to={'typelist'} key="edit">
         编辑
       </Link>,
-      <Link to={`typelist`} key="delete">
+      <Link to={'typelist'} key="delete">
         删除
-      </Link>
-    ]
-  }
+      </Link>,
+    ],
+  },
 ]
 
 const Mcatlist = () => {
@@ -83,12 +83,12 @@ const Mcatlist = () => {
 
   const cateEnum = useMemo(() => {
     let obj = {}
-    categoryList.forEach(item => {
+    categoryList.forEach((item) => {
       obj = {
         ...obj,
         [item.id!]: {
-          text: item.name
-        }
+          text: item.name,
+        },
       }
     })
     return obj
@@ -98,23 +98,23 @@ const Mcatlist = () => {
     {
       title: '名称',
       dataIndex: 'name',
-      width: 120
+      width: 120,
     },
     {
       title: '父类',
       dataIndex: 'cid',
       valueType: 'select',
-      valueEnum: cateEnum
+      valueEnum: cateEnum,
     },
     {
       title: '目录',
       dataIndex: 'title',
-      width: 120
+      width: 120,
     },
     {
       title: '排序',
       dataIndex: 'rank',
-      width: 120
+      width: 120,
     },
     {
       title: '操作',
@@ -136,9 +136,9 @@ const Mcatlist = () => {
           }}
         >
           删除
-        </a>
-      ]
-    }
+        </a>,
+      ],
+    },
   ]
 
   const expandedRowRender = (record: { sub?: IMcat[] } & IList) => {
@@ -150,34 +150,36 @@ const Mcatlist = () => {
         pagination={false}
         request={async () => ({
           data: record.sub,
-          success: true
+          success: true,
         })}
         value={record.sub}
         recordCreatorProps={{
-          record: () => ({ id: (Math.random() * 1000000).toFixed(0), cid: '1' } as IMcat)
+          record: () => ({ id: (Math.random() * 1000000).toFixed(0), cid: '1' } as IMcat),
         }}
         editable={{
           type: 'multiple',
           editableKeys,
           onSave: async (rowKey, data, row) => {
-            if (typeof data.id === 'string') {
+            if (typeof data.id === 'string')
               delete data.id
-            }
-            mcatAdd({ ...data }).then(res => {
+
+            mcatAdd({ ...data }).then((res) => {
               if (res.status === 200) {
-                if (data.id) {
+                if (data.id)
                   message.success('修改成功')
-                } else {
+
+                else
                   message.success('添加成功')
-                }
+
                 getData()
-              } else {
+              }
+              else {
                 message.error(res.message)
               }
             })
             console.log(rowKey, data, row)
           },
-          onChange: setEditableRowKeys
+          onChange: setEditableRowKeys,
         }}
       />
     )
@@ -190,15 +192,15 @@ const Mcatlist = () => {
         request={async () => {
           return {
             data: mcatData,
-            success: true
+            success: true,
           }
         }}
         rowKey="id"
         pagination={{
-          showQuickJumper: true
+          showQuickJumper: true,
         }}
         expandable={{
-          expandedRowRender: record => expandedRowRender(record)
+          expandedRowRender: record => expandedRowRender(record),
         }}
         search={false}
         dateFormatter="string"

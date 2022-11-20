@@ -1,5 +1,3 @@
-import Footer from '@/components/Footer'
-import { login } from '@/services/user'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
 import { history, useModel } from '@umijs/max'
@@ -8,13 +6,15 @@ import md5 from 'md5'
 import React, { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 import styles from './index.less'
+import { login } from '@/services/user'
+import Footer from '@/components/Footer'
 
 const LoginMessage: React.FC<{
   content: string
 }> = ({ content }) => (
   <Alert
     style={{
-      marginBottom: 24
+      marginBottom: 24,
     }}
     message={content}
     type="error"
@@ -32,11 +32,12 @@ const Login: React.FC = () => {
       flushSync(() => {
         setInitialState(s => ({
           ...s,
-          currentUser: userInfo
+          currentUser: userInfo,
         }))
       })
       /** 此方法会跳转到 redirect 参数所在的位置 */
-      if (!history) return
+      if (!history)
+        return
       const urlParams = new URL(window.location.href).searchParams
       history.push(urlParams.get('redirect') || '/')
     }
@@ -57,7 +58,8 @@ const Login: React.FC = () => {
         return
       }
       setUserLoginState(res)
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error, 'error')
       message.error('登录失败，请重试！')
     }
@@ -72,9 +74,9 @@ const Login: React.FC = () => {
           title="🔖 🌐 🏘️"
           subTitle={'CWG'}
           initialValues={{
-            autoLogin: true
+            autoLogin: true,
           }}
-          onFinish={async values => {
+          onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams)
           }}
         >
@@ -83,33 +85,33 @@ const Login: React.FC = () => {
             name="username"
             fieldProps={{
               size: 'large',
-              prefix: <UserOutlined className={styles.prefixIcon} />
+              prefix: <UserOutlined className={styles.prefixIcon} />,
             }}
             placeholder={'用户名'}
             rules={[
               {
                 required: true,
-                message: '用户名是必填项！'
-              }
+                message: '用户名是必填项！',
+              },
             ]}
           />
           <ProFormText.Password
             name="password"
             fieldProps={{
               size: 'large',
-              prefix: <LockOutlined className={styles.prefixIcon} />
+              prefix: <LockOutlined className={styles.prefixIcon} />,
             }}
             placeholder={'密码'}
             rules={[
               {
                 required: true,
-                message: '密码是必填项！'
-              }
+                message: '密码是必填项！',
+              },
             ]}
           />
           <div
             style={{
-              marginBottom: 24
+              marginBottom: 24,
             }}
           >
             <ProFormCheckbox noStyle name="autoLogin">
@@ -117,7 +119,7 @@ const Login: React.FC = () => {
             </ProFormCheckbox>
             <a
               style={{
-                float: 'right'
+                float: 'right',
               }}
             >
               忘记密码 ?

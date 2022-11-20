@@ -1,5 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { IUser } from '~~/typings'
+import type { IUser } from '@cwg/types'
 
 export const useUserStore = defineStore('user', () => {
   const userInfo = ref<IUser>()

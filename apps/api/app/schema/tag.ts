@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, ITag } from '../typings'
+import type { ITag } from '@cwg/types'
+import type { Application, Context } from 'egg'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface TagType extends BaseModel, ITag {}
 
 export default (app: Context & Application) => {
@@ -13,8 +14,8 @@ export default (app: Context & Application) => {
       id: { autoIncrement: true, type: INTEGER, allowNull: false, primaryKey: true, comment: '自增id' },
       name: { type: STRING, allowNull: false, comment: '名字' },
       aid: { type: INTEGER, defaultValue: 0, comment: '关联 id' },
-      sid: { type: SMALLINT, defaultValue: 0, comment: '模型 id' }
+      sid: { type: SMALLINT, defaultValue: 0, comment: '模型 id' },
     },
-    { timestamps: false }
+    { timestamps: false },
   ) as BaseModelStatic<TagType>
 }

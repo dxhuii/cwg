@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, ILog } from '../typings'
+import type { ILog } from '@cwg/types'
+import type { Application, Context } from 'egg'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface LogType extends BaseModel, ILog {}
 
 export default (app: Context & Application) => {
@@ -15,6 +16,6 @@ export default (app: Context & Application) => {
     api: { type: STRING, allowNull: false, comment: 'api地址' },
     platform: { type: STRING, allowNull: false, comment: '系统' },
     language: { type: STRING, allowNull: false, comment: '语言' },
-    ip: { type: INTEGER, defaultValue: 0, comment: 'IP' }
+    ip: { type: INTEGER, defaultValue: 0, comment: 'IP' },
   }) as BaseModelStatic<LogType>
 }

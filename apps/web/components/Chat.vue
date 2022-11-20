@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { OnClickOutsideHandler } from '@vueuse/core'
-import { modelName } from '~~/typings/enum'
+import { modelName } from '@cwg/types/enum'
 
 const feed = useFeedStore()
 const msg = ref('')

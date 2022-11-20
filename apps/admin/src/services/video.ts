@@ -6,7 +6,7 @@ export async function getVideo(
     title?: string
     id?: string
   },
-  options?: Record<string, any>
+  options?: Record<string, any>,
 ) {
   const { title } = params
   delete params.title
@@ -15,7 +15,7 @@ export async function getVideo(
   }>(`/backend/video/${title}`, {
     method: 'GET',
     params,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -23,6 +23,6 @@ export async function postqq(body?: any, options?: Record<string, any>) {
   return request<{ data: any; status: number; message: string }>('/backend/video/postqq', {
     method: 'POST',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }

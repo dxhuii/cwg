@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, IRole } from '../typings'
+import type { IRole } from '@cwg/types'
+import type { Application, Context } from 'egg'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface RoleType extends BaseModel, IRole {}
 
 export default (app: Context & Application) => {
@@ -28,6 +29,6 @@ export default (app: Context & Application) => {
     hits_day: { type: INTEGER, defaultValue: 0, comment: '日' },
     hits_week: { type: INTEGER, defaultValue: 0, comment: '周' },
     hits_month: { type: INTEGER, defaultValue: 0, comment: '月' },
-    hits_lasttime: { type: DATE, defaultValue: NOW, comment: '热度更新时间' }
+    hits_lasttime: { type: DATE, defaultValue: NOW, comment: '热度更新时间' },
   }) as BaseModelStatic<RoleType>
 }

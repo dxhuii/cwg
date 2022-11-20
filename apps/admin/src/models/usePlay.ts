@@ -1,6 +1,6 @@
-import { playList } from '@/services/play'
-import type { IPlay } from '@/services/typings'
+import type { IPlay } from '@cwg/types'
 import { useCallback, useState } from 'react'
+import { playList } from '@/services/play'
 
 export default function useMcat() {
   const [play, setPlay] = useState<IPlay[]>([])
@@ -12,6 +12,6 @@ export default function useMcat() {
 
   return {
     play,
-    getPlay
+    getPlay,
   }
 }

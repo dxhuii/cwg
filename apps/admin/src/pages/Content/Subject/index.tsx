@@ -1,6 +1,4 @@
-import { subjectList } from '@/services/subject'
-import type { ISubject } from '@/services/typings'
-import { areaEnum, findMcat, languageEnum, statusType } from '@/utils'
+import type { ISubject } from '@cwg/types'
 import { PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { FooterToolbar, PageContainer, ProTable } from '@ant-design/pro-components'
@@ -10,6 +8,8 @@ import type { FC } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Association from './Association'
 import EditSubject from './EditSubject'
+import { areaEnum, findMcat, languageEnum, statusType } from '@/utils'
+import { subjectList } from '@/services/subject'
 
 const weekdayEnum = {
   1: '一',
@@ -18,7 +18,7 @@ const weekdayEnum = {
   4: '四',
   5: '五',
   6: '六',
-  7: '日'
+  7: '日',
 }
 
 const Subject: FC = () => {
@@ -39,13 +39,13 @@ const Subject: FC = () => {
 
   const mcatEnum = useMemo(() => {
     let obj = {}
-    mcat.forEach(item => {
+    mcat.forEach((item) => {
       obj = {
         ...obj,
         [item.id!]: {
           text: item.name,
-          status: item.id
-        }
+          status: item.id,
+        },
       }
     })
     return obj
@@ -61,36 +61,36 @@ const Subject: FC = () => {
             <img
               src={entity.pic}
               style={{
-                width: 200
+                width: 200,
               }}
             />
           }
         >
           {entity.name}
         </Popover>
-      )
+      ),
     },
     {
       title: '小分类',
       dataIndex: 'mcid',
       render: (_, entity) => findMcat(mcat, entity.mcid, true) as any,
-      valueEnum: mcatEnum
+      valueEnum: mcatEnum,
     },
     {
       title: '语言',
       dataIndex: 'language',
-      valueEnum: languageEnum
+      valueEnum: languageEnum,
     },
     {
       title: '地区',
       dataIndex: 'area',
-      valueEnum: areaEnum
+      valueEnum: areaEnum,
     },
     {
       title: '星期',
       dataIndex: 'weekday',
       render: (_, entity) => weekdayEnum[entity.weekday?.[0]],
-      valueEnum: weekdayEnum
+      valueEnum: weekdayEnum,
     },
     {
       title: '连载',
@@ -100,36 +100,36 @@ const Subject: FC = () => {
       valueEnum: {
         1: {
           text: '连载',
-          status: 'success'
+          status: 'success',
         },
         0: {
           text: '完结',
-          status: 'error'
-        }
-      }
+          status: 'error',
+        },
+      },
     },
     {
       title: '人气',
       sorter: true,
       search: false,
-      dataIndex: 'hits'
+      dataIndex: 'hits',
     },
     {
       title: '更新时间',
       search: false,
-      dataIndex: 'updated_at'
+      dataIndex: 'updated_at',
     },
     {
       title: '更新时间',
       sorter: true,
       dataIndex: 'updated_at',
       valueType: 'dateRange',
-      hideInTable: true
+      hideInTable: true,
     },
     {
       title: '状态',
       dataIndex: 'status',
-      valueEnum: statusType
+      valueEnum: statusType,
     },
     {
       title: '操作',
@@ -156,16 +156,16 @@ const Subject: FC = () => {
         </a>,
         <Popconfirm key="delete" onConfirm={() => del(entity.id)} title="确定要删除吗？">
           <a>删除</a>
-        </Popconfirm>
-      ]
-    }
+        </Popconfirm>,
+      ],
+    },
   ]
   return (
     <PageContainer header={{ title: false }}>
       <ProTable<ISubject>
         columns={columns}
         actionRef={actionRef}
-        request={async params => {
+        request={async (params) => {
           const { current, pageSize, name: wd, mcid, language, area, isend, updated_at, weekday } = params
           const param = {
             current,
@@ -177,26 +177,26 @@ const Subject: FC = () => {
               area,
               isend,
               weekday,
-              created_at: updated_at?.join(',')
-            })
+              created_at: updated_at?.join(','),
+            }),
           }
           const res = await subjectList(param)
           return {
             data: res.data?.list,
             total: res.data?.total,
-            success: true
+            success: true,
           }
         }}
         dateFormatter="string"
         toolBarRender={() => [
           <Button key="primary" type="primary" onClick={() => setModalVisit(true)}>
             <PlusOutlined /> 新建
-          </Button>
+          </Button>,
         ]}
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows)
-          }
+          },
         }}
         rowKey="id"
       />
@@ -207,7 +207,7 @@ const Subject: FC = () => {
               已选择{' '}
               <a
                 style={{
-                  fontWeight: 600
+                  fontWeight: 600,
                 }}
               >
                 {selectedRowsState.length}

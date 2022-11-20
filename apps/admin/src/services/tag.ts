@@ -1,12 +1,12 @@
 import { request } from '@umijs/max'
-import type { IListResponse, ITag } from './typings'
+import type { IListResponse, ITag } from '@cwg/types'
 
 /** 添加标签 POST /backend/tag/add */
 export async function tagAdd(body: ITag, options?: Record<string, any>) {
   return request<{ data: ITag; status: number; message: string }>('/backend/tag/add', {
     method: 'POST',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -15,7 +15,7 @@ export async function tagDelete(body: { id: number }, options?: Record<string, a
   return request<{ data: ITag; status: number; message: string }>('/backend/tag/delete', {
     method: 'DELETE',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -28,13 +28,13 @@ export async function tagList(
     /** 页面的容量 */
     pageSize?: number
   },
-  options?: Record<string, any>
+  options?: Record<string, any>,
 ) {
   return request<IListResponse<ITag>>('/backend/tag/list', {
     method: 'GET',
     params: {
-      ...params
+      ...params,
     },
-    ...(options || {})
+    ...(options || {}),
   })
 }

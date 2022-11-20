@@ -9,8 +9,8 @@ const clearCache = () => {
   if (window.caches) {
     caches
       .keys()
-      .then(keys => {
-        keys.forEach(key => {
+      .then((keys) => {
+        keys.forEach((key) => {
           caches.delete(key)
         })
       })
@@ -32,18 +32,18 @@ if (pwa) {
       // Check if there is sw whose state is waiting in ServiceWorkerRegistration
       // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration
       const worker = e.detail && e.detail.waiting
-      if (!worker) {
+      if (!worker)
         return true
-      }
+
       // Send skip-waiting event to waiting SW with MessageChannel
       await new Promise((resolve, reject) => {
         const channel = new MessageChannel()
-        channel.port1.onmessage = msgEvent => {
-          if (msgEvent.data.error) {
+        channel.port1.onmessage = (msgEvent) => {
+          if (msgEvent.data.error)
             reject(msgEvent.data.error)
-          } else {
+
+          else
             resolve(msgEvent.data)
-          }
         }
         worker.postMessage({ type: 'skip-waiting' }, [channel.port2])
       })
@@ -69,21 +69,23 @@ if (pwa) {
       description: '请点击“刷新”按钮或者手动刷新页面',
       btn,
       key,
-      onClose: async () => null
+      onClose: async () => null,
     })
   })
-} else if ('serviceWorker' in navigator && isHttps) {
+}
+else if ('serviceWorker' in navigator && isHttps) {
   // unregister service worker
   const { serviceWorker } = navigator
   if (serviceWorker.getRegistrations) {
-    serviceWorker.getRegistrations().then(sws => {
-      sws.forEach(sw => {
+    serviceWorker.getRegistrations().then((sws) => {
+      sws.forEach((sw) => {
         sw.unregister()
       })
     })
   }
-  serviceWorker.getRegistration().then(sw => {
-    if (sw) sw.unregister()
+  serviceWorker.getRegistration().then((sw) => {
+    if (sw)
+      sw.unregister()
   })
 
   clearCache()

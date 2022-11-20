@@ -1,6 +1,6 @@
 import CryptoJS = require('crypto-js')
 import dayjs = require('dayjs')
-import { sidName } from '../utils'
+import { sidName } from '@cwg/types/enum'
 import relativeTime = require('dayjs/plugin/relativeTime')
 import 'dayjs/locale/zh-cn'
 dayjs.locale('zh-cn') // 全局使用
@@ -9,8 +9,10 @@ dayjs.extend(relativeTime)
 const multipliers = [0x1000000, 0x10000, 0x100, 1]
 export default class Tool {
   toInt(str) {
-    if (typeof str === 'number') return str
-    if (!str) return str
+    if (typeof str === 'number')
+      return str
+    if (!str)
+      return str
     return parseInt(str, 10) || 0
   }
 
@@ -24,7 +26,7 @@ export default class Tool {
 
   long2ip(longValue) {
     return multipliers
-      .map(multiplier => {
+      .map((multiplier) => {
         return Math.floor((longValue % (multiplier * 0x100)) / multiplier)
       })
       .join('.')

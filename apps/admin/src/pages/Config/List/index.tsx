@@ -1,10 +1,10 @@
-import { settingAdd } from '@/services/setting'
-import type { ISetting } from '@/services/typings'
+import type { ISetting } from '@cwg/types'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { EditableProTable, PageContainer } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { message } from 'antd'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { settingAdd } from '@/services/setting'
 
 const Setting = () => {
   const actionRef = useRef<ActionType>()
@@ -27,15 +27,15 @@ const Setting = () => {
   const columns: ProColumns<ISetting>[] = [
     {
       title: 'key',
-      dataIndex: 'key'
+      dataIndex: 'key',
     },
     {
       title: '值',
-      dataIndex: 'value'
+      dataIndex: 'value',
     },
     {
       title: '备注',
-      dataIndex: 'tag'
+      dataIndex: 'tag',
     },
     {
       title: '操作',
@@ -58,9 +58,9 @@ const Setting = () => {
           }}
         >
           删除
-        </a>
-      ]
-    }
+        </a>,
+      ],
+    },
   ]
   return (
     <PageContainer>
@@ -70,7 +70,7 @@ const Setting = () => {
         request={async () => {
           return {
             data: setting,
-            success: true
+            success: true,
           }
         }}
         rowKey="id"
@@ -80,29 +80,31 @@ const Setting = () => {
         options={false}
         value={setting}
         recordCreatorProps={{
-          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ISetting)
+          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ISetting),
         }}
         editable={{
           type: 'multiple',
           editableKeys,
           onSave: async (_, data) => {
-            if (typeof data.id === 'string' && data.id.length === 6) {
+            if (typeof data.id === 'string' && data.id.length === 6)
               delete data.id
-            }
-            settingAdd({ ...data }).then(res => {
+
+            settingAdd({ ...data }).then((res) => {
               if (res.status === 200) {
-                if (data.id) {
+                if (data.id)
                   message.success('修改成功')
-                } else {
+
+                else
                   message.success('添加成功')
-                }
+
                 getData()
-              } else {
+              }
+              else {
                 message.error(res.message)
               }
             })
           },
-          onChange: setEditableRowKeys
+          onChange: setEditableRowKeys,
         }}
       />
     </PageContainer>

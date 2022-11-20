@@ -1,14 +1,14 @@
-import { associationAdd, associationDelete } from '@/services/association'
-import { subjectDetail, subjectList } from '@/services/subject'
-import type { IAssociation, ISubject } from '@/services/typings'
+import type { IAssociation, ISubject } from '@cwg/types'
 import { ModalForm, ProCard } from '@ant-design/pro-components'
-import { Button, Input, List, message, Skeleton, Tag } from 'antd'
+import { Button, Input, List, Skeleton, Tag, message } from 'antd'
 import type { FC } from 'react'
 import { useCallback, useEffect, useState } from 'react'
+import { subjectDetail, subjectList } from '@/services/subject'
+import { associationAdd, associationDelete } from '@/services/association'
 
 const { Search } = Input
 
-const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boolean) => void }> = props => {
+const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boolean) => void }> = (props) => {
   const { visible, setVisible, id, name } = props
   const [data, setData] = useState<ISubject[]>()
   const [detail, setDetail] = useState<ISubject>()
@@ -21,7 +21,7 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
       const param = {
         current,
         pageSize: 10,
-        filter: JSON.stringify({ ...params, not: params.not || notId })
+        filter: JSON.stringify({ ...params, not: params.not || notId }),
       }
       const res = await subjectList(param)
       const list = res.data?.list || []
@@ -29,11 +29,12 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
       if (current! > 1) {
         setData([...data!, ...list])
         window.dispatchEvent(new Event('resize'))
-      } else {
+      }
+      else {
         setData(list)
       }
     },
-    [notId]
+    [notId],
   )
 
   const getDetail = useCallback(async () => {
@@ -56,18 +57,20 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
     getList({ wd }, current)
   }
 
-  const loadMore = !initLoading ? (
+  const loadMore = !initLoading
+    ? (
     <div
       style={{
         textAlign: 'center',
         marginTop: 12,
         height: 32,
-        lineHeight: '32px'
+        lineHeight: '32px',
       }}
     >
       <Button onClick={onLoadMore}>loading more</Button>
     </div>
-  ) : null
+      )
+    : null
 
   const onAdd = async (item: ISubject) => {
     const add = { aid: id, taid: item.id, sid: 1, tsid: 1 } as IAssociation
@@ -75,7 +78,8 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
     if (result.data) {
       getDetail()
       message.success('关联成功')
-    } else {
+    }
+    else {
       message.error('关联失败')
     }
   }
@@ -87,7 +91,8 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
     if (result.data) {
       getDetail()
       message.success('删除成功')
-    } else {
+    }
+    else {
       message.error('删除失败')
     }
   }
@@ -112,7 +117,7 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
       <Search
         style={{ marginTop: 10 }}
         placeholder="请输入名称"
-        onSearch={word => {
+        onSearch={(word) => {
           getList({ wd: word })
           setWd(word)
         }}
@@ -129,7 +134,7 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
             actions={[
               <a key="list-loadmore-edit" onClick={() => onAdd(item)}>
                 关联
-              </a>
+              </a>,
             ]}
           >
             <Skeleton avatar title={false} loading={initLoading} active>

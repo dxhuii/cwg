@@ -1,6 +1,6 @@
-import { listDeatil } from '@/services/list'
-import type { IList } from '@/services/typings'
+import type { IList } from '@cwg/types'
 import { useCallback, useState } from 'react'
+import { listDeatil } from '@/services/list'
 
 export default function useListDetail() {
   const [categoryDetail, setCategoryDetail] = useState<IList>()
@@ -12,6 +12,6 @@ export default function useListDetail() {
 
   return {
     categoryDetail,
-    getCategoryDetail
+    getCategoryDetail,
   }
 }

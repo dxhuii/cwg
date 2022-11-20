@@ -1,4 +1,4 @@
-import { modelName } from '@root/app/typings/enum'
+import { modelName } from '@cwg/types/enum'
 import { Controller } from 'egg'
 
 export default class Topic extends Controller {
@@ -13,7 +13,8 @@ export default class Topic extends Controller {
       format.hits = await ctx.hits({ arr: data, model: 'Feed' })
       ctx.helper.deleleParams(format)
       ctx.helper.success(ctx, { data: format })
-    } else {
+    }
+    else {
       ctx.helper.fail(ctx, { message: '没有找到内容' })
     }
   }
@@ -35,7 +36,8 @@ export default class Topic extends Controller {
     if (params.id) {
       const result = await service.topic.edit(params)
       ctx.helper.success(ctx, { data: result, message: '更新成功' })
-    } else {
+    }
+    else {
       const result = await service.topic.add(params)
       ctx.helper.success(ctx, { data: result, message: '添加成功' })
     }

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { IFeed } from '~~/typings'
-import { FeedType, sidName } from '~~/typings/enum'
+import type { IFeed } from '@cwg/types'
+import { FeedType, sidName } from '@cwg/types/enum'
 const { data } = defineProps<{ data: IFeed & { [key: string]: any } }>()
 
 const items = [

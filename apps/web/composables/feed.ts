@@ -1,6 +1,6 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { IDigg, IFeed, IPin } from '~~/typings'
-import { sidName } from '~~/typings/enum'
+import type { IDigg, IFeed, IPin } from '@cwg/types'
+import { sidName } from '@cwg/types/enum'
 
 export const useFeedStore = defineStore('feed', () => {
   const feedData = ref<IFeed>()

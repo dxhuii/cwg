@@ -7,7 +7,7 @@ import useMergedState from 'rc-util/es/hooks/useMergedState'
 import React, { useRef } from 'react'
 import styles from './index.less'
 
-export type HeaderSearchProps = {
+export interface HeaderSearchProps {
   onSearch?: (value?: string) => void
   onChange?: (value?: string) => void
   onVisibleChange?: (b: boolean) => void
@@ -20,45 +20,43 @@ export type HeaderSearchProps = {
   value?: string
 }
 
-const HeaderSearch: React.FC<HeaderSearchProps> = props => {
+const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
   const { className, defaultValue, onVisibleChange, placeholder, visible, defaultVisible, ...restProps } = props
 
   const inputRef = useRef<InputRef | null>(null)
 
   const [value, setValue] = useMergedState<string | undefined>(defaultValue, {
     value: props.value,
-    onChange: props.onChange
+    onChange: props.onChange,
   })
 
   const [searchMode, setSearchMode] = useMergedState(defaultVisible ?? false, {
-    value: props.visible,
-    onChange: onVisibleChange
+    value: visible,
+    onChange: onVisibleChange,
   })
 
   const inputClass = classNames(styles.input, {
-    [styles.show]: searchMode
+    [styles.show]: searchMode,
   })
   return (
     <div
       className={classNames(className, styles.headerSearch)}
       onClick={() => {
         setSearchMode(true)
-        if (inputRef.current) {
+        if (inputRef.current)
           inputRef.current.focus()
-        }
       }}
       onTransitionEnd={({ propertyName }) => {
         if (propertyName === 'width' && !searchMode) {
-          if (onVisibleChange) {
+          if (onVisibleChange)
             onVisibleChange(searchMode)
-          }
         }
       }}
     >
       <SearchOutlined
         key="Icon"
         style={{
-          cursor: 'pointer'
+          cursor: 'pointer',
         }}
       />
       <AutoComplete
@@ -74,11 +72,10 @@ const HeaderSearch: React.FC<HeaderSearchProps> = props => {
           defaultValue={defaultValue}
           aria-label={placeholder}
           placeholder={placeholder}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              if (restProps.onSearch) {
+              if (restProps.onSearch)
                 restProps.onSearch(value)
-              }
             }
           }}
           onBlur={() => {

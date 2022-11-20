@@ -13,13 +13,13 @@ export default (): React.ReactNode => {
           banner
           style={{
             margin: -12,
-            marginBottom: 48
+            marginBottom: 48,
           }}
         />
         <Typography.Title
           level={2}
           style={{
-            textAlign: 'center'
+            textAlign: 'center',
           }}
         >
           <SmileTwoTone /> Ant Design Pro <HeartTwoTone twoToneColor="#eb2f96" /> You
@@ -28,7 +28,7 @@ export default (): React.ReactNode => {
       <p
         style={{
           textAlign: 'center',
-          marginTop: 24
+          marginTop: 24,
         }}
       >
         Want to add more pages? Please refer to{' '}

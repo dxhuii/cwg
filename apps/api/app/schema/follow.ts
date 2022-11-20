@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, IFollow } from '../typings'
+import type { IFollow } from '@cwg/types'
+import type { Application, Context } from 'egg'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface FollowType extends BaseModel, IFollow {}
 
 export default (app: Context & Application) => {
@@ -12,6 +13,6 @@ export default (app: Context & Application) => {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
     uid: { type: INTEGER, allowNull: false, comment: '被关联用户 id' },
     tuid: { type: INTEGER, allowNull: false, comment: '关联用户 id' },
-    ip: { type: INTEGER, defaultValue: 0, comment: 'ip' }
+    ip: { type: INTEGER, defaultValue: 0, comment: 'ip' },
   }) as BaseModelStatic<FollowType>
 }

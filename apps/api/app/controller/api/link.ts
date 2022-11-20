@@ -1,4 +1,4 @@
-import { feedType, modelName } from '@root/app/typings/enum'
+import { feedTypeBig, modelName } from '@cwg/types/enum'
 import { Controller } from 'egg'
 
 export default class Link extends Controller {
@@ -6,7 +6,7 @@ export default class Link extends Controller {
     const { ctx, service } = this
     const result = await service.link.list({
       ...ctx.request.query,
-      attributes: ['id', 'cid', 'name', 'url', 'icon', 'content', 'color', 'text', 'size', 'is_home']
+      attributes: ['id', 'cid', 'name', 'url', 'icon', 'content', 'color', 'text', 'size', 'is_home'],
     })
 
     ctx.helper.success(ctx, { data: result })
@@ -28,18 +28,21 @@ export default class Link extends Controller {
       const result = await service.link.edit(params)
       if (result) {
         const { ip, id: aid, cid, uid } = params
-        await service.feed.add({ ip, sid: modelName.LINK, cid, uid, type: feedType.UPDATE, aid })
+        await service.feed.add({ ip, sid: modelName.LINK, cid, uid, type: feedTypeBig.UPDATE, aid })
         ctx.helper.success(ctx, { data: result, message: '更新成功' })
-      } else {
+      }
+      else {
         ctx.helper.fail(ctx, { data: 0, message: '更新失败' })
       }
-    } else {
+    }
+    else {
       const result = await service.link.add(params)
       if (result) {
         const { ip, cid, uid, id: aid } = result
-        await service.feed.add({ ip, sid: modelName.LINK, cid, uid, type: feedType.ADD, aid })
+        await service.feed.add({ ip, sid: modelName.LINK, cid, uid, type: feedTypeBig.ADD, aid })
         ctx.helper.success(ctx, { data: result, message: '添加成功' })
-      } else {
+      }
+      else {
         ctx.helper.fail(ctx, { data: 0, message: '添加失败' })
       }
     }

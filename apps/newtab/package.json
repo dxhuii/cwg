@@ -23,6 +23,8 @@
     "test": "vitest test"
   },
   "dependencies": {
+    "@cwg/types": "workspace:*",
+    "@cwg/utils": "workspace:*",
     "@meforma/vue-toaster": "^1.3.0",
     "crypto-js": "^4.1.1",
     "element-plus": "^2.2.20",

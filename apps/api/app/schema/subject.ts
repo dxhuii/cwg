@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, ISubject } from '../typings'
+import type { Application, Context } from 'egg'
+import type { ISubject } from '@cwg/types'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface SubjectType extends BaseModel, ISubject {}
 
 export default (app: Context & Application) => {
@@ -70,14 +71,14 @@ export default (app: Context & Application) => {
         comment: '更新时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('updated_at'))
-        }
-      }
+        },
+      },
     },
     {
       createdAt: 'created_at',
       updatedAt: 'updated_at',
       deletedAt: false,
-      paranoid: false
-    }
+      paranoid: false,
+    },
   ) as BaseModelStatic<SubjectType>
 }

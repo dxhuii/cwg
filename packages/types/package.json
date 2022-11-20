@@ -1,9 +1,9 @@
 {
-    "name": "@cwg/types",
-    "version": "0.0.0",
-    "type": "module",
-    "private": true,
-    "devDependencies": {
-      "typescript": "^4.9.3"
-    }
+  "name": "@cwg/types",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "devDependencies": {
+    "typescript": "^4.9.3"
   }
+}

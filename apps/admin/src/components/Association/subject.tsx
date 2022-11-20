@@ -1,8 +1,9 @@
-import { subjectList } from '@/services/subject'
-import { ISubject } from '@/services/typings'
+import type { ISubject } from '@cwg/types'
 import { ModalForm } from '@ant-design/pro-components'
 import { Button, Col, Input, List, Row, Skeleton, Tag, Typography } from 'antd'
-import { FC, useCallback, useEffect, useState } from 'react'
+import type { FC } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { subjectList } from '@/services/subject'
 
 const { Search } = Input
 const { Title } = Typography
@@ -12,7 +13,7 @@ interface IAssociationProps {
   onChange?: (value: ISubject[]) => void
 }
 
-const Association: FC<IAssociationProps> = props => {
+const Association: FC<IAssociationProps> = (props) => {
   const { onChange, value } = props
   const [data, setData] = useState<ISubject[]>()
   const [initLoading, setInitLoading] = useState(true)
@@ -22,7 +23,7 @@ const Association: FC<IAssociationProps> = props => {
     const param = {
       current,
       pageSize: 10,
-      filter: JSON.stringify(params)
+      filter: JSON.stringify(params),
     }
     const res = await subjectList(param)
     const list = res.data?.list || []
@@ -30,7 +31,8 @@ const Association: FC<IAssociationProps> = props => {
     if (current! > 1) {
       setData([...data!, ...list])
       window.dispatchEvent(new Event('resize'))
-    } else {
+    }
+    else {
       setData(list)
     }
   }, [])
@@ -45,18 +47,20 @@ const Association: FC<IAssociationProps> = props => {
     getList({ wd }, current)
   }
 
-  const loadMore = !initLoading ? (
+  const loadMore = !initLoading
+    ? (
     <div
       style={{
         textAlign: 'center',
         marginTop: 12,
         height: 32,
-        lineHeight: '32px'
+        lineHeight: '32px',
       }}
     >
       <Button onClick={onLoadMore}>loading more</Button>
     </div>
-  ) : null
+      )
+    : null
 
   const onAdd = (item: ISubject) => {
     const newValue = [...value!, item]
@@ -92,7 +96,7 @@ const Association: FC<IAssociationProps> = props => {
                   actions={[
                     <a key="del" onClick={() => onDel(item)}>
                       取消
-                    </a>
+                    </a>,
                   ]}
                 >
                   <Skeleton avatar title={false} loading={initLoading} active>
@@ -105,7 +109,7 @@ const Association: FC<IAssociationProps> = props => {
           <Col span={12}>
             <Search
               placeholder="请输入名称"
-              onSearch={wd => {
+              onSearch={(wd) => {
                 getList({ wd })
                 setWd(wd)
               }}
@@ -122,7 +126,7 @@ const Association: FC<IAssociationProps> = props => {
                   actions={[
                     <a key="add" onClick={() => onAdd(item)}>
                       关联
-                    </a>
+                    </a>,
                   ]}
                 >
                   <Skeleton avatar title={false} loading={initLoading} active>

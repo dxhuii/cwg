@@ -1,10 +1,4 @@
-import UploadImage from '@/components/Upload'
-import { subjectAdd, subjectDetail, subjectName } from '@/services/subject'
-import type { ISubject } from '@/services/typings'
-import { getVideo } from '@/services/video'
-import { areaEnum, getListFormat, languageEnum, modelName, statusType } from '@/utils'
-import useBilibili from '@/utils/hooks/useBilibili'
-import useDouban from '@/utils/hooks/useDouban'
+import type { ISubject } from '@cwg/types'
 import { CloseOutlined, SnippetsOutlined } from '@ant-design/icons'
 import type { ActionType, ProFormInstance } from '@ant-design/pro-components'
 import {
@@ -21,13 +15,19 @@ import {
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
-  ProFormTimePicker
+  ProFormTimePicker,
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { Button, Cascader, Form, message } from 'antd'
 import moment from 'moment'
 import type { FC } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import useDouban from '@/utils/hooks/useDouban'
+import useBilibili from '@/utils/hooks/useBilibili'
+import { areaEnum, getListFormat, languageEnum, modelName, statusType } from '@/utils'
+import { getVideo } from '@/services/video'
+import { subjectAdd, subjectDetail, subjectName } from '@/services/subject'
+import UploadImage from '@/components/Upload'
 
 const { Item } = Form
 
@@ -39,7 +39,7 @@ interface IEdit {
   editData: ISubject | undefined
 }
 
-const SubjectEdit: FC<IEdit> = props => {
+const SubjectEdit: FC<IEdit> = (props) => {
   const formRef = useRef<ProFormInstance<ISubject>>()
   const [loading, setLoading] = useState(false)
   const { categoryList, getCategoryList } = useModel('useList')
@@ -82,9 +82,9 @@ const SubjectEdit: FC<IEdit> = props => {
 
   const findMcid = (arr: string[]) => {
     return mcat.reduce((list, item) => {
-      if (arr.includes(item.name)) {
+      if (arr.includes(item.name))
         list.push(item.id!)
-      }
+
       return list
     }, [] as (string | number)[])
   }
@@ -115,7 +115,7 @@ const SubjectEdit: FC<IEdit> = props => {
         onCancel: () => {
           formRef.current?.resetFields()
           setEditData(undefined)
-        }
+        },
       }}
       request={async () => {
         let data = {} as ISubject
@@ -125,19 +125,21 @@ const SubjectEdit: FC<IEdit> = props => {
         }
         return data
       }}
-      onFinish={async values => {
+      onFinish={async (values) => {
         console.log(values)
         const res = await subjectAdd({ ...values, id: editData?.id })
         if (res.status === 200) {
-          if (editData?.id) {
+          if (editData?.id)
             message.success('修改成功')
-          } else {
+
+          else
             message.success('添加成功')
-          }
+
           formRef.current?.resetFields()
           actionRef.current?.reload()
           return true
-        } else {
+        }
+        else {
           message.error(res.message)
           return false
         }
@@ -161,7 +163,7 @@ const SubjectEdit: FC<IEdit> = props => {
       <ProFormCheckbox.Group
         name="mcid"
         label="小类"
-        options={mcat.map(item => {
+        options={mcat.map((item) => {
           return { label: item.name, value: item.id! }
         })}
       />
@@ -174,23 +176,22 @@ const SubjectEdit: FC<IEdit> = props => {
           rules={[{ required: true }]}
           required={false}
           fieldProps={{
-            onBlur: async e => {
+            onBlur: async (e) => {
               const name = e.target.value
               if (name) {
                 const result = await subjectName({ name })
-                if (result.data) {
+                if (result.data)
                   return message.warn('名称已存在')
-                }
               }
-            }
+            },
           }}
         />
         <ProFormText width="lg" name="foreign" placeholder="外文名" />
         <ProFormDatePicker width={150} name="filmtime" placeholder="上映日期" fieldProps={{ format: 'YYYY-MM-DD' }} />
         <ProFormTimePicker
-          getValueProps={value => {
+          getValueProps={(value) => {
             return {
-              value: value ? moment(value, 'HH:mm') : null
+              value: value ? moment(value, 'HH:mm') : null,
             }
           }}
           width={110}
@@ -221,7 +222,7 @@ const SubjectEdit: FC<IEdit> = props => {
             4: '四',
             5: '五',
             6: '六',
-            7: '日'
+            7: '日',
           }}
           placeholder="星期"
         />
@@ -232,7 +233,7 @@ const SubjectEdit: FC<IEdit> = props => {
             home: '首页推荐',
             list: '列表推荐',
             thumb: '封面推荐',
-            quarter: '季番推荐'
+            quarter: '季番推荐',
           }}
           placeholder="推荐级别"
         />
@@ -269,33 +270,33 @@ const SubjectEdit: FC<IEdit> = props => {
       <ProFormList
         name="play"
         copyIconProps={{
-          Icon: SnippetsOutlined
+          Icon: SnippetsOutlined,
         }}
         deleteIconProps={{
-          Icon: CloseOutlined
+          Icon: CloseOutlined,
         }}
         min={1}
         max={4}
         creatorRecord={{
-          title: 'bilibili'
+          title: 'bilibili',
         }}
         actionGuard={{
           beforeAddRow: async (defaultValue, insertIndex, count) => {
-            return new Promise(resolve => {
+            return new Promise((resolve) => {
               console.log(defaultValue, insertIndex, count)
               setTimeout(() => resolve(true), 100)
             })
           },
           beforeRemoveRow: async (index, count) => {
             console.log('--->', index, count)
-            return new Promise(resolve => {
+            return new Promise((resolve) => {
               if (index === 0) {
                 resolve(false)
                 return
               }
               setTimeout(() => resolve(true), 100)
             })
-          }
+          },
         }}
         itemRender={({ listDom, action }, { record, index }) => {
           return (
@@ -316,7 +317,7 @@ const SubjectEdit: FC<IEdit> = props => {
               }
               title={playEunm[record?.title]}
               style={{
-                marginBottom: 8
+                marginBottom: 8,
               }}
             >
               {listDom}

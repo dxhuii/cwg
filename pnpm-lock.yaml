@@ -13,6 +13,8 @@ importers:
       '@ant-design/icons': ^4.7.0
       '@ant-design/pro-cli': ^3.0.1
       '@ant-design/pro-components': ^2.3.30
+      '@cwg/types': workspace:*
+      '@cwg/utils': workspace:*
       '@types/lodash': ^4.14.188
       '@types/md5': ^2.3.2
       '@types/react': ^18.0.25
@@ -46,6 +48,8 @@ importers:
     dependencies:
       '@ant-design/icons': 4.8.0_biqbaboplfbrettd7655fr4n2y
       '@ant-design/pro-components': 2.3.34_y6b4y5vgsfkoodncpjoumz3ak4
+      '@cwg/types': link:../../packages/types
+      '@cwg/utils': link:../../packages/utils
       antd: 4.24.1_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
       cos-js-sdk-v5: 1.4.11
@@ -81,6 +85,8 @@ importers:
 
   apps/api:
     specifiers:
+      '@cwg/types': workspace:*
+      '@cwg/utils': workspace:*
       '@types/node': ^18.11.9
       '@types/nodemailer': ^6.4.6
       '@types/socket.io': ^3.0.2
@@ -122,6 +128,8 @@ importers:
       typescript: ^4.8.4
       unsplash-js: ^7.0.15
     dependencies:
+      '@cwg/types': link:../../packages/types
+      '@cwg/utils': link:../../packages/utils
       cheerio: 1.0.0-rc.12
       crypto-js: 4.1.1
       dayjs: 1.11.6
@@ -167,6 +175,8 @@ importers:
   apps/newtab:
     specifiers:
       '@antfu/eslint-config': ^0.29.4
+      '@cwg/types': workspace:*
+      '@cwg/utils': workspace:*
       '@ffflorian/jszip-cli': ^3.1.6
       '@iconify-json/carbon': ^1.1.10
       '@iconify/json': ^2.1.136
@@ -214,6 +224,8 @@ importers:
       webextension-polyfill: ^0.10.0
       yup: ^0.32.11
     dependencies:
+      '@cwg/types': link:../../packages/types
+      '@cwg/utils': link:../../packages/utils
       '@meforma/vue-toaster': 1.3.0
       crypto-js: 4.1.1
       element-plus: 2.2.22_vue@3.2.45
@@ -266,6 +278,8 @@ importers:
   apps/web:
     specifiers:
       '@antfu/eslint-config': ^0.31.0
+      '@cwg/types': workspace:*
+      '@cwg/utils': workspace:*
       '@iconify-json/bx': ^1.1.4
       '@iconify-json/carbon': ^1.1.10
       '@iconify-json/twemoji': ^1.1.5
@@ -290,6 +304,8 @@ importers:
       vue-virtual-scroller: next
       yup: ^0.32.11
     dependencies:
+      '@cwg/types': link:../../packages/types
+      '@cwg/utils': link:../../packages/utils
       '@kevinmarrec/nuxt-pwa': 0.11.1
       '@meforma/vue-toaster': 1.3.0
       js-cookie: 3.0.1

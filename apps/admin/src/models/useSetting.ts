@@ -1,6 +1,6 @@
-import { settingList } from '@/services/setting'
-import type { ISetting } from '@/services/typings'
+import type { ISetting } from '@cwg/types'
 import { useCallback, useState } from 'react'
+import { settingList } from '@/services/setting'
 
 export default function useMcat() {
   const [setting, setSetting] = useState<ISetting[]>([])
@@ -12,6 +12,6 @@ export default function useMcat() {
 
   return {
     setting,
-    getSetting
+    getSetting,
   }
 }

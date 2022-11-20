@@ -1,11 +1,11 @@
-import { playAdd } from '@/services/play'
-import type { IPlay } from '@/services/typings'
-import { statusType } from '@/utils'
+import type { IPlay } from '@cwg/types'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { EditableProTable, PageContainer } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { message } from 'antd'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { statusType } from '@/utils'
+import { playAdd } from '@/services/play'
 
 const Setting = () => {
   const actionRef = useRef<ActionType>()
@@ -28,26 +28,26 @@ const Setting = () => {
   const columns: ProColumns<IPlay>[] = [
     {
       title: '名称',
-      dataIndex: 'name'
+      dataIndex: 'name',
     },
     {
       title: '英文名',
-      dataIndex: 'title'
+      dataIndex: 'title',
     },
     {
       title: '排序',
-      dataIndex: 'rank'
+      dataIndex: 'rank',
     },
     {
       title: '显示',
       dataIndex: 'display',
-      valueType: 'switch'
+      valueType: 'switch',
     },
     {
       title: '状态',
       dataIndex: 'status',
       valueType: 'select',
-      valueEnum: statusType
+      valueEnum: statusType,
     },
     {
       title: '操作',
@@ -70,9 +70,9 @@ const Setting = () => {
           }}
         >
           删除
-        </a>
-      ]
-    }
+        </a>,
+      ],
+    },
   ]
   return (
     <PageContainer>
@@ -82,7 +82,7 @@ const Setting = () => {
         request={async () => {
           return {
             data: play,
-            success: true
+            success: true,
           }
         }}
         rowKey="id"
@@ -92,29 +92,31 @@ const Setting = () => {
         options={false}
         value={play}
         recordCreatorProps={{
-          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as IPlay)
+          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as IPlay),
         }}
         editable={{
           type: 'multiple',
           editableKeys,
           onSave: async (_, data) => {
-            if (typeof data.id === 'string') {
+            if (typeof data.id === 'string')
               delete data.id
-            }
-            playAdd({ ...data }).then(res => {
+
+            playAdd({ ...data }).then((res) => {
               if (res.status === 200) {
-                if (data.id) {
+                if (data.id)
                   message.success('修改成功')
-                } else {
+
+                else
                   message.success('添加成功')
-                }
+
                 getData()
-              } else {
+              }
+              else {
                 message.error(res.message)
               }
             })
           },
-          onChange: setEditableRowKeys
+          onChange: setEditableRowKeys,
         }}
       />
     </PageContainer>

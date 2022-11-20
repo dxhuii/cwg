@@ -1,12 +1,12 @@
 import { request } from '@umijs/max'
-import type { IFeed, IFeedTable, IListResponse } from './typings'
+import type { IFeed, IFeedTable, IListResponse } from '@cwg/types'
 
 /** 添加动态 POST /backend/feed/add */
 export async function feedAdd(body: IFeed, options?: Record<string, any>) {
   return request<{ data: IFeed; status: number; message: string }>('/backend/feed/add', {
     method: 'POST',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -15,7 +15,7 @@ export async function feedDelete(body: { id: number }, options?: Record<string, 
   return request<{ data: IFeed; status: number; message: string }>('/backend/feed/delete', {
     method: 'DELETE',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -28,13 +28,13 @@ export async function feedList(
     /** 页面的容量 */
     pageSize?: number
   },
-  options?: Record<string, any>
+  options?: Record<string, any>,
 ) {
   return request<IListResponse<IFeedTable>>('/backend/feed/list', {
     method: 'GET',
     params: {
-      ...params
+      ...params,
     },
-    ...(options || {})
+    ...(options || {}),
   })
 }

@@ -1,7 +1,7 @@
-import { getVideo } from '@/services/video'
 import { message } from 'antd'
 import moment from 'moment'
 import { useState } from 'react'
+import { getVideo } from '@/services/video'
 
 export default () => {
   const [biliLoading, setBiliLoading] = useState(false)
@@ -31,7 +31,7 @@ export default () => {
     params.broadcast = episode_index.id !== 0
     params.isend = episode_index.is_new === 1
     params.serialized = +episode_index.index || null
-    params.year = '' + moment(publish.pub_date).year()
+    params.year = `${moment(publish.pub_date).year()}`
     params.tag = `${params.name}${params.foreign ? `,${params.foreign}` : ''}${
       params.aliases && params.aliases !== params.name ? `,${params.aliases}` : ''
     }`
@@ -46,21 +46,20 @@ export default () => {
     const staffArr = staff ? staff.split(/\n/) : []
     staffArr?.forEach((item: string) => {
       const arr = item.split('：')
-      if (arr[0] === '监督' || arr[0] === '导演') {
+      if (arr[0] === '监督' || arr[0] === '导演')
         params.director = arr[1]
-      }
-      if (arr[0] === '动画制作') {
+
+      if (arr[0] === '动画制作')
         params.company = arr[1]
-      }
-      if (arr[0] === '原作') {
+
+      if (arr[0] === '原作')
         params.original = arr[1]
-      }
     })
     return params
   }
 
   return {
     biliLoading,
-    getBilibili
+    getBilibili,
   }
 }

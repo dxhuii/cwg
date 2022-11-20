@@ -1,5 +1,4 @@
-import { feedType } from '@root/app/typings/enum'
-import { sidName } from '@root/app/utils'
+import { feedTypeBig, sidName } from '@cwg/types/enum'
 import { Controller } from 'egg'
 
 export default class Collect extends Controller {
@@ -9,11 +8,11 @@ export default class Collect extends Controller {
     const { params } = ctx
 
     const data = await this.service.collect.get(params)
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到内容' })
-    }
   }
 
   async list() {
@@ -30,9 +29,9 @@ export default class Collect extends Controller {
     const { sid, aid, uid, ip } = params
     const r = await this.service[sidName[sid]].get(aid)
     const d = await service.collect.get({ aid, sid, uid })
-    if (r.uid === uid) {
+    if (r.uid === uid)
       return ctx.helper.fail(ctx, { message: '不能收藏自己的内容' })
-    }
+
     if (d) {
       r?.decrement('collect_count', { silent: true })
       await service.feed.delete({ aid, sid, uid })
@@ -41,7 +40,7 @@ export default class Collect extends Controller {
     const result = await service.collect.add(params)
     if (result) {
       r?.increment('collect_count', { silent: true })
-      await service.feed.add({ ip, sid, uid, type: feedType.COLLECT, aid })
+      await service.feed.add({ ip, sid, uid, type: feedTypeBig.COLLECT, aid })
     }
     return ctx.helper.success(ctx, { data: result })
   }
@@ -59,7 +58,7 @@ export default class Collect extends Controller {
     const { id, uid, sid } = params
     const result = await service.collect.delete(ctx.request.body)
     if (result) {
-      await service.feed.delete({ aid: id, uid, sid, type: feedType.COLLECT })
+      await service.feed.delete({ aid: id, uid, sid, type: feedTypeBig.COLLECT })
       return ctx.helper.success(ctx, { data: result, message: '删除成功' })
     }
     return ctx.helper.fail(ctx, { message: '删除失败' })

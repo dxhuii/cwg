@@ -1,12 +1,12 @@
 import { request } from '@umijs/max'
-import type { IListResponse, ITopic, ITopicTable } from './typings'
+import type { IListResponse, ITopic, ITopicTable } from '@cwg/types'
 
 /** 添加话题 POST /backend/topic/add */
 export async function topicAdd(body: ITopic, options?: Record<string, any>) {
   return request<{ data: ITopic; status: number; message: string }>('/backend/topic/add', {
     method: 'POST',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -19,13 +19,13 @@ export async function topicList(
     /** 页面的容量 */
     pageSize?: number
   },
-  options?: Record<string, any>
+  options?: Record<string, any>,
 ) {
   return request<IListResponse<ITopicTable>>('/backend/topic/list', {
     method: 'GET',
     params: {
-      ...params
+      ...params,
     },
-    ...(options || {})
+    ...(options || {}),
   })
 }

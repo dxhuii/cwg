@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, IAttachment } from '../typings'
+import type { IAttachment } from '@cwg/types'
+import type { Application, Context } from 'egg'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface AttachmentType extends BaseModel, IAttachment {}
 
 export default (app: Context & Application) => {
@@ -26,7 +27,7 @@ export default (app: Context & Application) => {
         type: VIRTUAL,
         get() {
           return app.config.cdn.url + this.getDataValue('file_path')
-        }
+        },
       },
       created_at: {
         type: DATE,
@@ -34,7 +35,7 @@ export default (app: Context & Application) => {
         comment: '创建时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('created_at'))
-        }
+        },
       },
       updated_at: {
         type: DATE,
@@ -42,14 +43,14 @@ export default (app: Context & Application) => {
         comment: '更新时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('updated_at'))
-        }
-      }
+        },
+      },
     },
     {
       createdAt: 'created_at',
       updatedAt: 'updated_at',
       deletedAt: false,
-      paranoid: false
-    }
+      paranoid: false,
+    },
   ) as BaseModelStatic<AttachmentType>
 }

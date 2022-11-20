@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, IMcat } from '../typings'
+import type { IMcat } from '@cwg/types'
+import type { Application, Context } from 'egg'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface McatType extends BaseModel, IMcat {}
 
 export default (app: Context & Application) => {
@@ -14,8 +15,8 @@ export default (app: Context & Application) => {
       cid: { type: SMALLINT, defaultValue: 0, comment: '父类id' },
       name: { type: STRING(30), allowNull: false, comment: '名字' },
       title: { type: STRING(30), allowNull: false, comment: '英文名' },
-      rank: { type: SMALLINT, defaultValue: 0, comment: '排序' }
+      rank: { type: SMALLINT, defaultValue: 0, comment: '排序' },
     },
-    { timestamps: false }
+    { timestamps: false },
   ) as BaseModelStatic<McatType>
 }

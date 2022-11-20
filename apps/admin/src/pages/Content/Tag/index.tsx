@@ -1,12 +1,12 @@
-import { tagAdd, tagDelete, tagList } from '@/services/tag'
-import type { ITag } from '@/services/typings'
-import { modelType } from '@/utils'
+import type { ITag } from '@cwg/types'
 import { PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { FooterToolbar, ModalForm, PageContainer, ProFormSelect, ProFormText, ProTable } from '@ant-design/pro-components'
-import { Button, message, Popconfirm } from 'antd'
+import { Button, Popconfirm, message } from 'antd'
 import type { FC } from 'react'
 import { useRef, useState } from 'react'
+import { modelType } from '@/utils'
+import { tagAdd, tagDelete, tagList } from '@/services/tag'
 
 const Tag: FC = () => {
   const actionRef = useRef<ActionType>()
@@ -26,30 +26,30 @@ const Tag: FC = () => {
     {
       title: '名称',
       dataIndex: 'name',
-      copyable: true
+      copyable: true,
     },
     {
       title: '模型',
       dataIndex: 'sid',
-      valueEnum: modelType
+      valueEnum: modelType,
     },
     {
       title: '更新时间',
       search: false,
-      dataIndex: 'updated_at'
+      dataIndex: 'updated_at',
     },
     {
       title: '更新时间',
       sorter: true,
       dataIndex: 'updated_at',
       valueType: 'dateRange',
-      hideInTable: true
+      hideInTable: true,
     },
     {
       title: '创建时间',
       sorter: true,
       dataIndex: 'created_at',
-      search: false
+      search: false,
     },
     {
       title: '操作',
@@ -65,11 +65,11 @@ const Tag: FC = () => {
         >
           编辑
         </a>,
-        <Popconfirm key="delete" onConfirm={() => del(entity.id)} title="确定要删除吗？">
+        <Popconfirm key="delete" onConfirm={() => del(entity.id!)} title="确定要删除吗？">
           <a>删除</a>
-        </Popconfirm>
-      ]
-    }
+        </Popconfirm>,
+      ],
+    },
   ]
   return (
     <PageContainer
@@ -88,25 +88,25 @@ const Tag: FC = () => {
       <ProTable<ITag>
         actionRef={actionRef}
         rowKey="id"
-        request={async params => {
+        request={async (params) => {
           console.log(params, 'params')
           const { current, pageSize } = params
           const param = {
             current,
-            pageSize
+            pageSize,
           }
           const res = await tagList(param)
           return {
             data: res.data?.list,
             total: res.data?.total,
-            success: true
+            success: true,
           }
         }}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows)
-          }
+          },
         }}
       />
       {selectedRowsState?.length > 0 && (
@@ -116,7 +116,7 @@ const Tag: FC = () => {
               已选择{' '}
               <a
                 style={{
-                  fontWeight: 600
+                  fontWeight: 600,
                 }}
               >
                 {selectedRowsState.length}
@@ -133,20 +133,22 @@ const Tag: FC = () => {
         title="新建"
         autoFocusFirstInput
         modalProps={{
-          onCancel: () => console.log('run')
+          onCancel: () => console.log('run'),
         }}
-        onFinish={async values => {
+        onFinish={async (values) => {
           console.log(values)
-          const res = await tagAdd({ ...values, id: editData?.id! })
+          const res = await tagAdd({ ...values, id: editData?.id })
           if (res.status === 200) {
-            if (editData?.id) {
+            if (editData?.id)
               message.success('修改成功')
-            } else {
+
+            else
               message.success('添加成功')
-            }
+
             actionRef.current?.reload()
             return true
-          } else {
+          }
+          else {
             return message.error(res.message)
           }
         }}

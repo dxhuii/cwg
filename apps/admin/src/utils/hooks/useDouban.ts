@@ -1,7 +1,7 @@
-import { getVideo } from '@/services/video'
 import { message } from 'antd'
 import moment from 'moment'
 import { useState } from 'react'
+import { getVideo } from '@/services/video'
 
 export default () => {
   const [doubanLoading, setDoubanLoading] = useState(false)
@@ -28,7 +28,7 @@ export default () => {
         durations,
         genres,
         episodes_count,
-        rating
+        rating,
       } = res.data
       const filmtime = pubdate?.[0]?.split('(')?.[0] || null
       const params: any = {
@@ -47,7 +47,7 @@ export default () => {
         total: episodes_count || null,
         tag: `${title}${aka.length ? `,${aka.join(',')}` : ''}`,
         gold: rating.value || null,
-        weekday: filmtime ? [String(moment(filmtime).day())] : null
+        weekday: filmtime ? [String(moment(filmtime).day())] : null,
       }
       return params
     }
@@ -55,6 +55,6 @@ export default () => {
 
   return {
     doubanLoading,
-    getDoubanDetail
+    getDoubanDetail,
   }
 }

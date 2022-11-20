@@ -1,7 +1,7 @@
 import { $fetch } from 'ofetch'
 import LRU from 'lru-cache'
 import { hash as ohash } from 'ohash'
-import type { ICollect, IDigg, IFeed, IListResponse, ISubject, IUser, PageResult } from '~~/typings'
+import type { ICollect, IDigg, IFeed, IListResponse, ISubject, IUser, PageResult } from '@cwg/types'
 
 const cache = new LRU({
   max: 500,

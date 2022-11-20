@@ -1,11 +1,11 @@
 import { request } from '@umijs/max'
-import type { IMcat } from './typings'
+import type { IMcat } from '@cwg/types'
 
 /** 小分类列表 GET /backend/mcat/list */
 export async function mcatList(options?: Record<string, any>) {
   return request<{ data: IMcat[] }>('/backend/mcat/list', {
     method: 'GET',
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -14,7 +14,7 @@ export async function mcatAdd(body: IMcat, options?: Record<string, any>) {
   return request<{ data: IMcat[]; status: number; message: string }>('/backend/mcat/add', {
     method: 'POST',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -23,10 +23,10 @@ export async function getMcatDetail(
   params: {
     id?: string
   },
-  options?: Record<string, any>
+  options?: Record<string, any>,
 ) {
   return request<{ data: IMcat }>(`/backend/mcat/${params.id}`, {
     method: 'GET',
-    ...(options || {})
+    ...(options || {}),
   })
 }

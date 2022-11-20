@@ -1,14 +1,14 @@
 import { request } from '@umijs/max'
-import type { IAttachment, IAttachmentTable, IListResponse, ISts } from './typings'
+import type { IAttachment, IAttachmentTable, IListResponse, ISts } from '@cwg/types'
 
 /** 异步获取临时密钥 GET /backend/sts/init */
 export async function stsInit(params?: { prefix?: string }, options?: Record<string, any>) {
   return request<{ data: ISts }>('/backend/sts/init', {
     method: 'GET',
     params: {
-      ...params
+      ...params,
     },
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -17,7 +17,7 @@ export async function attachmentAdd(body: IAttachment, options?: Record<string, 
   return request<{ data: IAttachment; status: number; message: string }>('/backend/attachment/add', {
     method: 'POST',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -26,7 +26,7 @@ export async function attachmentDelete(body: { id: number }, options?: Record<st
   return request<{ data: IAttachment; status: number; message: string }>('/backend/attachment/delete', {
     method: 'DELETE',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -39,13 +39,13 @@ export async function attachmentList(
     /** 页面的容量 */
     pageSize?: number
   },
-  options?: Record<string, any>
+  options?: Record<string, any>,
 ) {
   return request<IListResponse<IAttachmentTable>>('/backend/attachment/list', {
     method: 'GET',
     params: {
-      ...params
+      ...params,
     },
-    ...(options || {})
+    ...(options || {}),
   })
 }

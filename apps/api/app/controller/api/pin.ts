@@ -1,4 +1,4 @@
-import { feedType, modelName } from '@root/app/typings/enum'
+import { feedType, modelName } from '@cwg/types/enum'
 import { Controller } from 'egg'
 
 export default class Pin extends Controller {
@@ -21,9 +21,9 @@ export default class Pin extends Controller {
     const params = ctx.request.body
     params.ip = await ctx.getIp()
     params.uid = await ctx.getUserId()
-    if (!params.uid) {
+    if (!params.uid)
       return ctx.helper.fail(ctx, { message: '请先登录' })
-    }
+
     params.sid = modelName.PIN
     const { ip, uid, sid } = params
     if (params.id) {

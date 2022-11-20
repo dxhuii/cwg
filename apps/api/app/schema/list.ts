@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, IList } from '../typings'
+import type { IList } from '@cwg/types'
+import type { Application, Context } from 'egg'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface ListType extends BaseModel, IList {}
 
 export default (app: Context & Application) => {
@@ -20,8 +21,8 @@ export default (app: Context & Application) => {
       seo_keywords: { type: STRING, comment: '关键词' },
       seo_description: { type: STRING, comment: '简介' },
       rank: { type: SMALLINT, defaultValue: 0, comment: '排序' },
-      status: { type: STRING(30), defaultValue: 'normal', comment: '用户状态:normal 正常 disable 禁用 check 审核中 reject 拒绝 ignore 忽略 delete 删除' }
+      status: { type: STRING(30), defaultValue: 'normal', comment: '用户状态:normal 正常 disable 禁用 check 审核中 reject 拒绝 ignore 忽略 delete 删除' },
     },
-    { timestamps: false }
+    { timestamps: false },
   ) as BaseModelStatic<ListType>
 }

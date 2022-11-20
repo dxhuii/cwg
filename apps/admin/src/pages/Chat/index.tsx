@@ -1,6 +1,6 @@
-import UploadImage from '@/components/Upload'
 import { useEffect } from 'react'
 import io from 'socket.io-client'
+import UploadImage from '@/components/Upload'
 
 const log = console.log
 // init
@@ -8,9 +8,9 @@ const socket = io('http://127.0.0.1:7001', {
   // 实际使用中可以在这里传递参数
   query: {
     room: 'demo',
-    userId: `client_${Math.random()}`
+    userId: `client_${Math.random()}`,
   },
-  transports: ['websocket']
+  transports: ['websocket'],
 })
 
 const Chat = () => {

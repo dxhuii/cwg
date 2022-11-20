@@ -1,9 +1,7 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-underscore-dangle */
 /* globals workbox */
 workbox.core.setCacheNameDetails({
   prefix: 'antd-pro',
-  suffix: 'v5'
+  suffix: 'v5',
 })
 // Control all opened tabs ASAP
 workbox.clientsClaim()
@@ -37,7 +35,7 @@ workbox.routing.registerRoute(/^https:\/\/cdnjs\.cloudflare\.com\//, workbox.str
 workbox.routing.registerRoute(/\/color.less/, workbox.strategies.networkFirst())
 
 /** Response to client after skipping waiting with MessageChannel */
-addEventListener('message', event => {
+addEventListener('message', (event) => {
   const replyPort = event.ports[0]
   const message = event.data
   if (replyPort && message && message.type === 'skip-waiting') {
@@ -45,15 +43,15 @@ addEventListener('message', event => {
       self.skipWaiting().then(
         () => {
           replyPort.postMessage({
-            error: null
+            error: null,
           })
         },
-        error => {
+        (error) => {
           replyPort.postMessage({
-            error
+            error,
           })
-        }
-      )
+        },
+      ),
     )
   }
 })

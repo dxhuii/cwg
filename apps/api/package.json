@@ -26,6 +26,8 @@
     "db-prod": "npx sequelize db:migrate --env=production"
   },
   "dependencies": {
+    "@cwg/types": "workspace:*",
+    "@cwg/utils": "workspace:*",
     "cheerio": "^1.0.0-rc.12",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.6",

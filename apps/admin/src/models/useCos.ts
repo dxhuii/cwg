@@ -1,6 +1,6 @@
-import { stsInit } from '@/services/attachment'
-import type { ISts } from '@/services/typings'
 import { useCallback, useState } from 'react'
+import type { ISts } from '@cwg/types'
+import { stsInit } from '@/services/attachment'
 
 export default function useMcat() {
   const [sts, setSts] = useState<ISts>()
@@ -12,6 +12,6 @@ export default function useMcat() {
 
   return {
     sts,
-    getSts
+    getSts,
   }
 }

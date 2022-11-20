@@ -1,7 +1,7 @@
-import { linkCategorylist } from '@/services/linkCategory'
-import type { ILinkCategory } from '@/services/typings'
-import { idToStr } from '@/utils'
+import type { ILinkCategory } from '@cwg/types'
 import { useCallback, useState } from 'react'
+import { linkCategorylist } from '@/services/linkCategory'
+import { idToStr } from '@/utils'
 
 export default function useList() {
   const [linkCategory, setLinkCategory] = useState<ILinkCategory[]>([])
@@ -13,6 +13,6 @@ export default function useList() {
 
   return {
     linkCategory: idToStr(linkCategory) as ILinkCategory[],
-    getLinkCategorylist
+    getLinkCategorylist,
   }
 }

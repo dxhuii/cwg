@@ -1,6 +1,6 @@
-import { SubjectType } from '@root/app/schema/subject'
-import { IPlayList, PlayList } from '@root/app/typings'
-import { feedType, modelName } from '@root/app/typings/enum'
+import type { SubjectType } from '@root/app/schema/subject'
+import type { IPlayList, PlayList } from '@cwg/types'
+import { feedType, modelName } from '@cwg/types/enum'
 import { Controller } from 'egg'
 
 export default class Subject extends Controller {
@@ -13,21 +13,19 @@ export default class Subject extends Controller {
       const format = result.toJSON() as SubjectType
       const { mcid, star, director, original, play, content } = format
       format.content = content.replace(/<.*?>/g, '')
-      if (mcid) {
+      if (mcid)
         format.mcid = await ctx.getMcat(mcid)
-      }
 
-      if (star) {
+      if (star)
         format.star = await ctx.getSatr(star.split(','))
-      }
+
       // 导演
-      if (director) {
+      if (director)
         format.director = await ctx.getSatr(director.split(','))
-      }
+
       // 原作
-      if (original) {
+      if (original)
         format.original = await ctx.getSatr(original.split(','))
-      }
 
       if (play) {
         const playlist = await service.subject.play()
@@ -41,7 +39,7 @@ export default class Subject extends Controller {
 
           const playText = ['免费观看', 'VIP免费观看', '单片付费', 'VIP提前看', '单集付费提前看'] // 0 免费观看 1 VIP免费观看 2 单片付费 3 单集付费提前看
           const list: IPlayList[] = []
-          const key = ctx.helper.md5(String(new Date().getTime()) + id + 'plain')
+          const key = ctx.helper.md5(`${String(new Date().getTime()) + id}plain`)
           let i = 0
           play.forEach((item, index) => {
             const url = this.playlist_one(item.urls, key, item.title)
@@ -53,13 +51,14 @@ export default class Subject extends Controller {
               name: info.name,
               count: url.length,
               price: playText[price],
-              urls: url
+              urls: url,
             }
             if (item.title === 'all' || item.title === 'quote') {
               format[item.title] = obj.urls.map(({ path, pic }) => {
                 return item.title === 'all' ? { price: playText[pic || 0], path } : { path }
               })
-            } else {
+            }
+            else {
               list[i] = obj
               i++
             }
@@ -73,7 +72,8 @@ export default class Subject extends Controller {
       delete format.hits
       ctx.helper.deleleParams(format)
       ctx.helper.success(ctx, { data: format })
-    } else {
+    }
+    else {
       ctx.helper.fail(ctx, { message: '没有找到内容' })
     }
   }
@@ -89,13 +89,13 @@ export default class Subject extends Controller {
     const { ctx, service } = this
     const data = await service.subject.list({
       ...ctx.request.query,
-      attributes: ['id', 'mcid', 'name', 'pic', 'language', 'area', 'isend', 'stars', 'serialized', 'hits', 'created_at', 'updated_at', 'status', 'weekday']
+      attributes: ['id', 'mcid', 'name', 'pic', 'language', 'area', 'isend', 'stars', 'serialized', 'hits', 'created_at', 'updated_at', 'status', 'weekday'],
     })
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到相关内容' })
-    }
   }
 
   public async getName() {
@@ -112,36 +112,38 @@ export default class Subject extends Controller {
     const { id, letter, letters, ip } = params
     if (id) {
       const res = await service.subject.get(id)
-      if (!res) {
+      if (!res)
         return ctx.helper.fail(ctx, { message: '没有找到相关内容' })
-      }
     }
-    if (!letter) {
+    if (!letter)
       params.letter = ctx.helper.h2p(params.name).substring(0, 1).toUpperCase()
-    }
-    if (!letters) {
+
+    if (!letters)
       params.letters = ctx.helper.h2p(params.name)
-    }
+
     if (id) {
       const result = await service.subject.edit(params)
       if (result) {
         const { id: aid, uid } = params
         await service.feed.add({ ip, sid: modelName.SUBJECT, uid, type: feedType.UPDATE, aid })
-        ctx.helper.success(ctx, { data: id ? id : result, message: '更新成功' })
-      } else {
+        ctx.helper.success(ctx, { data: id || result, message: '更新成功' })
+      }
+      else {
         ctx.helper.fail(ctx, { message: '更新失败' })
       }
-    } else {
+    }
+    else {
       const repeat = await service.subject.getName(params.name)
-      if (repeat) {
+      if (repeat)
         ctx.helper.fail(ctx, { message: '已经存在了' })
-      }
+
       const result = await service.subject.add(params)
       if (result) {
         const { id: aid, uid } = result
         await service.feed.add({ ip, sid: modelName.SUBJECT, uid, type: feedType.ADD, aid })
-        ctx.helper.success(ctx, { data: id ? id : result, message: '添加成功' })
-      } else {
+        ctx.helper.success(ctx, { data: id || result, message: '添加成功' })
+      }
+      else {
         ctx.helper.fail(ctx, { message: '添加失败' })
       }
     }
@@ -150,11 +152,11 @@ export default class Subject extends Controller {
   public async delete() {
     const { ctx, service } = this
     const data = await service.subject.delete(ctx.request.body)
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data, message: '删除成功' })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到相关内容' })
-    }
   }
 
   // 分解单组播放地址链接
@@ -165,24 +167,30 @@ export default class Subject extends Controller {
       const i = index + 1
       const list: PlayList = {}
       list.pid = i
-      if (item.indexOf('$') !== -1) {
+      if (item.includes('$')) {
         const urlArr = item.split('$')
-        if (type === 'all') {
+        if (type === 'all')
           urlArr.unshift('')
-        }
+
         const [name = '', path = '', pic = '', fen = '', miao = '', source = ''] = urlArr
         list.name = name.trim()
         list.path = encrypt(path.trim(), key)
         // list.path2 = decrypt(list.path, key);
-        if (pic) list.pic = pic.trim()
-        if (fen) list.fen = fen.trim()
-        if (miao) list.miao = miao.trim()
-        if (source) list.source = source.trim()
-      } else {
+        if (pic)
+          list.pic = pic.trim()
+        if (fen)
+          list.fen = fen.trim()
+        if (miao)
+          list.miao = miao.trim()
+        if (source)
+          list.source = source.trim()
+      }
+      else {
         if (type === 'quote') {
           list.name = ''
           list.path = encrypt(item.trim(), key)
-        } else {
+        }
+        else {
           list.name = `第${i}集`
           list.path = encrypt(item.trim(), key)
         }

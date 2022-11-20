@@ -1,12 +1,12 @@
 import { request } from '@umijs/max'
-import type { ILink, ILinkTable, IListResponse } from './typings'
+import type { ILink, ILinkTable, IListResponse } from '@cwg/types'
 
 /** 添加链接 POST /backend/link/add */
 export async function linkAdd(body: ILink, options?: Record<string, any>) {
   return request<{ data: ILink; status: number; message: string }>('/backend/link/add', {
     method: 'POST',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -15,7 +15,7 @@ export async function linkDelete(body: { id: number }, options?: Record<string, 
   return request<{ data: ILink; status: number; message: string }>('/backend/link/delete', {
     method: 'DELETE',
     data: body,
-    ...(options || {})
+    ...(options || {}),
   })
 }
 
@@ -28,13 +28,13 @@ export async function linkList(
     /** 页面的容量 */
     pageSize?: number
   },
-  options?: Record<string, any>
+  options?: Record<string, any>,
 ) {
   return request<IListResponse<ILinkTable>>('/backend/link/list', {
     method: 'GET',
     params: {
-      ...params
+      ...params,
     },
-    ...(options || {})
+    ...(options || {}),
   })
 }

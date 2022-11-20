@@ -1,5 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { ISubject } from '~~/typings'
+import type { ISubject } from '@cwg/types'
 
 export const useSubjectStore = defineStore('subject', () => {
   const subjectData = ref<ISubject>()

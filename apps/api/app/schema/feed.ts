@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, IFeed } from '../typings'
+import type { IFeed } from '@cwg/types'
+import type { Application, Context } from 'egg'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface FeedType extends BaseModel, IFeed {}
 
 export default (app: Context & Application) => {
@@ -33,7 +34,7 @@ export default (app: Context & Application) => {
         comment: '创建时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('created_at'))
-        }
+        },
       },
       updated_at: {
         type: DATE,
@@ -41,20 +42,20 @@ export default (app: Context & Application) => {
         comment: '更新时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('updated_at'))
-        }
+        },
       },
       time: {
         type: VIRTUAL,
         get() {
           return app.utils.Tool.fromNow(this.getDataValue('created_at'))
-        }
-      }
+        },
+      },
     },
     {
       createdAt: 'created_at',
       updatedAt: 'updated_at',
       deletedAt: false,
-      paranoid: false
-    }
+      paranoid: false,
+    },
   ) as BaseModelStatic<FeedType>
 }

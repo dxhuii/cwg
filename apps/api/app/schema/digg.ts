@@ -1,5 +1,6 @@
-import { Application, Context } from 'egg'
-import { BaseModel, BaseModelStatic, IDigg } from '../typings'
+import type { IDigg } from '@cwg/types'
+import type { Application, Context } from 'egg'
+import type { BaseModel, BaseModelStatic } from '../typings'
 export interface DiggType extends BaseModel, IDigg {}
 
 export default (app: Context & Application) => {
@@ -13,6 +14,6 @@ export default (app: Context & Application) => {
     sid: { type: SMALLINT, allowNull: false, comment: '模型 id' },
     aid: { type: INTEGER, allowNull: false, comment: '源关联 id' },
     type: { type: STRING, defaultValue: 'up', comment: '顶up|踩down' },
-    ip: { type: INTEGER, defaultValue: 0, comment: 'IP' }
+    ip: { type: INTEGER, defaultValue: 0, comment: 'IP' },
   }) as BaseModelStatic<DiggType>
 }

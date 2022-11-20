@@ -1,15 +1,15 @@
-import { outLogin } from '@/services/user'
+import { stringify } from 'querystring'
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
 import { history, useModel } from '@umijs/max'
 import { Avatar, Spin } from 'antd'
 import type { ItemType } from 'antd/es/menu/hooks/useItems'
-import { stringify } from 'querystring'
 import React from 'react'
 import { flushSync } from 'react-dom'
 import HeaderDropdown from '../HeaderDropdown'
 import styles from './index.less'
+import { outLogin } from '@/services/user'
 
-export type GlobalHeaderRightProps = {
+export interface GlobalHeaderRightProps {
   menu?: boolean
 }
 export interface MenuInfo {
@@ -31,8 +31,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       history.replace({
         pathname: '/login',
         search: stringify({
-          redirect: pathname + search
-        })
+          redirect: pathname + search,
+        }),
       })
     }
   }
@@ -44,21 +44,19 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         size="small"
         style={{
           marginLeft: 8,
-          marginRight: 8
+          marginRight: 8,
         }}
       />
     </span>
   )
 
-  if (!initialState) {
+  if (!initialState)
     return loading
-  }
 
   const { currentUser } = initialState
 
-  if (!currentUser || !currentUser.username) {
+  if (!currentUser || !currentUser.username)
     return loading
-  }
 
   const menuItems: ItemType[] = [
     ...(menu
@@ -66,16 +64,16 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
           {
             key: 'center',
             icon: <UserOutlined />,
-            label: '个人中心'
+            label: '个人中心',
           },
           {
             key: 'settings',
             icon: <SettingOutlined />,
-            label: '个人设置'
+            label: '个人设置',
           },
           {
-            type: 'divider' as const
-          }
+            type: 'divider' as const,
+          },
         ]
       : []),
     {
@@ -92,8 +90,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         >
           退出登录
         </a>
-      )
-    }
+      ),
+    },
   ]
 
   return (

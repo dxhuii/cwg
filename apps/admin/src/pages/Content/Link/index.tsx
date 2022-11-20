@@ -1,7 +1,4 @@
-import UploadImage from '@/components/Upload'
-import { linkAdd, linkList } from '@/services/link'
-import type { ILink, ILinkTable } from '@/services/typings'
-import { modelName } from '@/utils'
+import type { ILink, ILinkTable } from '@cwg/types'
 import { PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import {
@@ -12,13 +9,16 @@ import {
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
-  ProTable
+  ProTable,
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import type { FormInstance } from 'antd'
-import { Button, message, Popconfirm, Popover } from 'antd'
+import { Button, Popconfirm, Popover, message } from 'antd'
 import type { FC } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { modelName } from '@/utils'
+import { linkAdd, linkList } from '@/services/link'
+import UploadImage from '@/components/Upload'
 
 const { Item } = ProForm
 
@@ -51,42 +51,44 @@ const Pin: FC = () => {
       dataIndex: 'name',
       copyable: true,
       render: (name, entity) =>
-        entity.icon ? (
+        entity.icon
+          ? (
           <Popover
             content={
               <img
                 src={entity.icon}
                 style={{
-                  width: 200
+                  width: 200,
                 }}
               />
             }
           >
             {name}
           </Popover>
-        ) : (
-          name || '-'
-        )
+            )
+          : (
+              name || '-'
+            ),
     },
     {
       title: '分类',
       dataIndex: 'cid',
-      valueEnum: cidList
+      valueEnum: cidList,
     },
     {
       title: '颜色',
       search: false,
-      dataIndex: 'color'
+      dataIndex: 'color',
     },
     {
       title: '文字',
       search: false,
-      dataIndex: 'text'
+      dataIndex: 'text',
     },
     {
       title: 'url',
       dataIndex: 'url',
-      search: false
+      search: false,
     },
     {
       title: '操作',
@@ -104,9 +106,9 @@ const Pin: FC = () => {
         </a>,
         <Popconfirm key="delete" onConfirm={() => del(entity.id)} title="确定要删除吗？">
           <a>删除</a>
-        </Popconfirm>
-      ]
-    }
+        </Popconfirm>,
+      ],
+    },
   ]
 
   useEffect(() => {
@@ -125,21 +127,21 @@ const Pin: FC = () => {
       <ProTable<ILinkTable>
         actionRef={actionRef}
         rowKey="id"
-        request={async params => {
+        request={async (params) => {
           console.log(params, 'params')
           const res = await linkList(params)
           console.log(res, 'res')
           return {
             data: res.data?.list,
             total: res.data?.total,
-            success: true
+            success: true,
           }
         }}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows)
-          }
+          },
         }}
         // expandable={{
         //   expandedRowRender: record => <p style={{ margin: 0 }}>{record.content}</p>
@@ -152,7 +154,7 @@ const Pin: FC = () => {
               已选择{' '}
               <a
                 style={{
-                  fontWeight: 600
+                  fontWeight: 600,
                 }}
               >
                 {selectedRowsState.length}
@@ -173,20 +175,22 @@ const Pin: FC = () => {
           onCancel: () => {
             formRef.current?.resetFields()
             setEditData(undefined)
-          }
+          },
         }}
-        onFinish={async values => {
+        onFinish={async (values) => {
           const res = await linkAdd({ ...values, id: editData?.id, sid: modelName.LINK, cid: values.cid })
           if (res.status === 200) {
-            if (editData?.id) {
+            if (editData?.id)
               message.success('修改成功')
-            } else {
+
+            else
               message.success('添加成功')
-            }
+
             formRef.current?.resetFields()
             actionRef.current?.reload()
             return true
-          } else {
+          }
+          else {
             message.error(res.message)
             return false
           }

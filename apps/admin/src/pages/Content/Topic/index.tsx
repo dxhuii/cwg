@@ -1,7 +1,4 @@
-import UploadImage from '@/components/Upload'
-import { topicAdd, topicList } from '@/services/topic'
-import type { ITopic, ITopicTable } from '@/services/typings'
-import { modelName, modelType } from '@/utils'
+import type { ITopic, ITopicTable } from '@cwg/types'
 import { PlusOutlined } from '@ant-design/icons'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import {
@@ -12,11 +9,16 @@ import {
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
-  ProTable
+  ProTable,
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
-import { Button, FormInstance, message, Popconfirm, Popover } from 'antd'
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import type { FormInstance } from 'antd'
+import { Button, Popconfirm, Popover, message } from 'antd'
+import type { FC } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { modelName, modelType } from '@/utils'
+import { topicAdd, topicList } from '@/services/topic'
+import UploadImage from '@/components/Upload'
 
 const { Item } = ProForm
 
@@ -59,58 +61,58 @@ const Topic: FC = () => {
             <img
               src={entity.icon}
               style={{
-                width: 50
+                width: 50,
               }}
             />
           }
         >
           {entity.name}
         </Popover>
-      )
+      ),
     },
     {
       title: '模型',
       dataIndex: 'sid',
-      valueEnum: modelType
+      valueEnum: modelType,
     },
     {
       title: '目录',
       search: false,
-      dataIndex: 'dir'
+      dataIndex: 'dir',
     },
     {
       title: '动态数',
       search: false,
-      dataIndex: 'pin_count'
+      dataIndex: 'pin_count',
     },
     {
       title: '关注数',
       search: false,
-      dataIndex: 'follow_count'
+      dataIndex: 'follow_count',
     },
     {
       title: '用户名',
       search: false,
       dataIndex: 'username',
-      render: (_, entity) => entity.user?.username
+      render: (_, entity) => entity.user?.username,
     },
     {
       title: '更新时间',
       search: false,
-      dataIndex: 'updated_at'
+      dataIndex: 'updated_at',
     },
     {
       title: '更新时间',
       sorter: true,
       dataIndex: 'updated_at',
       valueType: 'dateRange',
-      hideInTable: true
+      hideInTable: true,
     },
     {
       title: '创建时间',
       sorter: true,
       dataIndex: 'created_at',
-      search: false
+      search: false,
     },
     {
       title: '操作',
@@ -128,9 +130,9 @@ const Topic: FC = () => {
         </a>,
         <Popconfirm key="delete" onConfirm={() => del(entity.id)} title="确定要删除吗？">
           <a>删除</a>
-        </Popconfirm>
-      ]
-    }
+        </Popconfirm>,
+      ],
+    },
   ]
   return (
     <PageContainer
@@ -150,25 +152,25 @@ const Topic: FC = () => {
       <ProTable<ITopicTable>
         actionRef={actionRef}
         rowKey="id"
-        request={async params => {
+        request={async (params) => {
           console.log(params, 'params')
           const { current, pageSize } = params
           const param = {
             current,
-            pageSize
+            pageSize,
           }
           const res = await topicList(param)
           return {
             data: res.data?.list,
             total: res.data?.total,
-            success: true
+            success: true,
           }
         }}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows)
-          }
+          },
         }}
       />
       {selectedRowsState?.length > 0 && (
@@ -178,7 +180,7 @@ const Topic: FC = () => {
               已选择{' '}
               <a
                 style={{
-                  fontWeight: 600
+                  fontWeight: 600,
                 }}
               >
                 {selectedRowsState.length}
@@ -199,20 +201,22 @@ const Topic: FC = () => {
           onCancel: () => {
             formRef.current?.resetFields()
             setEditData(undefined)
-          }
+          },
         }}
-        onFinish={async values => {
+        onFinish={async (values) => {
           const res = await topicAdd({ ...values, id: editData?.id })
           if (res.status === 200) {
-            if (editData?.id) {
+            if (editData?.id)
               message.success('修改成功')
-            } else {
+
+            else
               message.success('添加成功')
-            }
+
             formRef.current?.resetFields()
             actionRef.current?.reload()
             return true
-          } else {
+          }
+          else {
             message.error(res.message)
             return false
           }

@@ -1,11 +1,11 @@
-import { linkCategoryAdd } from '@/services/linkCategory'
-import type { ILinkCategory } from '@/services/typings'
-import { getList } from '@/utils'
+import type { ILinkCategory } from '@cwg/types'
 import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { EditableProTable, PageContainer } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { message } from 'antd'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { getList } from '@/utils'
+import { linkCategoryAdd } from '@/services/linkCategory'
 
 const LinkCategory = () => {
   const actionRef = useRef<ActionType>()
@@ -33,36 +33,36 @@ const LinkCategory = () => {
           pre[cur.id!] = cur.name
           return pre
         },
-        { '0': '无' }
+        { 0: '无' },
       )
   }, [linkCategory])
 
   const columns: ProColumns<ILinkCategory>[] = [
     {
       title: '名称',
-      dataIndex: 'name'
+      dataIndex: 'name',
     },
     {
       title: '父类',
       dataIndex: 'pid',
       valueType: 'select',
-      valueEnum: cateEnum
+      valueEnum: cateEnum,
     },
     {
       title: '目录',
-      dataIndex: 'dir'
+      dataIndex: 'dir',
     },
     {
       title: '密码',
-      dataIndex: 'password'
+      dataIndex: 'password',
     },
     {
       title: '简介',
-      dataIndex: 'content'
+      dataIndex: 'content',
     },
     {
       title: '排序',
-      dataIndex: 'rank'
+      dataIndex: 'rank',
     },
     {
       title: '状态',
@@ -70,8 +70,8 @@ const LinkCategory = () => {
       valueType: 'select',
       valueEnum: {
         0: { text: '正常', status: 'Success' },
-        1: { text: '禁用', status: 'Error' }
-      }
+        1: { text: '禁用', status: 'Error' },
+      },
     },
     {
       title: '操作',
@@ -94,9 +94,9 @@ const LinkCategory = () => {
           }}
         >
           删除
-        </a>
-      ]
-    }
+        </a>,
+      ],
+    },
   ]
 
   const expandedRowRender = (record: { sub?: ILinkCategory[] } & ILinkCategory) => {
@@ -111,34 +111,36 @@ const LinkCategory = () => {
         bordered={false}
         request={async () => ({
           data: record.sub,
-          success: true
+          success: true,
         })}
         value={record.sub}
         recordCreatorProps={{
-          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ILinkCategory)
+          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ILinkCategory),
         }}
         editable={{
           type: 'multiple',
           editableKeys,
           onSave: async (rowKey, data, row) => {
-            if (typeof data.id === 'string') {
+            if (typeof data.id === 'string')
               delete data.id
-            }
-            linkCategoryAdd({ ...data }).then(res => {
+
+            linkCategoryAdd({ ...data }).then((res) => {
               if (res.status === 200) {
-                if (data.id) {
+                if (data.id)
                   message.success('修改成功')
-                } else {
+
+                else
                   message.success('添加成功')
-                }
+
                 getData()
-              } else {
+              }
+              else {
                 message.error(res.message)
               }
             })
             console.log(rowKey, data, row)
           },
-          onChange: setEditableRowKeys
+          onChange: setEditableRowKeys,
         }}
       />
     )
@@ -151,43 +153,45 @@ const LinkCategory = () => {
         request={async () => {
           return {
             data: getList(linkCategory),
-            success: true
+            success: true,
           }
         }}
         rowKey="id"
         pagination={false}
         expandable={{
-          expandedRowRender: record => expandedRowRender(record)
+          expandedRowRender: record => expandedRowRender(record),
         }}
         search={false}
         dateFormatter="string"
         options={false}
         value={getList<ILinkCategory>(linkCategory)}
         recordCreatorProps={{
-          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ILinkCategory)
+          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ILinkCategory),
         }}
         editable={{
           type: 'multiple',
           editableKeys,
           onSave: async (rowKey, data, row) => {
-            if (typeof data.id === 'string') {
+            if (typeof data.id === 'string')
               delete data.id
-            }
-            linkCategoryAdd({ ...data }).then(res => {
+
+            linkCategoryAdd({ ...data }).then((res) => {
               if (res.status === 200) {
-                if (data.id) {
+                if (data.id)
                   message.success('修改成功')
-                } else {
+
+                else
                   message.success('添加成功')
-                }
+
                 getData()
-              } else {
+              }
+              else {
                 message.error(res.message)
               }
             })
             console.log(rowKey, data, row)
           },
-          onChange: setEditableRowKeys
+          onChange: setEditableRowKeys,
         }}
       />
     </PageContainer>

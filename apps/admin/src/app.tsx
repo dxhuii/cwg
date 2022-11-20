@@ -1,13 +1,13 @@
-import Footer from '@/components/Footer'
-import RightContent from '@/components/RightContent'
 import { LinkOutlined } from '@ant-design/icons'
 import type { Settings as LayoutSettings } from '@ant-design/pro-components'
 import { SettingDrawer } from '@ant-design/pro-components'
 import type { RunTimeLayoutConfig } from '@umijs/max'
-import { history, Link } from '@umijs/max'
+import { Link, history } from '@umijs/max'
 import defaultSettings from '../config/defaultSettings'
 import { errorConfig } from './requestErrorConfig'
 import { currentUser as queryCurrentUser } from './services/user'
+import RightContent from '@/components/RightContent'
+import Footer from '@/components/Footer'
 
 const isDev = process.env.NODE_ENV === 'development'
 const loginPath = '/login'
@@ -23,10 +23,11 @@ export async function getInitialState(): Promise<{
   const fetchUserInfo = async () => {
     try {
       const res = await queryCurrentUser({
-        skipErrorHandler: true
+        skipErrorHandler: true,
       })
       return res.data
-    } catch (error) {
+    }
+    catch (error) {
       history.push(loginPath)
     }
     return undefined
@@ -37,12 +38,12 @@ export async function getInitialState(): Promise<{
     return {
       fetchUserInfo,
       currentUser,
-      settings: defaultSettings
+      settings: defaultSettings,
     }
   }
   return {
     fetchUserInfo,
-    settings: defaultSettings
+    settings: defaultSettings,
   }
 }
 
@@ -51,22 +52,21 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     rightContentRender: () => <RightContent />,
     waterMarkProps: {
-      content: initialState?.currentUser?.username
+      content: initialState?.currentUser?.username,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
+      if (!initialState?.currentUser && location.pathname !== loginPath)
         history.push(loginPath)
-      }
     },
     links: isDev
       ? [
           <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
             <LinkOutlined />
             <span>OpenAPI 文档</span>
-          </Link>
+          </Link>,
         ]
       : [],
     menuHeaderRender: undefined,
@@ -83,10 +83,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
               disableUrlParams
               enableDarkTheme
               settings={initialState?.settings}
-              onSettingChange={settings => {
+              onSettingChange={(settings) => {
                 setInitialState(preInitialState => ({
                   ...preInitialState,
-                  settings
+                  settings,
                 }))
               }}
             />
@@ -94,7 +94,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         </>
       )
     },
-    ...initialState?.settings
+    ...initialState?.settings,
   }
 }
 
@@ -104,5 +104,5 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const request = {
-  ...errorConfig
+  ...errorConfig,
 }
