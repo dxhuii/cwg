@@ -1,6 +1,6 @@
 import { Controller } from 'egg'
 import got from 'got-cjs'
-import { $fetch } from 'ohmyfetch'
+import { $fetch } from 'ofetch'
 import { load } from 'cheerio'
 
 export default class Video extends Controller {

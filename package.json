@@ -13,9 +13,13 @@
     "admin": "pnpm --filter=@cwg/admin",
     "api": "pnpm --filter=@cwg/api",
     "newtab": "pnpm --filter=@cwg/newtab",
-    "ci": "pnpm --filter=@cwg/api ci"
+    "ci": "pnpm --filter=@cwg/api ci",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.31.0",
+    "eslint": "^8.28.0",
     "typescript": "^4.9.3"
   },
   "pnpm": {

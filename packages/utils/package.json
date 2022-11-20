@@ -1,9 +1,0 @@
-{
-  "name": "@cwg/utils",
-  "version": "0.0.0",
-  "private": true,
-  "main": "index.ts",
-  "devDependencies": {
-    "typescript": "^4.9.3"
-  }
-}

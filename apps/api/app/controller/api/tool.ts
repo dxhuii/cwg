@@ -1,6 +1,6 @@
 // import city from '@root/app/schema/city'
 import { Controller } from 'egg'
-import { $fetch } from 'ohmyfetch'
+import { $fetch } from 'ofetch'
 import { createApi } from 'unsplash-js'
 
 // eslint-disable-next-line no-new-func

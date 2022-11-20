@@ -1,7 +1,7 @@
 //
 
 import { Controller } from 'egg'
-import { $fetch } from 'ohmyfetch'
+import { $fetch } from 'ofetch'
 
 export default class Keyword extends Controller {
   public async baidu() {
