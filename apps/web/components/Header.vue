@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IUser } from '~~/typings'
+import type { IUser } from '@cwg/types'
 
 const isLogin = ref(false)
 const isReg = ref(false)

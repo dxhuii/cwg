@@ -44,7 +44,7 @@ build
 
 **/typings/app
 **/typings/config
-env*
+**/config/env*
 
 
 # web

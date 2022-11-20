@@ -39,8 +39,8 @@ const right = () => {
       <Site />
     </div>
     <Note :bing="bing" :count="bz" @left="left" @right="right" />
-    <footer class="flex text-white justify-center items-center absolute transform -translate-x-1/2 left-1/2 bottom-10">
-      <a href="/">
+    <footer class="flex text-white justify-end items-center text-sm absolute w-[80%] transform -translate-x-1/2 left-1/2 bottom-5">
+      <a href="https://www.cangwangge.com" target="_blank">
         藏网阁 • CANGWANGGE.COM
       </a>
     </footer>
