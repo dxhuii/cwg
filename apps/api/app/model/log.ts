@@ -1,5 +1,6 @@
-import { Context, Application } from 'egg'
-import log, { LogType } from '../schema/log'
+import type { Application, Context } from 'egg'
+import type { LogType } from '../schema/log'
+import log from '../schema/log'
 
 export default (app: Context & Application) => {
   const Log = log(app)
@@ -10,9 +11,9 @@ export default (app: Context & Application) => {
       const result = await Log.findAll({
         attributes: ['id', 'type', 'author'],
         where: {
-          status: 'normal'
+          status: 'normal',
         },
-        order: [[orderBy, order]]
+        order: [[orderBy, order]],
       })
       return result
     }

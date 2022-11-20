@@ -16,11 +16,11 @@ export default class Attachment extends Controller {
     const params = ctx.request.query as any
     params.uid = await ctx.getUserId()
     const data = await service.attachment.list(params)
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到相关内容' })
-    }
   }
 
   public async get() {

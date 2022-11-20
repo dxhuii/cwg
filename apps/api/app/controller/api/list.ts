@@ -18,9 +18,9 @@ export default class List extends Controller {
   async add() {
     const { ctx, service } = this
     const params = ctx.request.body
-    if (!params.dir) {
+    if (!params.dir)
       params.dir = ctx.helper.h2p(params.name)
-    }
+
     const result = await service.list[params.id ? 'edit' : 'add'](params)
 
     ctx.helper.success(ctx, { data: result })

@@ -1,5 +1,6 @@
-import { Context, Application } from 'egg'
-import association, { AssociationType } from '../schema/association'
+import type { Application, Context } from 'egg'
+import type { AssociationType } from '../schema/association'
+import association from '../schema/association'
 
 export default (app: Context & Application) => {
   // 获取数据类型

@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import digg, { DiggType } from '../schema/digg'
-import { ICondition } from '../typings'
+import type { Application, Context } from 'egg'
+import type { DiggType } from '../schema/digg'
+import type { ICondition } from '../typings'
+import digg from '../schema/digg'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -16,7 +17,7 @@ export default (app: Context & Application) => {
         order: [order],
         offset: pageSize * (pageNo - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 1 }
+        where: { status: 1 },
       }
       const { count, rows } = await Digg.findAndCountAll(condition)
 
@@ -25,10 +26,11 @@ export default (app: Context & Application) => {
         pages: {
           pageNo,
           pageSize,
-          total: count
-        }
+          total: count,
+        },
       }
     }
+
     static async add(params) {
       const result = await Digg.create(params)
       return result
@@ -36,7 +38,7 @@ export default (app: Context & Application) => {
 
     static async get(params) {
       const param: ICondition = {
-        where: params
+        where: params,
       }
       const result = await Digg.findOne(param)
       return result

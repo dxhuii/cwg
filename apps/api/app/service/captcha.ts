@@ -12,16 +12,16 @@ export default class Captcha extends Service {
       size: 4, // 字符长度
       noise: 2, // 干扰度
       background: '#f0f1f5', // 背景颜色
-      color: true
+      color: true,
     })
 
     if (!token) {
-      const newToken = ctx.helper.md5(Date.now() + '')
+      const newToken = ctx.helper.md5(`${Date.now()}`)
       ctx.cookies.set('token', newToken)
       await app.redis.set(`captcha:${newToken}`, text, app.config.base.redis.mode, 600)
       return {
         token: newToken,
-        image: data
+        image: data,
       }
     }
 
@@ -29,7 +29,7 @@ export default class Captcha extends Service {
       await app.redis.set(`captcha:${token}`, text, app.config.base.redis.mode, 600)
       return {
         token,
-        image: data
+        image: data,
       }
     }
   }

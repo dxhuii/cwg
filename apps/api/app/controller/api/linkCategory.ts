@@ -19,15 +19,16 @@ export default class LinkCategory extends Controller {
     const { ctx, service } = this
     const params = ctx.request.body
     const { id, password } = params
-    if (!params.dir) {
+    if (!params.dir)
       params.dir = ctx.helper.h2p(params.name)
-    }
+
     const salt = ctx.helper.randomString(6)
     if (password) {
       if (id) {
         params.salt = salt
         params.password = ctx.helper.md5(ctx.helper.md5(password) + salt)
-      } else {
+      }
+      else {
         params.salt = salt
         params.password = ctx.helper.md5(ctx.helper.md5(password) + salt)
       }

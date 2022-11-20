@@ -1,33 +1,35 @@
-import { Context } from 'egg'
+import type { Context } from 'egg'
 
-export default level => {
+export default (level) => {
   return async (ctx: Context, next: () => Promise<any>) => {
     const token = await ctx.getToken()
 
     const level0 = {
       username: null,
-      admin: 0
+      admin: 0,
     }
 
     if (token) {
       try {
         const userInfo = await ctx.app.redis.get(`token:${token}`)
-        if (userInfo) {
+        if (userInfo)
           ctx.state.user = JSON.parse(userInfo)
-        } else {
+
+        else
           ctx.state.user = level0
-        }
-      } catch (error) {
+      }
+      catch (error) {
         return ctx.helper.fail(ctx, { status: 401 })
       }
-    } else {
+    }
+    else {
       ctx.state.user = level0
     }
 
-    if (+ctx.state.user.admin >= level) {
+    if (+ctx.state.user.admin >= level)
       await next()
-    } else {
+
+    else
       return ctx.helper.fail(ctx, { status: 10003 })
-    }
   }
 }

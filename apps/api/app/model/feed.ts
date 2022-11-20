@@ -1,7 +1,7 @@
 import type { Application, Context } from 'egg'
 import type { FeedType } from '../schema/feed'
-import feed from '../schema/feed'
 import type { ICondition } from '../typings'
+import feed from '../schema/feed'
 
 export default (app: Context & Application) => {
   // 获取数据类型

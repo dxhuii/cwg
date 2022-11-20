@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import { ICondition, IParams } from '../typings'
-import comments, { CommentsType } from '../schema/comments'
+import type { Application, Context } from 'egg'
+import type { ICondition, IParams } from '../typings'
+import type { CommentsType } from '../schema/comments'
+import comments from '../schema/comments'
 import repty from '../schema/reply'
 
 export default (app: Context & Application) => {
@@ -24,13 +25,13 @@ export default (app: Context & Application) => {
             as: 'repty',
             include: [
               { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' },
-              { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' }
-            ]
-          }
+              { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' },
+            ],
+          },
         ],
         offset: pageSize * (current - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' }
+        where: { status: 'normal' },
       }
       const { count, rows } = await Comments.findAndCountAll(condition)
 
@@ -38,9 +39,10 @@ export default (app: Context & Application) => {
         data: rows,
         current,
         pageSize,
-        total: count
+        total: count,
       }
     }
+
     static async get(params, attributes = ['id', 'uid', 'content']) {
       const condition: ICondition = {
         attributes,
@@ -53,15 +55,16 @@ export default (app: Context & Application) => {
             as: 'repty',
             include: [
               { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' },
-              { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' }
-            ]
-          }
-        ]
+              { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' },
+            ],
+          },
+        ],
       }
 
       const result = await Comments.findOne(condition)
       return result
     }
+
     static async add(params) {
       const result = await Comments.create(params)
       if (result) {
@@ -102,11 +105,11 @@ export default (app: Context & Application) => {
         order: [order],
         include: [
           { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' },
-          { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' }
+          { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' },
         ],
         offset: pageSize * (pageNo - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal', aid: id }
+        where: { status: 'normal', aid: id },
       }
       const { count, rows } = await Repty.findAndCountAll(condition)
 
@@ -115,8 +118,8 @@ export default (app: Context & Application) => {
         pages: {
           pageNo,
           pageSize,
-          total: count
-        }
+          total: count,
+        },
       }
     }
 

@@ -19,9 +19,9 @@ export default class Video extends Controller {
     const tag = { 2: '免费', 13: '会员', 8: '付费' }
     const html = episodes.map(({ title, long_title, share_url, status }) => {
       const isbr = parseInt(title) > episodes.length - 1
-      if (type === 'ep') {
+      if (type === 'ep')
         return `第${title}话@@${long_title}@@暂无内容${isbr ? '' : '||\n'}`
-      }
+
       return `第${title}话${long_title ? ` ${long_title}$` : '$'}${share_url.replace('http:', '')}$${tag[status]}${isbr ? '' : '\n'}`
     })
 
@@ -37,29 +37,29 @@ export default class Video extends Controller {
     const response = await $fetch(`https://www.iqiyi.com/${id}.html`, {
       headers: {
         Host: 'www.iqiyi.com',
-        Referer: `https://www.iqiyi.com/${id}.html`
-      }
+        Referer: `https://www.iqiyi.com/${id}.html`,
+      },
     })
 
     const $ = load(response)
     albumid = $('a[data-disable-vfrm="true"]').attr('data-album-id')!
     total = $('span.title-update-num').text()
     const request: any = []
-    Array.from({ length: Math.ceil(+total / 200) }, (_, k) => k).forEach(item => {
+    Array.from({ length: Math.ceil(+total / 200) }, (_, k) => k).forEach((item) => {
       request.push($fetch(`https://pcw-api.iqiyi.com/albums/album/avlistinfo?aid=${albumid}&size=200&page=${item + 1}`))
     })
     const datas = await Promise.all(request)
     let listData: any = []
-    datas.forEach(item => {
+    datas.forEach((item) => {
       const { epsodelist = [] } = item.data
       listData = [...listData, ...epsodelist]
     })
     const tag = { 0: '免费', 7: '会员', 1: '会员', 2: '付费' }
     const html = listData.map(({ order, subtitle, playUrl, payMark }) => {
       const isbr = parseInt(order) > listData.length - 1
-      if (type === 'ep') {
+      if (type === 'ep')
         return `第${order}话@@${subtitle}@@暂无内容${isbr ? '' : '||\n'}`
-      }
+
       return `第${order}话${subtitle ? ` ${subtitle}$` : '$'}${playUrl.replace('http:', '')}$${tag[payMark]}${isbr ? '' : '\n'}`
     })
 
@@ -74,22 +74,21 @@ export default class Video extends Controller {
     const { tabs, listData } = JSON.parse(response.match(/"episodeMain":([\s\S]+),"episodeRecommend":/)[1]) || {}
     const video_ids = coverInfo?.video_ids || []
     const result: any = []
-    tabs?.forEach(item => {
+    tabs?.forEach((item) => {
       const end_id = video_ids[item.end]
       const url = `https://v.qq.com/x/cover/${id}/${end_id}.html`
-      if (end_id) {
+      if (end_id)
         result.push($fetch(url))
-      }
     })
     const datas = await Promise.all(result)
     let data = [...listData?.[0]]
     datas.forEach((item, index) => {
-      const { listData } =
-        JSON.parse(
+      const { listData }
+        = JSON.parse(
           item
             .match(/"episodeMain":([\s\S]+),"episodeRecommend":/)[1]
             .replace('Array.prototype.slice.call(', '')
-            .replace('),"listMeta":[]', ',"listMeta":[]')
+            .replace('),"listMeta":[]', ',"listMeta":[]'),
         ) || {}
       data = [...data, ...listData?.[index + 1]]
     })
@@ -124,8 +123,8 @@ export default class Video extends Controller {
         const url = $(item).find('li a').attr('href')?.split('?')?.[0]
         const name = $(item).find('li a').text()
         const vip = $(item).find('.p-icon-preview').length > 0 ? '预告' : $(item).find('.p-icon-vip').length > 0 ? '会员' : '免费'
-        const num =
-          $(item)
+        const num
+          = $(item)
             .find('.p-item')
             .text()
             .match(/^(\d)*/)?.[0] || ''
@@ -137,7 +136,7 @@ export default class Video extends Controller {
     function print(list) {
       return list.map(({ url, name, num, vip }, index) => {
         const isbr = index > list.length - 2
-        return `第${num ? num : name}话${name && num ? name : ''}$${url}$${vip}${isbr ? '' : '\n'}`
+        return `第${num || name}话${name && num ? name : ''}$${url}$${vip}${isbr ? '' : '\n'}`
       })
     }
     if (pages.length) {
@@ -148,12 +147,13 @@ export default class Video extends Controller {
       const all = Promise.all(request)
       const data = await all
       let listData: any = []
-      data.forEach(item => {
+      data.forEach((item) => {
         listData = [...listData, ...format(item).get()]
       })
       const html = print(listData)
       ctx.helper.success(ctx, { data: html })
-    } else {
+    }
+    else {
       const response = await got.get(`https://list.youku.com/show/episode?id=${showid}&stage=reload_1&callback=j`)
       const html = print(format(response).get())
       ctx.helper.success(ctx, { data: html })
@@ -166,14 +166,14 @@ export default class Video extends Controller {
     const link = `https://m.douban.com/movie/subject/${id}/`
     const channel = await $fetch(`https://m.douban.com/rexxar/api/v2/elessar/channel/${id}`, {
       headers: {
-        Referer: link
-      }
+        Referer: link,
+      },
     })
     const type = channel.uri.split('=')?.[1] || 'tv'
     const detail = await $fetch(`https://m.douban.com/rexxar/api/v2/${type}/${id}?ck=kBgD&for_mobile=1`, {
       headers: {
-        Referer: link
-      }
+        Referer: link,
+      },
     })
     return ctx.helper.success(ctx, { data: detail })
   }

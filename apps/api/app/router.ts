@@ -1,4 +1,4 @@
-import { Application } from 'egg'
+import type { Application } from 'egg'
 /**
  * @param {Egg.Application} app - egg application
  */

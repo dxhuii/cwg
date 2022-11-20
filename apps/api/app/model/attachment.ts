@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import { ICondition, IParams } from '../typings'
-import attachment, { AttachmentType } from '../schema/attachment'
+import type { Application, Context } from 'egg'
+import type { ICondition, IParams } from '../typings'
+import type { AttachmentType } from '../schema/attachment'
+import attachment from '../schema/attachment'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -17,17 +18,17 @@ export default (app: Context & Application) => {
         include: [
           { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' },
           { model: model.Subject, attributes: ['id', 'name', 'pic'], as: 'subject' },
-          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' }
+          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' },
         ],
         order: [[orderBy, order]],
         offset: pageSize * (current - 1),
-        limit: app.utils.Tool.toInt(pageSize)
+        limit: app.utils.Tool.toInt(pageSize),
       }
       const where: { [key: string | symbol]: any } = { status: 'normal' }
 
-      if (up) {
+      if (up)
         where[Op.and] = [{ attachment }, { aid }, { sid }, { uid }]
-      }
+
       condition.where = where
       const { count, rows } = await Attachment.findAndCountAll(condition)
 
@@ -35,7 +36,7 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count
+        total: count,
       }
     }
 
@@ -46,7 +47,7 @@ export default (app: Context & Application) => {
 
     static async get(params) {
       const condition: ICondition = {
-        where: {}
+        where: {},
       }
       condition.where = params
       const result = await Attachment.findOne(condition)

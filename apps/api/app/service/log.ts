@@ -15,7 +15,7 @@ export default class Log extends Service {
     const { ctx, app } = this
     const {
       originalUrl,
-      request: { header }
+      request: { header },
     } = ctx
     const result = await app.model.Log.add({
       ip: await ctx.getIp(),
@@ -24,7 +24,7 @@ export default class Log extends Service {
       agent: header['user-agent'],
       language: header['accept-language'],
       api: originalUrl,
-      platform: header['sec-ch-ua-platform']
+      platform: header['sec-ch-ua-platform'],
     })
     return result
   }

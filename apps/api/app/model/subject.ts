@@ -1,8 +1,9 @@
-import { Context, Application } from 'egg'
+import type { Application, Context } from 'egg'
 import * as dayjs from 'dayjs'
-import subject, { SubjectType } from '../schema/subject'
+import type { ICondition, IParams } from '../typings'
+import type { SubjectType } from '../schema/subject'
+import subject from '../schema/subject'
 import play from '../schema/play'
-import { ICondition, IParams } from '../typings'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -21,6 +22,7 @@ export default (app: Context & Application) => {
       await model.Mcid.add({ mcid, sid: 1, aid: id })
       await model.Tag.add({ aid: id, sid: 1, tag })
     }
+
     /**
      * 添加
      * @param params ISubject
@@ -31,6 +33,7 @@ export default (app: Context & Application) => {
       await this.addBefore({ ...params, id: result.id })
       return result
     }
+
     // 添加多条
     static async adds(params) {
       const result = await Subject.bulkCreate(params)
@@ -78,9 +81,9 @@ export default (app: Context & Application) => {
         attributes: ['title', 'name', 'display', 'rank'],
         where: {
           status: 'normal',
-          display: true
+          display: true,
         },
-        order: [[orderBy, order]]
+        order: [[orderBy, order]],
       })
       return result
     }
@@ -103,7 +106,7 @@ export default (app: Context & Application) => {
         order: [[orderBy, order]],
         include: [{ model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' }],
         offset: pageSize * (current - 1),
-        limit: app.utils.Tool.toInt(pageSize)
+        limit: app.utils.Tool.toInt(pageSize),
       }
 
       const where: { [key: string | symbol]: any } = {}
@@ -117,91 +120,84 @@ export default (app: Context & Application) => {
           { tag: { [Op.like]: `%%${wd}%%` } },
           { director: { [Op.like]: `%%${wd}%%` } },
           { tag: { [Op.like]: `%%${wd}%%` } },
-          { title: { [Op.like]: `%%${wd}%%` } }
+          { title: { [Op.like]: `%%${wd}%%` } },
         ]
       }
 
-      if (ids) {
+      if (ids)
         where.id = ids.split(',')
-      }
 
       if (not) {
         where.id = {
-          [Op.not]: not
+          [Op.not]: not,
         }
       }
 
-      if (letter) {
+      if (letter)
         where.letter = letter.split(',')
-      }
 
-      if (cid) {
+      if (cid)
         where.cid = cid.split(',')
-      }
 
-      if (name) {
+      if (name)
         where.name = name.split(',')
-      }
 
-      if (area) {
+      if (area)
         where.area = area.split(',')
-      }
 
-      if (language) {
+      if (language)
         where.language = language.split(',')
-      }
 
-      if (year) {
+      if (year)
         where.year = year.split(',')
-      }
 
-      if (prty) {
+      if (prty)
         where.prty = prty
-      }
 
       if (weekday) {
         where.weekday = {
-          [Op.contains]: [weekday]
+          [Op.contains]: [weekday],
         }
       }
 
-      if (isend) {
+      if (isend)
         where.isend = isend
-      }
 
       if (filmtime) {
         const now = new Date().getTime()
         if (+filmtime === 1) {
           where.filmtime = {
-            [Op.lte]: now
+            [Op.lte]: now,
           }
-        } else {
+        }
+        else {
           const arr = filmtime.trim().split('|')
           if (arr[1]) {
             where.filmtime = {
-              [Op.between]: [new Date(arr[0]).getTime(), new Date(arr[1]).getTime()]
+              [Op.between]: [new Date(arr[0]).getTime(), new Date(arr[1]).getTime()],
             }
-          } else {
+          }
+          else {
             where.filmtime = {
-              [Op.gt]: now
+              [Op.gt]: now,
             }
           }
         }
       }
 
-      if (stars) {
+      if (stars)
         where.stars = stars
-      }
 
       if (hits) {
         const arr = hits.split(',')
         if (arr.length > 1) {
           where.hits = {
-            [Op.between]: [arr[0], arr[1]]
+            [Op.between]: [arr[0], arr[1]],
           }
-        } else {
+        }
+        else {
           where.hits = {
-            [Op.gt]: arr[0]
+            [Op.gt]: arr[0],
           }
         }
       }
@@ -210,11 +206,12 @@ export default (app: Context & Application) => {
         const arr = gold.split(',')
         if (arr.length > 1) {
           where.gold = {
-            [Op.between]: [arr[0], arr[1]]
+            [Op.between]: [arr[0], arr[1]],
           }
-        } else {
+        }
+        else {
           where.gold = {
-            [Op.gt]: arr[0]
+            [Op.gt]: arr[0],
           }
         }
       }
@@ -223,11 +220,12 @@ export default (app: Context & Application) => {
         const arr = up.split(',')
         if (arr.length > 1) {
           where.up = {
-            [Op.between]: [arr[0], arr[1]]
+            [Op.between]: [arr[0], arr[1]],
           }
-        } else {
+        }
+        else {
           where.up = {
-            [Op.gt]: arr[0]
+            [Op.gt]: arr[0],
           }
         }
       }
@@ -236,11 +234,12 @@ export default (app: Context & Application) => {
         const arr = down.split(',')
         if (arr.length > 1) {
           where.down = {
-            [Op.between]: [arr[0], arr[1]]
+            [Op.between]: [arr[0], arr[1]],
           }
-        } else {
+        }
+        else {
           where.down = {
-            [Op.gt]: arr[0]
+            [Op.gt]: arr[0],
           }
         }
       }
@@ -250,18 +249,19 @@ export default (app: Context & Application) => {
         const getTime = time => new Date(time).getTime()
         if (arr.length > 1) {
           where.created_at = {
-            [Op.between]: [getTime(arr[0]), getTime(arr[1])]
+            [Op.between]: [getTime(arr[0]), getTime(arr[1])],
           }
-        } else {
+        }
+        else {
           where.created_at = {
-            [Op.gt]: getTime(arr[0])
+            [Op.gt]: getTime(arr[0]),
           }
         }
       }
 
       if (day) {
         where.created_at = {
-          [Op.gt]: dayjs().subtract(day, 'day').valueOf()
+          [Op.gt]: dayjs().subtract(day, 'day').valueOf(),
         }
       }
 
@@ -269,18 +269,19 @@ export default (app: Context & Application) => {
         const param: ICondition = { attributes: ['aid'], where: { name: tag, sid: 1 } }
         const res = await model.Tag.queryAll(param)
         let ids = res.map(item => item.aid)
-        if (not) {
+        if (not)
           ids = ids.filter(item => item !== not)
-        }
+
         where.id = ids
-      } else if (mcid) {
+      }
+      else if (mcid) {
         const arr = mcid.split(',')
         const param: ICondition = { attributes: ['aid'], where: { mid: arr } }
         const res = await model.Mcid.queryAll(param)
         let ids = res.map(item => item.aid)
-        if (not) {
+        if (not)
           ids = ids.filter(item => item !== not)
-        }
+
         where.id = ids
       }
 
@@ -292,14 +293,14 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count
+        total: count,
       }
     }
 
     static async views(id) {
       const condition: ICondition = {
         attributes: ['hits'],
-        where: { id, status: 'normal' }
+        where: { id, status: 'normal' },
       }
       const result = await Subject.findOne(condition)
       return result
@@ -313,10 +314,10 @@ export default (app: Context & Application) => {
             { name: { [Op.like]: `%%${name}%%` } },
             { letters: { [Op.like]: `%%${name}%%` } },
             { aliases: { [Op.like]: `%%${name}%%` } },
-            { title: { [Op.like]: `%%${name}%%` } }
+            { title: { [Op.like]: `%%${name}%%` } },
           ],
-          status: 'normal'
-        }
+          status: 'normal',
+        },
       }
       const result = await Subject.findOne(condition)
       return result
@@ -331,11 +332,11 @@ export default (app: Context & Application) => {
           {
             model: model.User,
             attributes: ['id', 'username', 'nickname', 'avatar'],
-            as: 'user'
+            as: 'user',
           },
           {
             model: model.Comments,
-            as: 'comments'
+            as: 'comments',
           },
           {
             model: model.Role,
@@ -345,9 +346,9 @@ export default (app: Context & Application) => {
               {
                 model: model.Star,
                 as: 'star',
-                attributes: ['id', 'name']
-              }
-            ]
+                attributes: ['id', 'name'],
+              },
+            ],
           },
           {
             model: model.Story,
@@ -359,9 +360,9 @@ export default (app: Context & Application) => {
                 as: 'episode',
                 attributes: ['id', 'name', 'title', 'content'],
                 limit: 3,
-                order: [['id', 'DESC']]
-              }
-            ]
+                order: [['id', 'DESC']],
+              },
+            ],
           },
           // { model: model.Music, as: 'music', attributes: ['music_id', 'music_star', 'music_type', 'music_name', 'music_url', 'music_lyric'] },
           // { model: model.Lines, as: 'lines', attributes: ['lines_id', 'lines_role', 'lines_created_at'] },
@@ -388,18 +389,18 @@ export default (app: Context & Application) => {
             attributes: ['id', 'label', 'name'],
             as: 'associate1',
             through: {
-              where: { sid: 1, tsid: 1 }
-            }
+              where: { sid: 1, tsid: 1 },
+            },
           },
           {
             model: model.Subject,
             attributes: ['id', 'label', 'name'],
             as: 'associate2',
             through: {
-              where: { sid: 1, tsid: 1 }
-            }
-          }
-        ]
+              where: { sid: 1, tsid: 1 },
+            },
+          },
+        ],
       }
       const result = await Subject.findOne(condition)
       return result

@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import list, { ListType } from '../schema/list'
-import { ICondition } from '../typings'
+import type { Application, Context } from 'egg'
+import type { ListType } from '../schema/list'
+import type { ICondition } from '../typings'
+import list from '../schema/list'
 
 export default (app: Context & Application) => {
   const List = list(app)
@@ -9,19 +10,19 @@ export default (app: Context & Application) => {
       const { orderBy = 'rank', order = 'ASC', id, pid, sid } = params
       const param: ICondition = {
         attributes: { exclude: ['seo_title', 'seo_keywords', 'seo_description'] },
-        order: [[orderBy, order]]
+        order: [[orderBy, order]],
       }
       const where: { [key: string | symbol]: any } = {}
 
-      if (id) {
+      if (id)
         where.id = id
-      }
-      if (pid) {
+
+      if (pid)
         where.pid = pid
-      }
-      if (sid) {
+
+      if (sid)
         where.sid = sid
-      }
+
       param.where = where
       const result = await List.findAll(param)
       return result

@@ -1,5 +1,6 @@
-import { Context, Application } from 'egg'
-import episode, { EpisodeType } from '../schema/episode'
+import type { Application, Context } from 'egg'
+import type { EpisodeType } from '../schema/episode'
+import episode from '../schema/episode'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -11,6 +12,7 @@ export default (app: Context & Application) => {
       const result = await Episode.create(params)
       return result
     }
+
     // 添加多条
     static async adds(params) {
       const result = await Episode.bulkCreate(params)
@@ -36,9 +38,9 @@ export default (app: Context & Application) => {
       const result = await Episode.findAll({
         attributes: ['id', 'pid', 'name'],
         where: {
-          status: 'normal'
+          status: 'normal',
         },
-        order: [[orderBy, order]]
+        order: [[orderBy, order]],
       })
       return result
     }
@@ -46,7 +48,7 @@ export default (app: Context & Application) => {
     static async get({ id, attributes }) {
       const condition: any = {
         attributes,
-        where: { id, status: 'normal' }
+        where: { id, status: 'normal' },
       }
       const result = await Episode.findOne(condition)
       return result

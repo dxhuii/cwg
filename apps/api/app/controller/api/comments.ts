@@ -8,11 +8,11 @@ export default class Comments extends Controller {
 
     const data = await service.comments.get(params)
 
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到内容' })
-    }
   }
 
   public async list() {
@@ -29,7 +29,8 @@ export default class Comments extends Controller {
     if (params.id) {
       const result = await service.comments.edit(ctx.request.body)
       ctx.helper.success(ctx, { data: result })
-    } else {
+    }
+    else {
       const result = await service.comments.add(params)
       ctx.helper.success(ctx, { data: result })
     }
@@ -59,10 +60,10 @@ export default class Comments extends Controller {
   public async delete_reply() {
     const { ctx, service } = this
     const result = await service.comments.delete_reply(ctx.request.body)
-    if (result) {
+    if (result)
       ctx.helper.success(ctx, { data: !!result, message: '删除成功' })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '不存在的回复' })
-    }
   }
 }

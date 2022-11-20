@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import { ICondition } from '../typings'
-import user, { UserType } from '../schema/user'
+import type { Application, Context } from 'egg'
+import type { ICondition } from '../typings'
+import type { UserType } from '../schema/user'
+import user from '../schema/user'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -14,12 +15,12 @@ export default (app: Context & Application) => {
         attributes: { exclude: ['password', 'salt', 'pay_password'] },
         include: [
           { model: model.Feed, attributes: ['id', 'type'], as: 'feed' },
-          { model: model.Comments, attributes: ['id'], as: 'comments' }
+          { model: model.Comments, attributes: ['id'], as: 'comments' },
         ],
         order: [[orderBy, order]],
         offset: pageSize * (pageNo - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' }
+        where: { status: 'normal' },
       }
       const { count, rows } = await User.findAndCountAll(condition)
 
@@ -28,8 +29,8 @@ export default (app: Context & Application) => {
         pages: {
           pageNo,
           pageSize,
-          total: count
-        }
+          total: count,
+        },
       }
     }
 
@@ -37,11 +38,11 @@ export default (app: Context & Application) => {
       const { id, attributes } = params
       const condition: ICondition = {
         attributes,
-        where: { id }
+        where: { id },
       }
       if (params.not_id) {
         params.id = {
-          [Op.not]: params.not_id
+          [Op.not]: params.not_id,
         }
         delete params.not_id
       }
@@ -60,6 +61,7 @@ export default (app: Context & Application) => {
       const result = await User.create(params)
       return result
     }
+
     // 更新
     static async edit(params) {
       const { id } = params
@@ -80,36 +82,43 @@ export default (app: Context & Application) => {
       const result = await model.Subject.query(params)
       return result
     }
+
     // 我的新闻
     static async news(params) {
       const result = await model.News.query(params)
       return result
     }
+
     // 我的分集
     static async story(params) {
       const result = await model.Story.query(params)
       return result
     }
+
     // 我的明星
     static async star(params) {
       const result = await model.Star.query(params)
       return result
     }
+
     // 我的动态
     static async feed(params) {
       const result = await model.Feed.query(params)
       return result
     }
+
     // 我的关注
     static async follow(params) {
       const result = await model.Follow.findAll(params)
       return result
     }
+
     // 我的评价
     static async digg(params) {
       const result = await model.Digg.query(params)
       return result
     }
+
     // 我的评论
     static async comments(params) {
       const result = await model.Comments.query(params)

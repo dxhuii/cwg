@@ -1,6 +1,6 @@
 import * as dayjs from 'dayjs'
 import nodemailer = require('nodemailer')
-import { Context } from 'egg'
+import type { Context } from 'egg'
 
 interface ErrorMessage {
   [key: string]: {
@@ -12,118 +12,118 @@ interface ErrorMessage {
 const common: ErrorMessage = {
   success: {
     errorMsg: '请求成功',
-    code: 200
+    code: 200,
   },
 
   failed: {
     errorMsg: '请求失败',
-    code: 0
+    code: 0,
   },
 
   notFound: {
     errorMsg: 'Not Found',
-    code: 404
+    code: 404,
   },
 
   serverError: {
     errorMsg: '服务内部错误',
-    code: '10000'
+    code: '10000',
   },
 
   verificationFailed: {
     errorMsg: '参数校验失败',
-    code: '10001'
+    code: '10001',
   },
 
   invalidToken: {
     errorMsg: '用户登录已过期',
-    code: '10002'
+    code: '10002',
   },
 
   noAuthority: {
     errorMsg: '暂无请求权限',
-    code: '10003'
+    code: '10003',
   },
 
   captchaError: {
     errorMsg: '验证码错误',
-    code: '10004'
-  }
+    code: '10004',
+  },
 }
 
 const login: ErrorMessage = {
   noUser: {
     errorMsg: '用户不存在',
-    code: '10100'
+    code: '10100',
   },
 
   passwordError: {
     errorMsg: '密码错误',
-    code: '10101'
+    code: '10101',
   },
 
   authorityError: {
     errorMsg: '该账号暂无访问权限',
-    code: '10102'
-  }
+    code: '10102',
+  },
 }
 
 const user: ErrorMessage = {
   registeredFailed: {
     errorMsg: '用户创建失败',
-    code: '10200'
+    code: '10200',
   },
 
   userExists: {
     errorMsg: '用户已存在',
-    code: '10201'
+    code: '10201',
   },
 
   userNotExists: {
     errorMsg: '用户不存在',
-    code: '10202'
+    code: '10202',
   },
 
   noSystenAdministratorsPermission: {
     errorMsg: '该账号没有赋予系统管理员角色的权限',
-    code: '10203'
-  }
+    code: '10203',
+  },
 }
 
 const resource: ErrorMessage = {
   exists: {
     errorMsg: '资源编码已存在',
-    code: '10300'
+    code: '10300',
   },
 
   notExists: {
     errorMsg: '资源不存在',
-    code: '10301'
-  }
+    code: '10301',
+  },
 }
 
 const role: ErrorMessage = {
   exists: {
     errorMsg: '角色已存在',
-    code: '10400'
+    code: '10400',
   },
 
   notExists: {
     errorMsg: '角色不存在',
-    code: '10401'
-  }
+    code: '10401',
+  },
 }
 
 const dictionary: ErrorMessage = {
   exists: {
     errorMsg: '字典已存在',
-    code: '10500'
+    code: '10500',
   },
 
   notExists: {
     errorMsg: '字典不存在',
-    code: '10501'
-  }
+    code: '10501',
+  },
 }
 
 export default {
@@ -147,20 +147,20 @@ export default {
     510: '余额不足。',
     511: '不是VIP，无法暂停VIP服务。',
     10002: '系统错误',
-    10003: '无权限验证不通过'
+    10003: '无权限验证不通过',
   },
   enums: {
     prefix: {
-      socketId: 'sock:'
-    }
+      socketId: 'sock:',
+    },
   },
   async getSatr(this: Context, arr) {
     let starObj = {}
     const star = await this.service.star.list(arr)
-    star.forEach(item => {
+    star.forEach((item) => {
       starObj = Object.assign({}, starObj, { [item.name]: item })
     })
-    const starList = arr.map(item => {
+    const starList = arr.map((item) => {
       return starObj[item] ? { id: starObj[item].id, title: item } : { title: item }
     })
     return starList
@@ -183,25 +183,22 @@ export default {
     h[week] = arr[week]
     h[day] = arr[day]
     // 月
-    if (now.getFullYear() === old.getFullYear() && now.getMonth() === old.getMonth()) {
+    if (now.getFullYear() === old.getFullYear() && now.getMonth() === old.getMonth())
       h[month]++
-    } else {
-      h[month] = 1
-    }
+    else h[month] = 1
+
     // 周
     const weekStart = dayjs().startOf('week').valueOf()
     const weekEnd = dayjs().endOf('week').valueOf()
-    if (last >= weekStart && last <= weekEnd) {
+    if (last >= weekStart && last <= weekEnd)
       h[week]++
-    } else {
-      h[week] = 1
-    }
+    else h[week] = 1
+
     // 日
-    if (now.getFullYear() === old.getFullYear() && now.getMonth() === old.getMonth() && now.getDate() === old.getDate()) {
+    if (now.getFullYear() === old.getFullYear() && now.getMonth() === old.getMonth() && now.getDate() === old.getDate())
       h[day]++
-    } else {
-      h[day] = 1
-    }
+    else h[day] = 1
+
     h[rid] = arr[rid]
     h[hit] = arr[hit] + 1
     h[lasttime] = dayjs().format()
@@ -219,8 +216,8 @@ export default {
       secure: false, //  安全的发送模式
       auth: {
         user: 'dxhuii@qq.com', //  发件人邮箱
-        pass: 'sxuviuebnlabbjde' //  授权码
-      }
+        pass: 'sxuviuebnlabbjde', //  授权码
+      },
     })
 
     params.from = params.from ? params.from : 'dxhuii@qq.com'
@@ -258,5 +255,5 @@ export default {
   user,
   resource,
   role,
-  dictionary
+  dictionary,
 }

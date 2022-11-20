@@ -26,9 +26,9 @@ export default class Tool extends Controller {
     const { ctx, app } = this
     const { idx = 0, n = 1 } = ctx.query
     const headers = {
-      Host: 'cn.bing.com',
-      Referer: 'https://cn.bing.com',
-      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36'
+      'Host': 'cn.bing.com',
+      'Referer': 'https://cn.bing.com',
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
     }
     const key = `bizhi:${idx}:${n}`
     const data: any = await app.redis.get(key)
@@ -81,7 +81,7 @@ export default class Tool extends Controller {
     const { page = 1, perPage = 10, id = 'mrKsE90xm0c' } = ctx.query
     const unsplash = createApi({
       accessKey: 'ltQ9SkNSUvXmi0I30lreC4ME0Rv0X_r2KCTUybFy_Qk',
-      fetch
+      fetch,
     })
     const key = `unsplash:${id}:${page}`
     const data = await app.redis.get(key)

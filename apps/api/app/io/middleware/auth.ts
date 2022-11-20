@@ -1,4 +1,4 @@
-import { Context } from 'egg'
+import type { Context } from 'egg'
 
 export default () => {
   return async (ctx: Context, next) => {

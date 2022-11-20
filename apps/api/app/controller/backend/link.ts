@@ -5,7 +5,7 @@ export default class Link extends Controller {
     const { ctx, service } = this
     const result = await service.link.list({
       ...ctx.request.query,
-      attributes: ['id', 'cid', 'name', 'url', 'icon', 'content', 'color', 'text', 'status', 'size']
+      attributes: ['id', 'cid', 'name', 'url', 'icon', 'content', 'color', 'text', 'status', 'size'],
     })
 
     ctx.helper.success(ctx, { data: result })
@@ -23,18 +23,19 @@ export default class Link extends Controller {
     const params = ctx.request.body
     if (params.id) {
       const result = await service.link.edit(params)
-      if (result) {
+      if (result)
         ctx.helper.success(ctx, { data: result, message: '更新成功' })
-      } else {
+
+      else
         ctx.helper.fail(ctx, { data: 0, message: '更新失败' })
-      }
-    } else {
+    }
+    else {
       const result = await service.link.add(params)
-      if (result) {
+      if (result)
         ctx.helper.success(ctx, { data: result, message: '添加成功' })
-      } else {
+
+      else
         ctx.helper.fail(ctx, { data: 0, message: '添加失败' })
-      }
     }
   }
 

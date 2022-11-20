@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import { ICondition } from '../typings'
-import mcat, { McatType } from '../schema/mcat'
+import type { Application, Context } from 'egg'
+import type { ICondition } from '../typings'
+import type { McatType } from '../schema/mcat'
+import mcat from '../schema/mcat'
 
 export default (app: Context & Application) => {
   const Mcat = mcat(app)
@@ -10,13 +11,12 @@ export default (app: Context & Application) => {
       const { orderBy = 'rank', order = 'ASC', cid = 1, ids = '' } = params
       const condition: ICondition = {
         limit: 1000,
-        order: [[orderBy, order]]
+        order: [[orderBy, order]],
       }
 
       const where: { [key: string | symbol]: any } = { cid }
-      if (ids) {
+      if (ids)
         where.id = ids
-      }
 
       condition.where = where
 
@@ -27,7 +27,7 @@ export default (app: Context & Application) => {
     static async queryAll(params) {
       const condition: ICondition = {
         ...params,
-        limit: 1000
+        limit: 1000,
       }
 
       const result = await Mcat.findAll(condition)
@@ -38,6 +38,7 @@ export default (app: Context & Application) => {
       const result = await Mcat.findOne(params)
       return result
     }
+
     // 添加
     static async add(params) {
       const result = await Mcat.create(params)

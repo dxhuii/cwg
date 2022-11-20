@@ -9,7 +9,7 @@ export default class User extends Controller {
     // 校验参数
     ctx.validate({
       username: 'string',
-      password: 'string'
+      password: 'string',
     })
     // const { username, password, token, captcha } = ctx.request.body
     const { username, password } = ctx.request.body
@@ -22,17 +22,18 @@ export default class User extends Controller {
     //   ctx.throw(200, ctx.common.captchaError)
     // }
 
-    if (!user) {
+    if (!user)
       return helper.fail(ctx, { message: '用户名错误' })
-    } else if (user.status === 2) {
+
+    else if (user.status === 2)
       return helper.fail(ctx, { message: '用户未审核' })
-    }
+
     const { id, salt } = user
     const pwd = helper.md5(password + salt)
     if (pwd === user.password) {
       try {
         // 生成Token令牌
-        const token = helper.md5('' + id + pwd + salt)
+        const token = helper.md5(`${id}${pwd}${salt}`)
         const key = `token:${token}`
         await app.redis.set(
           key,
@@ -41,16 +42,18 @@ export default class User extends Controller {
             username: user.username,
             avatar: user.avatar,
             nickname: user.nickname,
-            admin: user.admin
-          })
+            admin: user.admin,
+          }),
         )
         app.redis.expire(key, config.base.redis.expire)
         this._updateLastLoginInfo(id)
         return helper.success(ctx, { data: token })
-      } catch (e) {
+      }
+      catch (e) {
         return helper.fail(ctx, {})
       }
-    } else {
+    }
+    else {
       return helper.fail(ctx, { message: '密码不正确' })
     }
   }
@@ -58,11 +61,11 @@ export default class User extends Controller {
   async userInfo() {
     const { ctx } = this
     const data = await ctx.getUser()
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '用户不存在' })
-    }
   }
 
   async logout() {
@@ -77,11 +80,11 @@ export default class User extends Controller {
     const { ctx } = this
     const { id } = ctx.params
     const data = await this.service.user.get(id)
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到内容' })
-    }
   }
 
   async list() {
@@ -101,15 +104,15 @@ export default class User extends Controller {
       ctx.validate({
         username: { type: 'string', required: true },
         password: { type: 'password' },
-        email: { type: 'email' }
+        email: { type: 'email' },
       })
     }
     if (captcha) {
       const _captcha = await app.redis.get(`captcha:${token}`)
-      if (!(captcha === _captcha)) {
+      if (!(captcha === _captcha))
         return ctx.helper.fail(ctx, { message: '验证码错误' })
-      }
-    } else {
+    }
+    else {
       return ctx.helper.fail(ctx, { message: '验证码不能为空' })
     }
     if (username) {
@@ -118,9 +121,8 @@ export default class User extends Controller {
         return ctx.helper.fail(ctx, { message: '用户名不能修改' })
       }
       const user = await service.user.findUser({ username })
-      if (user && user.username === username) {
+      if (user && user.username === username)
         return ctx.helper.fail(ctx, { message: '用户名不能重复' })
-      }
     }
     const salt = ctx.helper.randomString(6)
     if (id) {
@@ -128,22 +130,23 @@ export default class User extends Controller {
         params.salt = salt
         params.password = ctx.helper.md5(ctx.helper.md5(params.password) + salt)
       }
-    } else {
+    }
+    else {
       params.salt = salt
       params.password = ctx.helper.md5(ctx.helper.md5(params.password) + salt)
     }
     if (email) {
       const user = await service.user.findUser(Object.assign({}, id ? { not_id: id } : {}, { email }))
-      if (user && user.email === email) {
+      if (user && user.email === email)
         return ctx.helper.fail(ctx, { message: '邮箱已被使用' })
-      }
     }
 
     const ip = ctx.request.ip
     if (!id) {
       params.register_ip = app.utils.Tool.ip2long(ip)
       params.last_login_ip = app.utils.Tool.ip2long(ip)
-    } else {
+    }
+    else {
       params.update_ip = app.utils.Tool.ip2long(ip)
     }
     delete params.admin // 不支持传的用户等级
@@ -152,7 +155,8 @@ export default class User extends Controller {
       const data = await service.user.edit({ ...params })
       this._editLastLoginInfo(id)
       ctx.helper.success(ctx, { data, message: '编辑成功' })
-    } else {
+    }
+    else {
       const data = await service.user.add({ ...params })
       // await ctx.sendMail({
       //   to: email,
@@ -169,20 +173,19 @@ export default class User extends Controller {
     const { username, password, captcha, newPassword, reNewPassword, token } = params
     if (captcha) {
       const _captcha = await app.redis.get(`captcha:${token}`)
-      if (captcha !== _captcha) {
+      if (captcha !== _captcha)
         return ctx.helper.fail(ctx, { message: '验证码错误' })
-      }
-    } else {
+    }
+    else {
       return ctx.helper.fail(ctx, { message: '验证码不能为空' })
     }
     const user = await service.user.findUser({ username })
     const pass = ctx.helper.md5(ctx.helper.md5(password) + user?.salt)
-    if (pass !== user?.password) {
+    if (pass !== user?.password)
       return ctx.helper.fail(ctx, { message: '原密码不正确' })
-    }
-    if (newPassword !== reNewPassword) {
+
+    if (newPassword !== reNewPassword)
       return ctx.helper.fail(ctx, { message: '两次密码不一样' })
-    }
 
     params.password = newPassword
     params.id = user?.id
@@ -197,12 +200,12 @@ export default class User extends Controller {
     const { email } = params
     const { title, host } = app.config.site
     const user = await service.user.findUser({ email })
-    if (!user) {
+    if (!user)
       return ctx.helper.fail(ctx, { message: '该邮箱尚未注册' })
-    }
-    if (email !== user?.email) {
+
+    if (email !== user?.email)
       return ctx.helper.fail(ctx, { message: '邮箱不匹配' })
-    }
+
     const token = ctx.helper.md5(`${user?.id}${user?.username}${user?.password}`)
     const time = dayjs().format('YYYY-MM-DD HH:mm:ss')
     await service.user.edit({ id: user?.id, forget_at: dayjs() })
@@ -210,8 +213,8 @@ export default class User extends Controller {
       .sendMail({
         to: email,
         subject: '找回密码',
-        html: `亲爱的<b>${user?.username}</b>：<br />您在 <b>${time}</b> 提交了找回密码请求。请点击下面的链接重置密码 
-        （按钮24小时内有效）。<br /><a href="${host}?email=${email}&token=${token}" target="_blank">${host}?email=${email}&token=${token}</a><br /><br /><br />${title}`
+        html: `亲爱的<b>${user?.username}</b>：<br />您在 <b>${time}</b> 提交了找回密码请求。请点击下面的链接重置密码
+        （按钮24小时内有效）。<br /><a href="${host}?email=${email}&token=${token}" target="_blank">${host}?email=${email}&token=${token}</a><br /><br /><br />${title}`,
       })
       .then(() => {
         ctx.helper.success(ctx, { data: 1, message: '发送成功' })
@@ -230,9 +233,9 @@ export default class User extends Controller {
       if (key === token) {
         const nowTime = dayjs().valueOf()
         const oldTime = dayjs(user?.forget_at).valueOf()
-        if (nowTime - oldTime > 24 * 60 * 60) {
+        if (nowTime - oldTime > 24 * 60 * 60)
           return ctx.helper.fail(ctx, { message: '该链接已过期！' })
-        }
+
         return ctx.helper.success(ctx, { data: 1, message: '链接有效' })
       }
       return ctx.helper.fail(ctx, { message: '该链无效！' })
@@ -247,13 +250,11 @@ export default class User extends Controller {
 
     const user = await service.user.findUser({ email })
 
-    if (!user) {
+    if (!user)
       return ctx.helper.fail(ctx, { message: '该邮箱尚未注册' })
-    }
 
-    if (newPassword !== reNewPassword) {
+    if (newPassword !== reNewPassword)
       return ctx.helper.fail(ctx, { message: '两次密码不一样' })
-    }
 
     const data = service.user.edit(params)
 
@@ -278,7 +279,7 @@ export default class User extends Controller {
       id,
       last_login_ip: await this.ctx.getIp(),
       login_at: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-      agent: ctx.headers['user-agent']
+      agent: ctx.headers['user-agent'],
     })
     const find = await ctx.service.user.get({ id })
     find?.increment('login', { silent: true })

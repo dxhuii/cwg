@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import { ICondition } from '../typings'
-import link, { LinkType } from '../schema/link'
+import type { Application, Context } from 'egg'
+import type { ICondition } from '../typings'
+import type { LinkType } from '../schema/link'
+import link from '../schema/link'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -14,18 +15,17 @@ export default (app: Context & Application) => {
         attributes,
         include: [
           { model: model.User, attributes: ['id', 'username', 'avatar'], as: 'user' },
-          { model: model.List, attributes: ['id', 'name', 'dir'], as: 'list' }
+          { model: model.List, attributes: ['id', 'name', 'dir'], as: 'list' },
         ],
         order: [order],
         offset: pageSize * (current - 1),
-        limit: app.utils.Tool.toInt(pageSize)
+        limit: app.utils.Tool.toInt(pageSize),
       }
 
       const where: { [key: string | symbol]: any } = { status: 'normal' }
 
-      if (cid) {
+      if (cid)
         where.cid = cid
-      }
 
       condition.where = where
 
@@ -35,7 +35,7 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count
+        total: count,
       }
     }
 
@@ -43,7 +43,7 @@ export default (app: Context & Application) => {
       const param: ICondition = {
         attributes,
         include: [{ model: model.User, attributes: ['id', 'username', 'avatar'], as: 'user' }],
-        where: { id, status: 'normal' }
+        where: { id, status: 'normal' },
       }
       const result = await Link.findOne(param)
       return result
@@ -54,6 +54,7 @@ export default (app: Context & Application) => {
       const result = await Link.create(params)
       return result
     }
+
     // 更新
     static async edit(params) {
       const { id } = params

@@ -12,7 +12,8 @@ export default class Feed extends Controller {
       format.hits = await ctx.hits({ arr: data, model: 'Feed' })
       ctx.helper.deleleParams(format)
       ctx.helper.success(ctx, { data: format })
-    } else {
+    }
+    else {
       ctx.helper.fail(ctx, { message: '没有找到内容' })
     }
   }

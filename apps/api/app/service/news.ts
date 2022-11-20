@@ -9,7 +9,7 @@ export default class News extends Service {
   async list(params = {}) {
     const result = await this.app.model.News.query({
       ...params,
-      attributes: ['id', 'name', 'pic', 'created_at']
+      attributes: ['id', 'name', 'pic', 'created_at'],
     })
     return result
   }

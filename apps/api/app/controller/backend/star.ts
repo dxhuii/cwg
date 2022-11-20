@@ -5,21 +5,21 @@ export default class Star extends Controller {
     // 获取 url 中的 id 参数
     const { ctx, service } = this
     const data = await service.star.get(ctx.params)
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到内容' })
-    }
   }
 
   public async list() {
     const { ctx, service } = this
     const data = await service.star.list(ctx.request.query)
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到相关内容' })
-    }
   }
 
   public async getName() {
@@ -36,41 +36,40 @@ export default class Star extends Controller {
     const { id, letter, letters } = params
     if (id) {
       const res = await service.star.get(params)
-      if (!res) {
+      if (!res)
         return ctx.helper.fail(ctx, { message: '没有找到相关内容' })
-      }
     }
-    if (!letter) {
+    if (!letter)
       params.letter = ctx.helper.h2p(params.name).substring(0, 1).toUpperCase()
-    }
-    if (!letters) {
+
+    if (!letters)
       params.letters = ctx.helper.h2p(params.name)
-    }
+
     if (id) {
       const result = await service.star.edit(params)
-      if (result) {
-        return ctx.helper.success(ctx, { data: id ? id : result, message: '更新成功' })
-      }
+      if (result)
+        return ctx.helper.success(ctx, { data: id || result, message: '更新成功' })
+
       return ctx.helper.fail(ctx, { message: '更新失败' })
     }
     const repeat = await service.subject.getName(params.name)
-    if (repeat) {
+    if (repeat)
       return ctx.helper.fail(ctx, { message: '已经存在了' })
-    }
+
     const result = await service.star.add(params)
-    if (result) {
-      return ctx.helper.success(ctx, { data: id ? id : result, message: '添加成功' })
-    }
+    if (result)
+      return ctx.helper.success(ctx, { data: id || result, message: '添加成功' })
+
     return ctx.helper.fail(ctx, { message: '添加失败' })
   }
 
   public async delete() {
     const { ctx, service } = this
     const data = await service.star.delete(ctx.request.body)
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data, message: '删除成功' })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到相关内容' })
-    }
   }
 }

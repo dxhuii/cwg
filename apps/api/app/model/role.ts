@@ -1,5 +1,6 @@
-import { Context, Application } from 'egg'
-import role, { RoleType } from '../schema/role'
+import type { Application, Context } from 'egg'
+import type { RoleType } from '../schema/role'
+import role from '../schema/role'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -12,6 +13,7 @@ export default (app: Context & Application) => {
       const result = await Role.create(params)
       return result
     }
+
     // 添加多条
     static async adds(params) {
       const result = await Role.bulkCreate(params)
@@ -37,9 +39,9 @@ export default (app: Context & Application) => {
       const result = await Role.findAll({
         attributes: ['id', 'name'],
         where: {
-          status: 'normal'
+          status: 'normal',
         },
-        order: [[orderBy, order]]
+        order: [[orderBy, order]],
       })
       return result
     }
@@ -47,7 +49,7 @@ export default (app: Context & Application) => {
     static async get({ id, attributes }) {
       const condition: any = {
         attributes,
-        where: { id, status: 'normal' }
+        where: { id, status: 'normal' },
       }
       const result = await Role.findOne(condition)
       return result

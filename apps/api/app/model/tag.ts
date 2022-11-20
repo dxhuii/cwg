@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import { ICondition } from '../typings'
-import tag, { TagType } from '../schema/tag'
+import type { Application, Context } from 'egg'
+import type { ICondition } from '../typings'
+import type { TagType } from '../schema/tag'
+import tag from '../schema/tag'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -11,20 +12,20 @@ export default (app: Context & Application) => {
       const { pageSize = 10, current = 1 } = params
       const { count, rows } = await Tag.findAndCountAll({
         offset: pageSize * (current - 1),
-        limit: app.utils.Tool.toInt(pageSize)
+        limit: app.utils.Tool.toInt(pageSize),
       })
 
       return {
         list: rows,
         current,
         pageSize,
-        total: count
+        total: count,
       }
     }
 
     static async queryAll(params) {
       const condition: ICondition = {
-        ...params
+        ...params,
       }
 
       const result = await Tag.findAll(condition)
@@ -36,12 +37,12 @@ export default (app: Context & Application) => {
       await Tag.destroy({
         where: {
           aid,
-          sid
-        }
+          sid,
+        },
       })
       if (aid && sid && tag) {
         const arr = tag.split(',')
-        const data = arr.map(item => {
+        const data = arr.map((item) => {
           return { name: item, sid, aid }
         })
         await Tag.bulkCreate(data)

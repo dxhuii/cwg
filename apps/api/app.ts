@@ -1,5 +1,5 @@
 // app.ts
-import { Application, IBoot } from 'egg'
+import type { Application, IBoot } from 'egg'
 // 声明周期
 export default class AppBoot implements IBoot {
   private readonly app: Application
@@ -27,9 +27,8 @@ export default class AppBoot implements IBoot {
     // All plugins have started, can do some thing before app ready.
     // 设置 room
     const room = await this.app.redis.get('room:demo')
-    if (!room) {
+    if (!room)
       await this.app.redis.set('room:demo', 'demo')
-    }
   }
 
   async didReady() {

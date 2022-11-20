@@ -1,5 +1,6 @@
-import { Context, Application } from 'egg'
-import setting, { SettingType } from '../schema/setting'
+import type { Application, Context } from 'egg'
+import type { SettingType } from '../schema/setting'
+import setting from '../schema/setting'
 
 export default (app: Context & Application) => {
   const Setting = setting(app)
@@ -20,6 +21,7 @@ export default (app: Context & Application) => {
       const result = await Setting.update(params, { where: { id } })
       return result
     }
+
     static async delete(params) {
       const result = await Setting.destroy({ where: params })
       return result

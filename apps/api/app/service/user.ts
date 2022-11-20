@@ -6,6 +6,7 @@ export default class User extends Service {
     const result = await this.app.model.User.get(params)
     return result
   }
+
   // 登录时验证用户信息
   public async findUser(params = {}) {
     const result = await this.app.model.User.get(params)
@@ -19,7 +20,7 @@ export default class User extends Service {
 
   public async list(params = {}) {
     const result = await this.app.model.User.query({
-      ...params
+      ...params,
     })
     return result
   }

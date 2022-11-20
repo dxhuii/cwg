@@ -1,5 +1,6 @@
-import { Context, Application } from 'egg'
-import topic, { TopicType } from '../schema/topic'
+import type { Application, Context } from 'egg'
+import type { TopicType } from '../schema/topic'
+import topic from '../schema/topic'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -15,7 +16,7 @@ export default (app: Context & Application) => {
         order: [order],
         offset: pageSize * (current - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' }
+        where: { status: 'normal' },
       }
       const { count, rows } = await Topic.findAndCountAll(condition)
 
@@ -23,7 +24,7 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count
+        total: count,
       }
     }
 
@@ -31,7 +32,7 @@ export default (app: Context & Application) => {
       const param: any = {
         attributes,
         include: [{ model: model.User, as: 'user' }],
-        where: { id, status: 'normal' }
+        where: { id, status: 'normal' },
       }
       const result = await Topic.findOne(param)
       return result
@@ -42,6 +43,7 @@ export default (app: Context & Application) => {
       const result = await Topic.create(params)
       return result
     }
+
     // 更新
     static async edit(params) {
       const { id } = params

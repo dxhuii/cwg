@@ -1,5 +1,6 @@
-import { Context, Application } from 'egg'
-import story, { StoryType } from '../schema/story'
+import type { Application, Context } from 'egg'
+import type { StoryType } from '../schema/story'
+import story from '../schema/story'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -12,6 +13,7 @@ export default (app: Context & Application) => {
       const result = await Story.create(params)
       return result
     }
+
     // 添加多条
     static async adds(params) {
       const result = await Story.bulkCreate(params)
@@ -37,9 +39,9 @@ export default (app: Context & Application) => {
       const result = await Story.findAll({
         attributes: ['id', 'name'],
         where: {
-          status: 'normal'
+          status: 'normal',
         },
-        order: [[orderBy, order]]
+        order: [[orderBy, order]],
       })
       return result
     }
@@ -47,7 +49,7 @@ export default (app: Context & Application) => {
     static async get({ id, attributes }) {
       const condition: any = {
         attributes,
-        where: { id, status: 'normal' }
+        where: { id, status: 'normal' },
       }
       const result = await Story.findOne(condition)
       return result

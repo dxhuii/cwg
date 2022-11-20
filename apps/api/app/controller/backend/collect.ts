@@ -7,11 +7,11 @@ export default class Collect extends Controller {
     const { params } = ctx
 
     const data = await this.service.collect.get(params)
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到内容' })
-    }
   }
 
   async list() {

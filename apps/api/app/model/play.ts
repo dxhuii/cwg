@@ -1,5 +1,6 @@
-import { Context, Application } from 'egg'
-import play, { PlayType } from '../schema/play'
+import type { Application, Context } from 'egg'
+import type { PlayType } from '../schema/play'
+import play from '../schema/play'
 
 export default (app: Context & Application) => {
   const Play = play(app)
@@ -8,7 +9,7 @@ export default (app: Context & Application) => {
     static async query(params) {
       const { orderBy = 'rank', order = 'ASC' } = params
       const result = await Play.findAll({
-        order: [[orderBy, order]]
+        order: [[orderBy, order]],
       })
       return result
     }

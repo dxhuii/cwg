@@ -17,9 +17,9 @@ export default class Mcat extends Controller {
   async add() {
     const { ctx, service } = this
     const params = ctx.request.body
-    if (!params.title) {
+    if (!params.title)
       params.title = ctx.helper.h2p(params.name)
-    }
+
     const result = await service.mcat[params.id ? 'edit' : 'add'](params)
     ctx.helper.success(ctx, { data: result })
   }

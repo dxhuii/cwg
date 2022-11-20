@@ -1,5 +1,6 @@
-import { Context, Application } from 'egg'
-import actors, { ActorsType } from '../schema/actors'
+import type { Application, Context } from 'egg'
+import type { ActorsType } from '../schema/actors'
+import actors from '../schema/actors'
 
 export default (app: Context & Application) => {
   const Actors = actors(app)
@@ -11,7 +12,7 @@ export default (app: Context & Application) => {
         order,
         offset: pageSize * (pageNo - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: {}
+        where: {},
       })
 
       return {
@@ -19,8 +20,8 @@ export default (app: Context & Application) => {
         pages: {
           pageNo,
           pageSize,
-          total: count
-        }
+          total: count,
+        },
       }
     }
 
@@ -29,12 +30,12 @@ export default (app: Context & Application) => {
       await Actors.destroy({
         where: {
           aid,
-          type
-        }
+          type,
+        },
       })
       if (aid && type && actors) {
         const arr = actors.split(',')
-        const data = arr.map(item => {
+        const data = arr.map((item) => {
           return { name: item, type, aid }
         })
         await Actors.bulkCreate(data)

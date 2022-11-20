@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import { ICondition } from '../typings'
-import pin, { PinType } from '../schema/pin'
+import type { Application, Context } from 'egg'
+import type { ICondition } from '../typings'
+import type { PinType } from '../schema/pin'
+import pin from '../schema/pin'
 
 export default (app: Context & Application) => {
   // 获取数据类型
@@ -15,12 +16,12 @@ export default (app: Context & Application) => {
         include: [
           { model: model.User, attributes: ['id', 'username', 'avatar'], as: 'user' },
           { model: model.Subject, attributes: ['id', 'name', 'pic'], as: 'subject' },
-          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' }
+          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' },
         ],
         order: [order],
         offset: pageSize * (current - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' }
+        where: { status: 'normal' },
       }
       const { count, rows } = await Pin.findAndCountAll(condition)
 
@@ -28,7 +29,7 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count
+        total: count,
       }
     }
 
@@ -39,9 +40,9 @@ export default (app: Context & Application) => {
         include: [
           { model: model.User, attributes: ['id', 'username', 'avatar'], as: 'user' },
           { model: model.Subject, attributes: ['id', 'name', 'pic'], as: 'subject' },
-          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' }
+          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' },
         ],
-        where: { id, status: 'normal' }
+        where: { id, status: 'normal' },
       }
       const result = await Pin.findOne(param)
       return result
@@ -52,6 +53,7 @@ export default (app: Context & Application) => {
       const result = await Pin.create(params)
       return result
     }
+
     // 更新
     static async edit(params) {
       const { id } = params

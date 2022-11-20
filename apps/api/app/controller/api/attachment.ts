@@ -14,11 +14,11 @@ export default class Attachment extends Controller {
   public async list() {
     const { ctx, service } = this
     const data = await service.attachment.list(ctx.request.query)
-    if (data) {
+    if (data)
       ctx.helper.success(ctx, { data })
-    } else {
+
+    else
       ctx.helper.fail(ctx, { message: '没有找到相关内容' })
-    }
   }
 
   public async get() {

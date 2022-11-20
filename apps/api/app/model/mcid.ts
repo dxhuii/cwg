@@ -1,6 +1,7 @@
-import { Context, Application } from 'egg'
-import { ICondition } from '../typings'
-import mcid, { McidType } from '../schema/mcid'
+import type { Application, Context } from 'egg'
+import type { ICondition } from '../typings'
+import type { McidType } from '../schema/mcid'
+import mcid from '../schema/mcid'
 
 export default (app: Context & Application) => {
   const Mcid = mcid(app)
@@ -11,11 +12,11 @@ export default (app: Context & Application) => {
       await Mcid.destroy({
         where: {
           aid,
-          sid
-        }
+          sid,
+        },
       })
       if (aid && sid && mcid) {
-        const data = mcid.map(item => {
+        const data = mcid.map((item) => {
           return { mid: item, sid, aid }
         })
         await Mcid.bulkCreate(data)
@@ -24,7 +25,7 @@ export default (app: Context & Application) => {
 
     static async queryAll(params) {
       const condition: ICondition = {
-        ...params
+        ...params,
       }
 
       const result = await Mcid.findAll(condition)
