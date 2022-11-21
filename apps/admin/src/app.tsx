@@ -63,10 +63,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     },
     links: isDev
       ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
+        <Link key='openapi' target='_blank' to='/umi/plugin/openapi'>
+          <LinkOutlined />
+          <span>OpenAPI 文档</span>
+        </Link>,
         ]
       : [],
     menuHeaderRender: undefined,
@@ -82,14 +82,13 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             <SettingDrawer
               disableUrlParams
               enableDarkTheme
-              settings={initialState?.settings}
-              onSettingChange={(settings) => {
+              onSettingChange={settings => {
                 setInitialState(preInitialState => ({
                   ...preInitialState,
                   settings,
                 }))
               }}
-            />
+              settings={initialState?.settings} />
           )}
         </>
       )
