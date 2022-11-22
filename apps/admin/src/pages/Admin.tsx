@@ -12,13 +12,13 @@ export const Admin = (): React.ReactNode => {
           showIcon
           style={{
             margin: -12,
-            marginBottom: 48,
+            marginBottom: 48
           }}
           type='success' />
         <Typography.Title
           level={2}
           style={{
-            textAlign: 'center',
+            textAlign: 'center'
           }}>
           <SmileTwoTone /> Ant Design Pro <HeartTwoTone twoToneColor='#eb2f96' /> You
         </Typography.Title>

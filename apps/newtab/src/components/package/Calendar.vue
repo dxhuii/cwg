@@ -23,7 +23,7 @@ const date = (month: SolarMonth) => {
       d: 0, // 日期
       nl: '', // 农历
       yy: '', // 闰月
-      work: 0, // 是否工作日
+      work: 0 // 是否工作日
     }
     if (jq)
       fs.push(jq)
@@ -77,8 +77,11 @@ const next = () => {
   date(month)
 }
 const lunar = computed(() => Lunar.fromDate(new Date()))
+const nowYear = computed(() => `${day.getYear()}年${day.getMonth()}月`)
 const sWeek = computed(() => SolarWeek.fromDate(new Date(), 1))
 const useYear = computed(() => SolarUtil.getDaysInYear(day.getYear(), day.getMonth(), day.getDay()))
+
+console.log(nowYear.value, nowYearMonth.value)
 </script>
 
 <template>
@@ -108,7 +111,7 @@ const useYear = computed(() => SolarUtil.getDaysInYear(day.getYear(), day.getMon
         <ul text="black base" flex="~ wrap" border="r solid gray-100">
           <li v-for="item in week" :key="item" border="l solid gray-100 b" h-32 class="w-[14.28%]" />
           <li v-for="(item, i) in dateList" :key="i" relative flex justify-center items-center border="l solid gray-100 b" h-32 class="w-[14.28%]">
-            <b absolute top-2 left-2 font-medium text="xl">{{ item.d }}</b><i absolute right-2 bottom-2 not-italic>{{ item.yy || item.nl }}</i><span text="red sm">{{ item.jr }}</span>
+            <b absolute w-8 h-8 flex justify="center" items-center top-2 left-2 font-medium text-lg :class="{ 'bg-red text-white rounded-full': `${nowYear}${day.getDay()}` === `${nowYearMonth}${item.d}` }">{{ item.d }}</b><i absolute right-2 bottom-2 not-italic>{{ item.yy || item.nl }}</i><span text="red sm">{{ item.jr }}</span>
             <span v-if="item.work" absolute top-2 right-2 w-6 h-6 text="white sm" flex justify="center" items-center :class="item.work === 2 ? 'bg-#5CB85C' : 'bg-#D9534F'">{{ item.work === 2 ? '休' : '班' }}</span>
           </li>
           <li v-for="item in monthEnd" :key="item" border="l solid gray-100 b" h-32 class="w-[14.28%]" />

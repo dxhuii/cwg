@@ -8,8 +8,8 @@ const data = ref<{ data: IBing[] }>()
 watchEffect(async () => {
   data.value = await apiFetch<{ data: IBing[] }>('tool/day', {
     params: {
-      n: 8,
-    },
+      n: 8
+    }
   })
 })
 

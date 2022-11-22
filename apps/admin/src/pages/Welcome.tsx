@@ -22,7 +22,7 @@ export const Welcome = (): React.ReactNode => {
           showIcon
           style={{
             margin: -12,
-            marginBottom: 24,
+            marginBottom: 24
           }}
           type='success' />
         <Typography.Text strong>
@@ -35,7 +35,7 @@ export const Welcome = (): React.ReactNode => {
         <Typography.Text
           strong
           style={{
-            marginBottom: 12,
+            marginBottom: 12
           }}>
           高级布局{' '}
           <a href='https://procomponents.ant.design/components/layout' rel='noopener noreferrer' target='__blank'>

@@ -23,7 +23,7 @@ export async function getInitialState(): Promise<{
   const fetchUserInfo = async () => {
     try {
       const res = await queryCurrentUser({
-        skipErrorHandler: true,
+        skipErrorHandler: true
       })
       return res.data
     }
@@ -38,12 +38,12 @@ export async function getInitialState(): Promise<{
     return {
       fetchUserInfo,
       currentUser,
-      settings: defaultSettings,
+      settings: defaultSettings
     }
   }
   return {
     fetchUserInfo,
-    settings: defaultSettings,
+    settings: defaultSettings
   }
 }
 
@@ -52,7 +52,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     rightContentRender: () => <RightContent />,
     waterMarkProps: {
-      content: initialState?.currentUser?.username,
+      content: initialState?.currentUser?.username
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
@@ -66,7 +66,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         <Link key='openapi' target='_blank' to='/umi/plugin/openapi'>
           <LinkOutlined />
           <span>OpenAPI 文档</span>
-        </Link>,
+        </Link>
         ]
       : [],
     menuHeaderRender: undefined,
@@ -85,7 +85,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
               onSettingChange={settings => {
                 setInitialState(preInitialState => ({
                   ...preInitialState,
-                  settings,
+                  settings
                 }))
               }}
               settings={initialState?.settings} />
@@ -93,7 +93,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         </>
       )
     },
-    ...initialState?.settings,
+    ...initialState?.settings
   }
 }
 
@@ -103,5 +103,5 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const request = {
-  ...errorConfig,
+  ...errorConfig
 }

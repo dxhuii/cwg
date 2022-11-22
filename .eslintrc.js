@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2021: true
   },
   extends: '@antfu',
   parser: 'vue-eslint-parser',
@@ -10,14 +10,14 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true,
-    },
+      jsx: true
+    }
   },
   plugins: [
     'vue',
     '@typescript-eslint',
     'import',
-    'react',
+    'react'
   ],
   ignorePatterns: ['node_modules/*', 'dist/*', '*.yaml', '*.yml', '*.json', '*.md'],
   rules: {
@@ -49,16 +49,18 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'vue/custom-event-name-casing': ['error', 'camelCase', {
       ignores: [
-        '/^(click):[a-z]+[a-zA-Z]+$/',
-      ],
+        '/^(click):[a-z]+[a-zA-Z]+$/'
+      ]
     }],
 
     // Plugin: eslint-plugin-import
     'import/prefer-default-export': 'off',
-
     'import/extensions': 'off',
-
     '@typescript-eslint/consistent-type-imports': 'error',
+
+    // 删除未尾逗号
+    'comma-dangle': ['error', 'never'],
+    '@typescript-eslint/comma-dangle': 'off',
 
     // JSX rules https://www.5axxw.com/wiki/content/0u8zli
     'react/jsx-boolean-value': ['error', 'never'],
@@ -89,11 +91,11 @@ module.exports = {
     'react/no-unescaped-entities': 'error',
     'react/no-invalid-html-attribute': 'error',
     'jsx-quotes': ['error', 'prefer-single'],
-    'no-console': 'off',
+    'no-console': 'off'
   },
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx'],
-    },
-  },
+      '@typescript-eslint/parser': ['.ts', '.tsx']
+    }
+  }
 }
