@@ -8,6 +8,7 @@
     "start:admin": "pnpm admin dev",
     "start:api": "pnpm api dev",
     "start:newtab": "pnpm newtab dev",
+    "build:newtab": "pnpm newtab build",
     "debug": "pnpm --filter=@cwg/api debug",
     "web": "pnpm --filter=@cwg/web",
     "admin": "pnpm --filter=@cwg/admin",
@@ -19,7 +20,9 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.31.0",
+    "@headlessui/vue": "^1.7.4",
     "eslint": "^8.28.0",
+    "js-calendar-converter":"^0.0.4",
     "typescript": "^4.9.3"
   },
   "pnpm": {

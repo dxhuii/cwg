@@ -12,7 +12,7 @@ const subTabData = ref<chrome.bookmarks.BookmarkTreeNode[]>()
 const subTabChildren = ref<chrome.bookmarks.BookmarkTreeNode[]>()
 // chrome://favicon/size/32@2x/https://cang.im
 watchEffect(async () => {
-  await chrome.bookmarks.getTree((res) => {
+  await chrome.bookmarks.getTree(res => {
     const data = res[0].children
     bookmarks.value = data
     tab.value = data?.[0]?.id

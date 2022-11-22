@@ -78,7 +78,7 @@ function decompressData() {
       leapMonth,
       months,
       heavenlyStem,
-      earthlyBranch,
+      earthlyBranch
     })
 
     const dateCount = monthCount * 29 + months.filter(o => o === 1).length
@@ -87,7 +87,7 @@ function decompressData() {
       y: newSolarDate.getFullYear(),
       m: newSolarDate.getMonth() + 1,
       d: newSolarDate.getDate(),
-      obj: newSolarDate,
+      obj: newSolarDate
     }
     heavenlyStem = (heavenlyStem + 1) % 10
     earthlyBranch = (earthlyBranch + 1) % 12
@@ -158,7 +158,7 @@ function getLunar(year: number, month: number, date: number) {
         isLeap,
         lunarYear: `${heavenlyStemStr[row.heavenlyStem]}${earthlyBranchStr[row.earthlyBranch]}年`,
         zodiac: `${zodiacStr[row.earthlyBranch]}`,
-        dateStr: getLunarStr(lunarMonth, delta + 1, isLeap),
+        dateStr: getLunarStr(lunarMonth, delta + 1, isLeap)
       }
     }
     else {

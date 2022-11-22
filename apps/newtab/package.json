@@ -1,6 +1,7 @@
 {
   "name": "@cwg/newtab",
   "displayName": "newtab",
+  "description": "New Tab Page",
   "version": "0.0.1",
   "private": true,
   "scripts": {

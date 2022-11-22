@@ -2,6 +2,7 @@
   "manifest_version": 2,
   "name": "newtab",
   "version": "0.0.1",
+  "description": "New Tab Page",
   "browser_action": {
     "default_icon": "./assets/icon-512.png",
     "default_popup": "./dist/popup/index.html"
@@ -33,11 +34,20 @@
     "activeTab",
     "chrome://favicon/",
     "http://*/",
-    "https://*/",
-    "webNavigation"
+    "https://*/"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "./dist/contentScripts/index.global.js"
+      ]
+    }
   ],
   "web_accessible_resources": [
     "dist/contentScripts/style.css"
-  ],
-  "content_security_policy": "script-src 'self' http://localhost:3303; object-src 'self'"
+  ]
 }

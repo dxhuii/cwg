@@ -17,13 +17,13 @@ export default defineConfig({
     lib: {
       entry: r('src/contentScripts/index.ts'),
       name: packageJson.name,
-      formats: ['iife'],
+      formats: ['iife']
     },
     rollupOptions: {
       output: {
         entryFileNames: 'index.global.js',
-        extend: true,
-      },
-    },
-  },
+        extend: true
+      }
+    }
+  }
 })

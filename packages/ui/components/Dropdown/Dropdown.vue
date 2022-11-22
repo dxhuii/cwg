@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { MaybeElement, MaybeElementRef, OnClickOutsideHandler } from '@vueuse/core'
 import { onClickOutside, useEventListener } from '@vueuse/core'
-import { onMounted, ref } from 'vue'
-const { menu, trigger, isSelected } = defineProps<{ menu: DropdownItem[]; trigger?: 'click' | 'hover'; isSelected?: boolean }>()
+import { computed, onMounted, ref } from 'vue'
+const { menu, trigger, isSelected, direction } = defineProps<{ menu: DropdownItem[]; trigger?: 'click' | 'hover'; isSelected?: boolean; direction?: 'up' | 'down' | 'left' | 'right' }>()
 const emit = defineEmits(['onOk'])
 interface DropdownItem { label: string; key?: string; icon?: string; disabled?: boolean }
 const refReference = ref()
@@ -23,7 +23,7 @@ const vOnClickOutside = {
   },
   unmounted(el: any) {
     (el as any).__onClickOutside_stop()
-  },
+  }
 }
 
 onMounted(() => {
@@ -31,9 +31,9 @@ onMounted(() => {
     useEventListener(refReference, 'mouseenter', () => {
       dropdown.value = true
     })
-    // useEventListener(refReference, 'mouseleave', () => {
-    //   dropdown.value = false
-    // })
+    useEventListener(refReference, 'mouseleave', () => {
+      dropdown.value = false
+    })
     useEventListener(refFloating, 'mouseenter', () => {
       dropdown.value = true
     })
@@ -43,7 +43,7 @@ onMounted(() => {
   }
 })
 
-const dropdownHandler: OnClickOutsideHandler = (event) => {
+const dropdownHandler: OnClickOutsideHandler = event => {
   console.log(event)
   dropdown.value = false
 }
@@ -54,7 +54,9 @@ const onClick = (item: DropdownItem) => {
   dropdown.value = false
 }
 
-console.log(334442234)
+const dec = computed(() => {
+  return direction === 'down' ? 'top-0' : 'bottom-0'
+})
 </script>
 
 <template>
@@ -66,7 +68,7 @@ console.log(334442234)
       <slot />
     </div>
     <Transition name="slide-up">
-      <div v-if="dropdown" ref="refFloating" v-on-click-outside.bubble="dropdownHandler" max-h-60 w-30 overflow-y-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg="white dark:warm-gray-900" text="base #121212 dark:gray-300" absolute right-0 z-10>
+      <div v-if="dropdown" ref="refFloating" v-on-click-outside.bubble="dropdownHandler" max-h-60 w-30 overflow-y-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg="white dark:warm-gray-900" text="base #121212 dark:gray-300" absolute right-0 z-10 :class="dec">
         <div v-for="item in menu" :key="item.label" flex justify-between cursor-pointer select-none py-2 px-4 hover:bg="gray-100 dark:warm-gray-700" hover:text="dark:gray-300" @click.stop="onClick(item)">
           <div block truncate>
             {{ item.label }}

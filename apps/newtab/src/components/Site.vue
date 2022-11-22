@@ -12,8 +12,8 @@ const openBookmark = ref(false)
 watchEffect(async () => {
   data.value = await apiFetch<{ data: { list: ILink[] } }>('link/list', {
     params: {
-      pageSize: 20,
-    },
+      pageSize: 20
+    }
   })
 })
 
@@ -72,7 +72,7 @@ const checkMove = (e: { draggedContext: { futureIndex: any } }) => {
     </draggable>
   </div>
   <AddSite :visible="open" @close="open = false" />
-  <Bookmarks :visible="openBookmark" @close="openBookmark = false" />
+  <!-- <Bookmarks :visible="openBookmark" @close="openBookmark = false" /> -->
   <!-- <History :visible="true" /> -->
 </template>
 

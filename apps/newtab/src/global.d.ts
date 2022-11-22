@@ -6,3 +6,4 @@ declare module '*.vue' {
 }
 
 declare module '@meforma/vue-toaster'
+declare module 'js-calendar-converter';

@@ -16,8 +16,8 @@ const getList = async (cid: number) => {
   const r = await apiFetch<{ data: { list: ILink[] } }>('link/list', {
     params: {
       pageSize: 20,
-      cid,
-    },
+      cid
+    }
   })
   list.value = r.data.list
 }
@@ -25,12 +25,14 @@ const getList = async (cid: number) => {
 watchEffect(async () => {
   const r = await apiFetch<{ data: IList[] }>('list/list', {
     params: {
-      pid: 4,
-    },
+      pid: 4
+    }
   })
   data.value = r.data
-  getList(r.data[0].id)
-  tab.value = r.data[0].id
+  if (r.data[0]) {
+    getList(r.data[0].id)
+    tab.value = r.data[0].id
+  }
 })
 
 const onTab = (cid: number) => {
@@ -53,7 +55,7 @@ const schema = {
     if (value.length < 6)
       return '密码长度不能小于6'
     return true
-  },
+  }
 }
 
 const onSubmit = async (data: any) => {
