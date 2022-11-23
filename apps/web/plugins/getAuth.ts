@@ -4,7 +4,7 @@ export default defineNuxtPlugin(() => {
   return {
     provide: {
       getAuth: (() => process.client ? localStorage.getItem('token') : null)(),
-      Toast: (() => process.client ? toaster : {})(),
-    },
+      Toast: (() => process.client ? toaster : {})()
+    }
   }
 })

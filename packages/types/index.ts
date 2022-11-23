@@ -1,3 +1,4 @@
+export interface IBing { url: string; copyrightlink: string;title: string;copyright: string }
 export interface IDate {
   // 创建时间
   readonly created_at?: string
@@ -27,7 +28,7 @@ export interface IHits {
 }
 
 export interface IId {
-  id?: number | string
+  id?: number
   cid?: number
   uid?: number
   sid?: number

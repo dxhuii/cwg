@@ -1,7 +1,7 @@
 import { $fetch } from 'ofetch'
 import LRU from 'lru-cache'
 import { hash as ohash } from 'ohash'
-import type { ICollect, IDigg, IFeed, IListResponse, ISubject, IUser, PageResult } from '@cwg/types'
+import type { IBing, ICollect, IDigg, IFeed, ILink, IList, IListResponse, ISubject, IUser, PageResult } from '@cwg/types'
 
 const cache = new LRU({
   max: 500,
@@ -16,9 +16,10 @@ const cache = new LRU({
  * @returns Promise
  */
 function _fetchCWG(url: string, params: Record<string, string | number | undefined> = {}, method: 'POST' | 'GET' = 'GET') {
-  const param = method === 'POST' ? { body: params } : { ...params }
-  const { $getAuth, $Toast } = useNuxtApp()
-  const headers = { Authorization: `Bearer ${$getAuth}` }
+  const param = method === 'POST' ? { body: params } : { params }
+  console.log('param', param)
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const headers = { Authorization: `Bearer ${token}` }
   return $fetch(url, {
     baseURL: 'http://127.0.0.1:7001',
     method,
@@ -26,7 +27,7 @@ function _fetchCWG(url: string, params: Record<string, string | number | undefin
     ...param
   }).then(res => {
     if (res.status !== 200) {
-      $Toast?.show?.(res.message, { position: 'top', type: 'warning' })
+      // $Toast?.show?.(res.message, { position: 'top', type: 'warning' })
       return Promise.reject(res)
     }
     else {
@@ -62,7 +63,7 @@ export function fetchCWG(url: string, params: Record<string, string | number | u
  * @param params { current: number, pageSize: number }
  * @returns
  */
-export function getList(params = {}): Promise<IListResponse<ISubject>> {
+export function getSubjectList(params = {}): Promise<IListResponse<ISubject>> {
   return fetchCWG('/api/subject/list', params)
 }
 
@@ -171,3 +172,38 @@ export function addPin(params = {}): Promise<PageResult<IFeed>> {
   return fetchCWG('/api/pin/add', params, 'POST')
 }
 
+/**
+ * 获取bing图片
+ * @param 参数
+ * @returns IBing
+ */
+export function getBing(params = {}): Promise<PageResult<IBing[]>> {
+  return fetchCWG('/api/tool/day', params)
+}
+
+/**
+ * 获取链接列表
+ * @param 参数
+ * @returns ILink
+ */
+export function getLink(params = {}): Promise<PageResult<{ list: ILink[] }>> {
+  return fetchCWG('/api/link/list', params)
+}
+
+/**
+ * 获取分类列表
+ * @param 参数
+ * @returns IList
+ */
+export function getList(params = {}): Promise<PageResult<IList[]>> {
+  return fetchCWG('/api/list/list', params)
+}
+
+/**
+ * 获取分类列表
+ * @param 参数
+ * @returns IList
+ */
+export function getBaidu(params = {}): Promise<PageResult<string[]>> {
+  return fetchCWG('/api/keywod/baidu', params)
+}

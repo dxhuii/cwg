@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
-import type { ILink } from '~/utils/type'
-import { apiFetch } from '~/utils/fetch'
+import type { ILink } from '@cwg/types'
+import { getLink } from '@cwg/utils'
 import { jump } from '~/utils'
 const data = ref<{ data: { list: ILink[] } }>()
 const enabled = ref(true)
@@ -10,10 +10,8 @@ const open = ref(false)
 const openBookmark = ref(false)
 
 watchEffect(async () => {
-  data.value = await apiFetch<{ data: { list: ILink[] } }>('link/list', {
-    params: {
-      pageSize: 20
-    }
+  data.value = await getLink({
+    pageSize: 20
   })
 })
 

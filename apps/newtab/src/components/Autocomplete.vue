@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { apiFetch } from '~/utils/fetch'
+import { getBaidu } from '@cwg/utils'
 const props = defineProps<{ wd: string; selected: number }>()
 const emit = defineEmits(['so', 'getWd', 'getLen'])
 const data = ref<{ data: string[] }>()
 
 watchEffect(async () => {
-  const list = await apiFetch<{ data: string[] }>('keywod/baidu', {
-    params: {
-      wd: props.wd,
-    },
+  const list = await getBaidu({
+    wd: props.wd
   })
   emit('getLen', list.data.length - 1)
   data.value = list
@@ -22,11 +20,11 @@ const handleClick = (wd: string) => {
 
 watch(
   () => props.selected,
-  (val) => {
+  val => {
     if (val === -1)
       return
     emit('getWd', list.value[val])
-  },
+  }
 )
 </script>
 

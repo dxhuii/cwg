@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ErrorMessage, Field, Form } from 'vee-validate'
 import CryptoJS from 'crypto-js'
-import { apiFetch } from '~/utils/fetch'
+import { login } from '@cwg/utils'
 const emit = defineEmits(['success', 'close'])
 
 const schema = {
@@ -18,13 +18,13 @@ const schema = {
     if (value.length < 6)
       return '密码长度不能小于6'
     return true
-  },
+  }
 }
 
 const onSubmit = async (data: any) => {
   const md5 = CryptoJS.MD5(data.password).toString()
   data.password = md5
-  const user = await apiFetch<{ data: string }>('user/login', { method: 'post', body: { ...data } })
+  const user = await login(data)
   if (user) {
     localStorage.setItem('token', user.data)
     setTimeout(() => {

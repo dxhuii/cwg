@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { apiFetch } from '~/utils/fetch'
-import type { IUser } from '~/utils/type'
+import type { IUser } from '@cwg/types'
+import { getUserInfo } from '@cwg/utils'
 
 const openSet = ref(false)
 const userInfo = ref<IUser>()
@@ -16,7 +16,7 @@ const closeSet = () => {
 }
 
 const success = async () => {
-  const info = await apiFetch<{ data: IUser }>('user/info')
+  const info = await getUserInfo()
   userInfo.value = info.data
 }
 
@@ -27,7 +27,7 @@ watchEffect(() => {
 })
 
 const logout = async () => {
-  await apiFetch('user/logout', { method: 'POST' })
+  await logout()
   success()
   closeSet()
 }

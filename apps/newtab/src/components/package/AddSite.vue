@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ErrorMessage, Field, Form } from 'vee-validate'
-import { apiFetch } from '../../utils/fetch'
-import type { ILink, IList } from '../../utils/type'
+import type { ILink, IList } from '@cwg/types'
+import { getLink, getList } from '@cwg/utils'
 defineProps<{ visible: boolean; title?: string }>()
 const emit = defineEmits(['close', 'success'])
 const data = ref<IList[]>()
@@ -12,33 +12,29 @@ const close = () => {
   emit('close')
 }
 
-const getList = async (cid: number) => {
-  const r = await apiFetch<{ data: { list: ILink[] } }>('link/list', {
-    params: {
-      pageSize: 20,
-      cid
-    }
+const getLinkList = async (cid: number) => {
+  const r = await getLink({
+    pageSize: 20,
+    cid
   })
+  console.log(r)
   list.value = r.data.list
 }
 
 watchEffect(async () => {
-  const r = await apiFetch<{ data: IList[] }>('list/list', {
-    params: {
-      pid: 4
-    }
-  })
+  const r = await getList({ pid: 4 })
+  console.log(r, { pid: 4 })
   data.value = r.data
-  if (r.data[0]) {
-    getList(r.data[0].id)
-    tab.value = r.data[0].id
+  if (r.data.length > 0) {
+    getLinkList(r.data[0].id!)
+    tab.value = r.data[0].id!
   }
 })
 
 const onTab = (cid: number) => {
   tab.value = cid
   if (cid > 0)
-    getList(cid)
+    getLinkList(cid)
 }
 
 const schema = {
@@ -70,7 +66,7 @@ const onSubmit = async (data: any) => {
         <div class="h-8 leading-8 pl-4 cursor-pointer hover:bg-blue-600 hover:text-white" :class="{ 'bg-blue-600 text-white': tab === -1 }" @click="onTab(-1)">
           自定义网址
         </div>
-        <div v-for="item in data" :key="item.id" class="h-8 leading-8 pl-4 cursor-pointer hover:bg-blue-600 hover:text-white" :class="{ 'bg-blue-600 text-white': tab === item.id }" @click="onTab(item.id)">
+        <div v-for="item in data" :key="item.id" class="h-8 leading-8 pl-4 cursor-pointer hover:bg-blue-600 hover:text-white" :class="{ 'bg-blue-600 text-white': tab === item.id }" @click="onTab(item.id!)">
           {{ item.name }}
         </div>
       </div>

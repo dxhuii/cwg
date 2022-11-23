@@ -32,6 +32,7 @@
     "./utils": "./dist/utils/index.js"
   },
   "devDependencies": {
+    "@cwg/types": "workspace:*",
     "tsup": "^6.5.0"
   }
 }

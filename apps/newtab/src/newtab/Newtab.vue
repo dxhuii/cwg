@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+import { getBing } from '@cwg/utils'
+import type { IBing } from '@cwg/types'
 
 import { formatPic } from '~/utils'
-import type { IBing } from '~/utils/type'
-import { apiFetch } from '~/utils/fetch'
 const bz = ref(0)
 const data = ref<{ data: IBing[] }>()
 
 watchEffect(async () => {
-  data.value = await apiFetch<{ data: IBing[] }>('tool/day', {
-    params: {
-      n: 8
-    }
+  data.value = await getBing({
+    n: 8
   })
 })
 
