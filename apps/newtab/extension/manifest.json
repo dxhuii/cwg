@@ -34,20 +34,11 @@
     "activeTab",
     "chrome://favicon/",
     "http://*/",
-    "https://*/"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "./dist/contentScripts/index.global.js"
-      ]
-    }
+    "https://*/",
+    "webNavigation"
   ],
   "web_accessible_resources": [
     "dist/contentScripts/style.css"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' http://localhost:3303; object-src 'self'"
 }

@@ -20,7 +20,7 @@ const openModal = () => {
               {{ title }}
             </div>
             <div
-              i-carbon-close cursor-pointer absolute w-6 h-6 top-4 right-4 z-10 text="gray-600 lg dark:white" @click.stop="emit('update:modelValue', false)"
+              i-carbon-close cursor-pointer absolute w-6 h-6 top-2 right-2 z-10 text="gray-600 lg dark:white" @click.stop="emit('update:modelValue', false)"
             />
             <slot />
           </div>
