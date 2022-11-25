@@ -69,7 +69,7 @@ export function captcha() {
  * @returns IUser
  */
 export function getUserInfo() {
-  return fetchCWG<IUser>('user/info')
+  return fetchCWG<IUser>('user/info', {}, 'GET', true)
 }
 
 /**
