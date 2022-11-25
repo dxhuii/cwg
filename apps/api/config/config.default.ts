@@ -1,6 +1,4 @@
 import type { EggAppConfig, EggAppInfo, PowerPartial } from 'egg'
-import env from './env'
-const cfg = env[process.env.NODE_ENV || 'development'] as typeof env.development
 
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>
@@ -16,9 +14,9 @@ export default (appInfo: EggAppInfo) => {
     dialect: 'postgres',
     host: '127.0.0.1',
     port: 5432,
-    username: cfg.PG_USERNAME,
-    password: cfg.PG_PASSWORD,
-    database: cfg.PG_DATABASE,
+    username: '',
+    password: '',
+    database: '',
     timezone: '+08:00', // 由于orm用的UTC时间，这里必须加上东八区，否则取出来的时间相差8小时
     delegate: 'model', // load all models to app.model and ctx.model
     baseDir: 'model', // load models from `app/model/*.js`
@@ -116,12 +114,12 @@ export default (appInfo: EggAppInfo) => {
       }
     },
     cos: {
-      secretId: cfg.COS_SECRETID,
-      secretKey: cfg.COS_SECRETKEY,
+      secretId: '',
+      secretKey: '',
       proxy: '',
       durationSeconds: 1800,
-      bucket: cfg.COS_BUCKET,
-      region: cfg.COS_REGION,
+      bucket: '',
+      region: '',
       // 允许操作（上传）的对象前缀，可以根据自己网站的用户登录态判断允许上传的目录，例子： user1/* 或者 * 或者a.jpg
       // 请注意当使用 * 时，可能存在安全风险，详情请参阅：https://cloud.tencent.com/document/product/436/40265
       allowPrefix: '*',

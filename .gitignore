@@ -42,10 +42,12 @@ build
 *-lock.json
 *.lock
 
-**/typings/app
-**/typings/config
-**/config/env*
+# **/typings/app
+# **/typings/config
+# **/config/env*
 
+config.prod.ts
+config.local.ts
 
 # web
 *.log
