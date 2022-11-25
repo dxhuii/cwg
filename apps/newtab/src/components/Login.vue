@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ErrorMessage, Field, Form } from 'vee-validate'
 import CryptoJS from 'crypto-js'
-import { login } from '@cwg/utils'
+import { login } from '~/composables/cwg'
 const emit = defineEmits(['success', 'close'])
 
 const schema = {

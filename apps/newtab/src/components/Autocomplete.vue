@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getBaidu } from '@cwg/utils'
+import { getBaidu } from '~/composables/cwg'
 const props = defineProps<{ wd: string; selected: number }>()
 const emit = defineEmits(['so', 'getWd', 'getLen'])
 const data = ref<{ data: string[] }>()

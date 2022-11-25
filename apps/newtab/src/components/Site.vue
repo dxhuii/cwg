@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
 import type { ILink } from '@cwg/types'
-import { getLink } from '@cwg/utils'
 import { jump } from '~/utils'
-const data = ref<{ data: { list: ILink[] } }>()
+import { getLink } from '~/composables/cwg'
+const data = ref<ILink[]>()
 const enabled = ref(true)
 const dragging = ref(false)
 const open = ref(false)
 const openBookmark = ref(false)
 
 watchEffect(async () => {
-  data.value = await getLink({
+  const res = await getLink({
     pageSize: 20
   })
+  data.value = res.data.list
 })
-
-const list = computed(() => data.value?.data?.list || [])
 
 const handleClick = (url: string) => {
   if (url === 'add') {
@@ -37,7 +36,7 @@ const checkMove = (e: { draggedContext: { futureIndex: any } }) => {
 <template>
   <div w-full mt-8>
     <draggable
-      :list="list"
+      :list="data"
       item-key="name"
       class="text-white grid relative select-none grid-flow-dense grid-cols-[repeat(auto-fill,var(--icon-size-gap-y))] grid-rows-[repeat(auto-fill,var(--icon-size-gap-x))]"
       :move="checkMove"

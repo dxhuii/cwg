@@ -3,18 +3,20 @@ useHead({
   title: 'cwg',
   link: [
     {
-      rel: 'icon', type: 'image/png', href: '/nuxt.png',
-    },
-  ],
+      rel: 'icon', type: 'image/png', href: '/nuxt.png'
+    }
+  ]
 })
 </script>
 
 <template>
   <div>
-    <NuxtLayout>
-      <NuxtLoadingIndicator />
-      <NuxtPage />
-    </NuxtLayout>
+    <transition name="fade">
+      <NuxtLayout>
+        <NuxtLoadingIndicator />
+        <NuxtPage />
+      </NuxtLayout>
+    </transition>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IBing } from '../utils/type'
+import type { IBing } from '@cwg/types'
 const props = defineProps<{ bing: IBing; count: number }>()
 defineEmits(['left', 'right'])
 const copyright = computed(() => props.bing.copyright.split(/\(© |\)/))

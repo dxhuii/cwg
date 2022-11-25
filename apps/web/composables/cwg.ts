@@ -1,12 +1,5 @@
-import { $fetch } from 'ofetch'
-import LRU from 'lru-cache'
-import { hash as ohash } from 'ohash'
-import type { ICollect, IDigg, IFeed, IListResponse, ISubject, IUser, PageResult } from '@cwg/types'
-
-const cache = new LRU({
-  max: 500,
-  ttl: 2 * 60 * 60 // 2000 * 60 * 60, // 2 hour
-})
+import type { ICollect, IDataListResponse, IDigg, IFeed, ISubject, IUser, PageResult } from '@cwg/types'
+import { fetchCWG as fc } from '@cwg/utils'
 
 /**
  * 封装请求
@@ -15,46 +8,18 @@ const cache = new LRU({
  * @param method 请求方式
  * @returns Promise
  */
-function _fetchCWG(url: string, params: Record<string, string | number | undefined> = {}, method: 'POST' | 'GET' = 'GET') {
-  const param = method === 'POST' ? { body: params } : { ...params }
+async function fetchCWG<T>(url: string, params: Record<string, string | number | undefined> = {}, method: 'POST' | 'GET' = 'GET', isCache = false): Promise<PageResult<T>> {
   const { $getAuth, $Toast } = useNuxtApp()
-  const headers = { Authorization: `Bearer ${$getAuth}` }
-  return $fetch(url, {
-    baseURL: 'http://127.0.0.1:7001',
-    method,
-    headers,
-    ...param
-  }).then(res => {
-    if (res.status !== 200) {
-      $Toast?.show?.(res.message, { position: 'top', type: 'warning' })
-      return Promise.reject(res)
-    }
-    else {
-      return res
-    }
-  })
-}
-
-/**
- * 封装请求
- * @param url 接口地址
- * @param params 参数
- * @param method 请求方式
- * @returns Promise
- */
-export function fetchCWG(url: string, params: Record<string, string | number | undefined> = {}, method: 'POST' | 'GET' = 'GET'): Promise<any> {
-  const hash = ohash([url, params])
-  if (!cache.has(hash)) {
-    cache.set(
-      hash,
-      _fetchCWG(url, params, method)
-        .catch(e => {
-          cache.delete(hash)
-          throw e
-        })
-    )
+  const baseURL = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/api/' : 'https://d.vv.chat/api/'
+  const res = await fc(url, params, method, baseURL, $getAuth, isCache)
+  if (res.status !== 200) {
+    console.log(res)
+    $Toast?.show?.(res.message, { position: 'top', type: 'warning' })
+    return Promise.reject(res)
   }
-  return cache.get(hash)!
+  else {
+    return res
+  }
 }
 
 /**
@@ -62,8 +27,8 @@ export function fetchCWG(url: string, params: Record<string, string | number | u
  * @param params { current: number, pageSize: number }
  * @returns
  */
-export function getList(params = {}): Promise<IListResponse<ISubject>> {
-  return fetchCWG('/api/subject/list', params)
+export function getList(params = {}) {
+  return fetchCWG<IDataListResponse<ISubject>>('subject/list', params)
 }
 
 /**
@@ -71,8 +36,8 @@ export function getList(params = {}): Promise<IListResponse<ISubject>> {
  * @param id string | number
  * @returns ISubject
  */
-export function getSubjectData(id: string): Promise<PageResult<ISubject>> {
-  return fetchCWG(`/api/subject/${id}`)
+export function getSubjectData(id: string) {
+  return fetchCWG<ISubject>(`subject/${id}`)
 }
 
 /**
@@ -80,8 +45,8 @@ export function getSubjectData(id: string): Promise<PageResult<ISubject>> {
  * @param params { username: string, password: string }
  * @returns token
  */
-export function login(params = {}): Promise<PageResult<string>> {
-  return fetchCWG('/api/user/login', params, 'POST')
+export function login(params = {}) {
+  return fetchCWG<string>('user/login', params, 'POST')
 }
 
 /**
@@ -90,7 +55,7 @@ export function login(params = {}): Promise<PageResult<string>> {
  * @returns token
  */
 export function reg(params = {}) {
-  return fetchCWG('/api/user/add', params, 'POST')
+  return fetchCWG<IUser>('user/add', params, 'POST')
 }
 
 /**
@@ -98,16 +63,16 @@ export function reg(params = {}) {
  * @param id 用户id
  * @returns IUser
  */
-export function getUserId(id: string): Promise<PageResult<IUser>> {
-  return fetchCWG(`/api/user/${id}`)
+export function getUserId(id: string) {
+  return fetchCWG<IUser>(`user/${id}`)
 }
 
 /**
  * 退出登录
  * @returns boolean
  */
-export function logout(): Promise<PageResult<boolean>> {
-  return fetchCWG('/api/user/logout', {}, 'POST')
+export function logout() {
+  return fetchCWG<boolean>('user/logout', {}, 'POST')
 }
 
 /**
@@ -115,15 +80,15 @@ export function logout(): Promise<PageResult<boolean>> {
  * @returns data {token: string; img: string}
  */
 export function captcha() {
-  return fetchCWG(`/api/captcha/init?v=${Math.random()}`)
+  return fetchCWG(`captcha/init?v=${Math.random()}`)
 }
 
 /**
  * 获取用户信息
  * @returns IUser
  */
-export function getUserInfo(): Promise<PageResult<IUser>> {
-  return _fetchCWG('/api/user/info')
+export function getUserInfo() {
+  return fetchCWG<IUser>('user/info', {}, 'GET', true)
 }
 
 /**
@@ -131,8 +96,8 @@ export function getUserInfo(): Promise<PageResult<IUser>> {
  * @param params { page: number, pageSize: number }
  * @returns IFeed[]
  */
-export function getFeedList(params = {}): Promise<IListResponse<IFeed>> {
-  return fetchCWG('/api/feed/list', params)
+export function getFeedList(params = {}) {
+  return fetchCWG<IDataListResponse<IFeed>>('feed/list', params)
 }
 
 /**
@@ -140,8 +105,8 @@ export function getFeedList(params = {}): Promise<IListResponse<IFeed>> {
  * @param id string
  * @returns IFeed
  */
-export function getFeed(id: string): Promise<PageResult<IFeed>> {
-  return fetchCWG(`/api/feed/${id}`)
+export function getFeed(id: string) {
+  return fetchCWG<IFeed>(`feed/${id}`)
 }
 
 /**
@@ -149,8 +114,8 @@ export function getFeed(id: string): Promise<PageResult<IFeed>> {
  * @param 参数
  * @returns ICollect
  */
-export function addCollect(params = {}): Promise<PageResult<ICollect>> {
-  return fetchCWG('/api/favorite/add', params, 'POST')
+export function addCollect(params = {}) {
+  return fetchCWG<ICollect>('favorite/add', params, 'POST')
 }
 
 /**
@@ -158,8 +123,8 @@ export function addCollect(params = {}): Promise<PageResult<ICollect>> {
  * @param 参数
  * @returns IDigg
  */
-export function addDigg(params = {}): Promise<PageResult<IDigg>> {
-  return fetchCWG('/api/digg/add', params, 'POST')
+export function addDigg(params = {}) {
+  return fetchCWG<IDigg>('digg/add', params, 'POST')
 }
 
 /**
@@ -167,7 +132,7 @@ export function addDigg(params = {}): Promise<PageResult<IDigg>> {
  * @param 参数
  * @returns IPin
  */
-export function addPin(params = {}): Promise<PageResult<IFeed>> {
-  return fetchCWG('/api/pin/add', params, 'POST')
+export function addPin(params = {}) {
+  return fetchCWG<IFeed>('pin/add', params, 'POST')
 }
 

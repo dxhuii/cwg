@@ -464,13 +464,15 @@ export interface PageResult<T> extends IResponse {
   data: T
 }
 
+export interface IDataListResponse<T> {
+  list?: T[]
+  current?: number | string
+  pageSize?: number | string
+  total?: number
+}
+
 export interface IListResponse<T> extends IResponse {
-  data?: {
-    list?: T[]
-    current?: number | string
-    pageSize?: number | string
-    total?: number
-  }
+  data?: IDataListResponse<T>
 }
 
 export interface IFeedTable extends IFeed {

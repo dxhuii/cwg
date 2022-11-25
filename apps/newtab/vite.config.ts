@@ -12,6 +12,9 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import UnoCSS from 'unocss/vite'
 import { isDev, port, r } from './scripts/utils'
 
+const apiDomain = isDev ? 'http://127.0.0.1:7001' : 'https://d.vv.chat'
+console.log('apiDomain', apiDomain)
+
 export const sharedConfig: UserConfig = {
   root: r('src'),
   resolve: {
@@ -84,6 +87,34 @@ export default defineConfig(({ command }) => ({
   ...sharedConfig,
   base: command === 'serve' ? `http://localhost:${port}/` : '/dist/',
   server: {
+    proxy: {
+      '/api': {
+        target: apiDomain,
+        forward: `http://localhost:${port}/`,
+        changeOrigin: true,
+        configure(proxy) {
+          proxy.on('proxyReq', proxyReq => {
+            if (proxyReq.hasHeader('Origin'))
+              proxyReq.setHeader('Origin', apiDomain)
+
+            proxyReq.setHeader('Referer', apiDomain)
+          })
+          proxy.on('proxyRes', proxyRes => {
+            // 本地开发环境没有 https 带有 secure attribute 的 set-cookies 无效，
+            // 所以在本地开发时移除 secure attribute
+            const setCookies = proxyRes.headers['set-cookie']
+            if (Array.isArray(setCookies)) {
+              proxyRes.headers['set-cookie'] = setCookies.map(sc => {
+                return sc
+                  .split(';')
+                  .filter(v => v.trim().toLowerCase() !== 'secure')
+                  .join('; ')
+              })
+            }
+          })
+        }
+      }
+    },
     port,
     hmr: {
       host: 'localhost'

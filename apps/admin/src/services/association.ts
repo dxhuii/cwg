@@ -6,7 +6,7 @@ export async function associationAdd(body: IAssociation, options?: Record<string
   return request<{ data: IAssociation; status: number; message: string }>('/backend/association/add', {
     method: 'POST',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -15,6 +15,6 @@ export async function associationDelete(body: { id: number }, options?: Record<s
   return request<{ data: IAssociation; status: number; message: string }>('/backend/association/delete', {
     method: 'DELETE',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }

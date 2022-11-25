@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IUser } from '@cwg/types'
-import { getUserInfo } from '@cwg/utils'
+import { getUserInfo } from '~/composables/cwg'
 
 const openSet = ref(false)
 const userInfo = ref<IUser>()

@@ -7,9 +7,9 @@ watchEffect(async () => {
   const oneWeekAgo = (new Date()).getTime() - microsecondsPerWeek
   chrome.history.search({
     text: '', // Return every history item....
-    startTime: oneWeekAgo, // that was accessed less than one week ago.
+    startTime: oneWeekAgo // that was accessed less than one week ago.
   },
-  (historyItems) => {
+  historyItems => {
     console.log(historyItems, 'historyItems')
   })
 })

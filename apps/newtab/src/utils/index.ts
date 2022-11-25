@@ -1,4 +1,5 @@
 export const formatPic = (url: string, width = 2560, height = 1440) => {
+  console.log(`&w=${width}&h=${height}`)
   /**
    * https://cn.bing.com/th?id=OHR.Malaga_ZH-CN9644862917_UHD.jpg&w=2880&h=1620
    * https://cn.bing.com/th?id=OHR.Malaga_ZH-CN9644862917_UHD.jpg&w=2560&h=1440
@@ -7,16 +8,16 @@ export const formatPic = (url: string, width = 2560, height = 1440) => {
   if (!url)
     return ''
   const r = url?.split('_1920')
-  return `https://cn.bing.com${r[0]}${`_UHD.jpg&w=${width}&h=${height}`}`
+  return `https://cn.bing.com${r[0]}${'_UHD.jpg'}`
 }
 
 export const jump = async (url: string) => {
   // 先获取当前页面的tabID
-  chrome.tabs.getCurrent((tab) => {
+  chrome.tabs.getCurrent(tab => {
     chrome.tabs.create({
       url,
       index: tab!.index! + 1,
-      openerTabId: tab!.id,
+      openerTabId: tab!.id
     })
   })
 }
@@ -46,7 +47,7 @@ export const eachKeys = (keys: string[] = [], str: string, data: any) => {
     return str
 
   let newStr = str
-  keys.forEach((v) => {
+  keys.forEach(v => {
     newStr = getStr(newStr, v, data[v])
   })
   return newStr

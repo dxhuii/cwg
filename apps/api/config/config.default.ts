@@ -27,7 +27,7 @@ export default (appInfo: EggAppInfo) => {
       paranoid: true, // 添加软删除
       freezeTableName: true, // 防止修改表名为复数
       charset: 'utf8',
-      underscored: true, // 防止驼峰式字段被默认转为下划线
+      underscored: true // 防止驼峰式字段被默认转为下划线
     },
     dialectOptions: {
       // 让读取date类型数据时返回字符串而不是UTC时间
@@ -37,21 +37,21 @@ export default (appInfo: EggAppInfo) => {
           return field.string()
 
         return next()
-      },
-    },
+      }
+    }
   }
 
   config.jwt = {
     secret: 'Great4-M',
     enable: true, // default is false
-    match: '/jwt', // optional
+    match: '/jwt' // optional
   }
 
   config.security = {
     csrf: {
-      enable: false,
+      enable: false
     },
-    domainWhiteList: ['http://localhost:7001'], // 允许访问接口的白名单
+    domainWhiteList: ['http://localhost:7001'] // 允许访问接口的白名单
   }
 
   config.redis = {
@@ -59,16 +59,16 @@ export default (appInfo: EggAppInfo) => {
       port: 6379,
       host: '127.0.0.1',
       password: '',
-      db: 0,
-    },
+      db: 0
+    }
   }
 
   // 添加 view 配置
   config.view = {
     defaultViewEngine: 'nunjucks',
     mapping: {
-      '.tpl': 'nunjucks',
-    },
+      '.tpl': 'nunjucks'
+    }
   }
 
   config.io = {
@@ -76,35 +76,35 @@ export default (appInfo: EggAppInfo) => {
     namespace: {
       '/': {
         connectionMiddleware: ['auth'],
-        packetMiddleware: [],
+        packetMiddleware: []
       },
       '/nsp': {
         connectionMiddleware: [],
-        packetMiddleware: [],
-      },
+        packetMiddleware: []
+      }
     },
     redis: {
       port: 6379,
       host: '127.0.0.1',
       password: '',
-      db: 1,
-    },
+      db: 1
+    }
   }
 
   config.cors = {
     origin: '*',
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
   }
 
   config.siteFile = {
-    '/favicon.ico': '/favicon.ico',
+    '/favicon.ico': '/favicon.ico'
   }
 
   config.cdn = { url: 'https://cms-1251036128.file.myqcloud.com/' }
 
   config.site = {
     title: '藏',
-    host: 'https://cang.im',
+    host: 'https://cang.im'
   }
 
   // add your user config here
@@ -112,8 +112,8 @@ export default (appInfo: EggAppInfo) => {
     base: {
       redis: {
         expire: 7 * 24 * 60 * 60,
-        mode: 'EX',
-      },
+        mode: 'EX'
+      }
     },
     cos: {
       secretId: cfg.COS_SECRETID,
@@ -136,9 +136,9 @@ export default (appInfo: EggAppInfo) => {
         'name/cos:ListMultipartUploads',
         'name/cos:ListParts',
         'name/cos:UploadPart',
-        'name/cos:CompleteMultipartUpload',
-      ],
-    },
+        'name/cos:CompleteMultipartUpload'
+      ]
+    }
   }
 
   config.customLoader = {
@@ -146,12 +146,12 @@ export default (appInfo: EggAppInfo) => {
       directory: 'app/utils',
       inject: 'app',
       caseStyle: 'upper',
-      loadunit: true,
-    },
+      loadunit: true
+    }
   }
 
   return {
     ...config,
-    ...userConfig,
+    ...userConfig
   }
 }

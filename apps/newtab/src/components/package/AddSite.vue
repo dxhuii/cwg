@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ErrorMessage, Field, Form } from 'vee-validate'
 import type { ILink, IList } from '@cwg/types'
-import { getLink, getList } from '@cwg/utils'
+import { getLink, getList } from '~/composables/cwg'
 defineProps<{ visible: boolean; title?: string }>()
 const emit = defineEmits(['close', 'success'])
 const data = ref<IList[]>()

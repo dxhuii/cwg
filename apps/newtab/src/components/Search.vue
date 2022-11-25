@@ -14,7 +14,7 @@ const selected = ref(-1)
 
 const searchUrl: { [key: string]: string } = {
   baidu: 'https://www.baidu.com/s?tn=1247508_56690_dxhuii_pg&ie=utf-8&wd={wd}',
-  google: 'https://www.google.com/search?q={wd}',
+  google: 'https://www.google.com/search?q={wd}'
 }
 
 const clear = () => {
@@ -56,7 +56,7 @@ onClickOutside(
   dropdownRef,
   () => {
     open.value = false
-  },
+  }
 )
 
 const down = (type: string) => {
