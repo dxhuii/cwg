@@ -61,7 +61,6 @@
     "@types/socket.io": "^3.0.2",
     "egg-bin": "^5.5.0",
     "egg-ci": "^2.2.0",
-    "egg-mock": "^5.2.1",
     "sequelize-cli": "^6.5.2",
     "tslib": "^2.4.1"
   },
