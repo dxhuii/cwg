@@ -20,7 +20,7 @@ export const useSubjectStore = defineStore('subject', () => {
     subjectData,
     subjectList,
     getSubject,
-    getSubjectList,
+    getSubjectList
   }
 })
 

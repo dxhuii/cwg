@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 import * as Yup from 'yup'
+import type { ICaptcha } from '@cwg/types'
 const props = defineProps({
   getUser: {
     type: Function,
-    default: () => {},
-  },
+    default: () => {}
+  }
 })
 const emit = defineEmits(['close', 'login', 'getUser'])
-const code = ref<{ token: string; image: string }>()
+const code = ref<ICaptcha>()
 const onSubmit = async (values: any) => {
   await reg({ ...values, token: code.value?.token })
   await props.getUser()
@@ -32,7 +33,7 @@ const schema = Yup.object().shape({
   confirm_password: Yup.string()
     .required('请再次输入密码')
     .oneOf([Yup.ref('password')], '两次输入的密码不一致'),
-  captcha: Yup.string().required('请输入验证码'),
+  captcha: Yup.string().required('请输入验证码')
 })
 
 const getCode = async () => {
@@ -51,7 +52,7 @@ watchEffect(() => {
       :validation-schema="schema"
       class="p-4 pt-0"
       @submit="onSubmit"
-      @invalid-submit="onInvalidSubmit"
+      @invalidSubmit="onInvalidSubmit"
     >
       <TextInput
         name="username"

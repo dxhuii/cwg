@@ -38,9 +38,9 @@ export default (app: Context & Application) => {
       const result = await Episode.findAll({
         attributes: ['id', 'pid', 'name'],
         where: {
-          status: 'normal',
+          status: 'normal'
         },
-        order: [[orderBy, order]],
+        order: [[orderBy, order]]
       })
       return result
     }
@@ -48,7 +48,7 @@ export default (app: Context & Application) => {
     static async get({ id, attributes }) {
       const condition: any = {
         attributes,
-        where: { id, status: 'normal' },
+        where: { id, status: 'normal' }
       }
       const result = await Episode.findOne(condition)
       return result

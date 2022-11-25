@@ -9,9 +9,9 @@ const previewPic = ref()
 const initialData = {
   image: [
     {
-      url: '',
-    },
-  ],
+      url: ''
+    }
+  ]
 }
 
 const schema = yup.object().shape({
@@ -19,10 +19,10 @@ const schema = yup.object().shape({
     .array()
     .of(
       yup.object().shape({
-        url: yup.string().url().required('请输入图片地址').label('url'),
-      }),
+        url: yup.string().url().required('请输入图片地址').label('url')
+      })
     )
-    .strict(),
+    .strict()
 })
 
 // 判断image是否有重复的url

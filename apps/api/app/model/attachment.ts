@@ -18,11 +18,11 @@ export default (app: Context & Application) => {
         include: [
           { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' },
           { model: model.Subject, attributes: ['id', 'name', 'pic'], as: 'subject' },
-          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' },
+          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' }
         ],
         order: [[orderBy, order]],
         offset: pageSize * (current - 1),
-        limit: app.utils.Tool.toInt(pageSize),
+        limit: app.utils.Tool.toInt(pageSize)
       }
       const where: { [key: string | symbol]: any } = { status: 'normal' }
 
@@ -36,7 +36,7 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count,
+        total: count
       }
     }
 
@@ -47,7 +47,7 @@ export default (app: Context & Application) => {
 
     static async get(params) {
       const condition: ICondition = {
-        where: {},
+        where: {}
       }
       condition.where = params
       const result = await Attachment.findOne(condition)

@@ -19,7 +19,7 @@ export default () => {
       // 从 error 对象上读出各个属性，设置到响应中
       ctx.body = {
         code: ctx.ERROR_CODE,
-        message: error,
+        message: error
       }
 
       if (status === 422)

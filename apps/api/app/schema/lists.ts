@@ -24,6 +24,6 @@ export default (app: Context & Application) => {
     hits_week: { type: INTEGER, defaultValue: 0, comment: '周' },
     hits_month: { type: INTEGER, defaultValue: 0, comment: '月' },
     hits_lasttime: { type: DATE, defaultValue: NOW, comment: '热度更新时间' },
-    status: { type: STRING(30), defaultValue: 'normal', comment: '用户状态:normal 正常 disable 禁用 check 审核中 reject 拒绝 ignore 忽略 delete 删除' },
+    status: { type: STRING(30), defaultValue: 'normal', comment: '用户状态:normal 正常 disable 禁用 check 审核中 reject 拒绝 ignore 忽略 delete 删除' }
   }) as BaseModelStatic<ListsType>
 }

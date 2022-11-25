@@ -6,7 +6,7 @@ export async function pinAdd(body: IPin, options?: Record<string, any>) {
   return request<{ data: IPin; status: number; message: string }>('/backend/pin/add', {
     method: 'POST',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -15,7 +15,7 @@ export async function pinDelete(body: { id: number }, options?: Record<string, a
   return request<{ data: IPin; status: number; message: string }>('/backend/pin/delete', {
     method: 'DELETE',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -28,13 +28,13 @@ export async function pinList(
     /** 页面的容量 */
     pageSize?: number
   },
-  options?: Record<string, any>,
+  options?: Record<string, any>
 ) {
   return request<IListResponse<IPinTable>>('/backend/pin/list', {
     method: 'GET',
     params: {
-      ...params,
+      ...params
     },
-    ...(options || {}),
+    ...(options || {})
   })
 }

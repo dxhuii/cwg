@@ -2502,7 +2502,7 @@ const city = [
   { id: 3400, code: '101220101', name: '合肥' },
   { id: 3405, code: '101220102', name: '长丰县' },
   { id: 3406, code: '101220103', name: '肥东县' },
-  { id: 3407, code: '101220104', name: '肥西县' },
+  { id: 3407, code: '101220104', name: '肥西县' }
 ]
 
 export default city

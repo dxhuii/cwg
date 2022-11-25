@@ -6,7 +6,7 @@ export default class Link extends Controller {
     const { ctx, service } = this
     const result = await service.link.list({
       ...ctx.request.query,
-      attributes: ['id', 'cid', 'name', 'url', 'icon', 'content', 'color', 'text', 'size', 'is_home'],
+      attributes: ['id', 'cid', 'name', 'url', 'icon', 'content', 'color', 'text', 'size', 'is_home']
     })
 
     ctx.helper.success(ctx, { data: result })

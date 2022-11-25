@@ -28,27 +28,25 @@ const UserList: FC = () => {
             <img
               src={entity.avatar}
               style={{
-                width: 200,
-              }}
-            />
-          }
-        >
+                width: 200
+              }} />
+          }>
           {text}
         </Popover>
-      ),
+      )
     },
     {
       title: '昵称',
-      dataIndex: 'nickname',
+      dataIndex: 'nickname'
     },
     {
       title: '登录次数',
       dataIndex: 'login',
-      search: false,
+      search: false
     },
     {
       title: '注册IP',
-      dataIndex: 'register_ip',
+      dataIndex: 'register_ip'
     },
     {
       title: '更新时间',
@@ -56,66 +54,63 @@ const UserList: FC = () => {
       dataIndex: 'updated_at',
       valueType: 'dateRange',
       hideInTable: true,
-      initialValue: [moment(), moment().add(1, 'day')],
+      initialValue: [moment(), moment().add(1, 'day')]
     },
     {
       title: '创建时间',
       search: false,
       sorter: true,
-      dataIndex: 'created_at',
+      dataIndex: 'created_at'
     },
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, entity) => [
-        <Link key="edit" to={`edit/${entity.id}`}>
+        <Link key='edit' to={`edit/${entity.id}`}>
           编辑
         </Link>,
-        <Popconfirm key="delete" onConfirm={() => del(entity.id)} title="确定要删除吗？">
+        <Popconfirm key='delete' onConfirm={() => del(entity.id)} title='确定要删除吗？'>
           <a>删除</a>
-        </Popconfirm>,
-      ],
-    },
+        </Popconfirm>
+      ]
+    }
   ]
   return (
     <PageContainer
       extra={
         <Button
-          type="primary"
-          key="primary"
+          key='primary'
           onClick={() => {
             history.push('add')
           }}
-        >
+          type='primary'>
           <PlusOutlined /> 新建
         </Button>
-      }
-    >
+      }>
       <ProTable<IUser>
         actionRef={actionRef}
-        rowKey="id"
-        request={async (params) => {
+        columns={columns}
+        request={async params => {
           console.log(params, 'params')
           const { current, pageSize } = params
           const param = {
             current,
-            pageSize,
+            pageSize
           }
           const res = await userList(param)
           return {
             data: res.data?.list,
             total: res.data?.total,
-            success: true,
+            success: true
           }
         }}
-        columns={columns}
+        rowKey='id'
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows)
-          },
-        }}
-      />
+          }
+        }} />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
@@ -123,16 +118,14 @@ const UserList: FC = () => {
               已选择{' '}
               <a
                 style={{
-                  fontWeight: 600,
-                }}
-              >
+                  fontWeight: 600
+                }}>
                 {selectedRowsState.length}
               </a>{' '}
               项
             </div>
-          }
-        >
-          <Button type="primary">批量审批</Button>
+          }>
+          <Button type='primary'>批量审批</Button>
         </FooterToolbar>
       )}
     </PageContainer>

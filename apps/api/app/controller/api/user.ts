@@ -9,7 +9,7 @@ export default class User extends Controller {
     // 校验参数
     ctx.validate({
       username: 'string',
-      password: 'string',
+      password: 'string'
     })
     // const { username, password, token, captcha } = ctx.request.body
     const { username, password } = ctx.request.body
@@ -42,8 +42,8 @@ export default class User extends Controller {
             username: user.username,
             avatar: user.avatar,
             nickname: user.nickname,
-            admin: user.admin,
-          }),
+            admin: user.admin
+          })
         )
         app.redis.expire(key, config.base.redis.expire)
         this._updateLastLoginInfo(id)
@@ -104,7 +104,7 @@ export default class User extends Controller {
       ctx.validate({
         username: { type: 'string', required: true },
         password: { type: 'password' },
-        email: { type: 'email' },
+        email: { type: 'email' }
       })
     }
     if (captcha) {
@@ -228,7 +228,7 @@ export default class User extends Controller {
         to: email,
         subject: '找回密码',
         html: `亲爱的<b>${user?.username}</b>：<br />您在 <b>${time}</b> 提交了找回密码请求。请点击下面的链接重置密码
-        （按钮24小时内有效）。<br /><a href="${host}?email=${email}&token=${token}" target="_blank">${host}?email=${email}&token=${token}</a><br /><br /><br />${title}`,
+        （按钮24小时内有效）。<br /><a href="${host}?email=${email}&token=${token}" target="_blank">${host}?email=${email}&token=${token}</a><br /><br /><br />${title}`
       })
       .then(() => {
         ctx.helper.success(ctx, { data: 1, message: '发送成功' })
@@ -293,7 +293,7 @@ export default class User extends Controller {
       id,
       last_login_ip: await this.ctx.getIp(),
       login_at: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-      agent: ctx.headers['user-agent'],
+      agent: ctx.headers['user-agent']
     })
     const find = await ctx.service.user.get({ id })
     find?.increment('login', { silent: true })

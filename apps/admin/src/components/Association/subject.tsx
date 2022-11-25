@@ -13,7 +13,7 @@ interface IAssociationProps {
   onChange?: (value: ISubject[]) => void
 }
 
-const Association: FC<IAssociationProps> = (props) => {
+const Association: FC<IAssociationProps> = props => {
   const { onChange, value } = props
   const [data, setData] = useState<ISubject[]>()
   const [initLoading, setInitLoading] = useState(true)
@@ -23,7 +23,7 @@ const Association: FC<IAssociationProps> = (props) => {
     const param = {
       current,
       pageSize: 10,
-      filter: JSON.stringify(params),
+      filter: JSON.stringify(params)
     }
     const res = await subjectList(param)
     const list = res.data?.list || []
@@ -49,16 +49,15 @@ const Association: FC<IAssociationProps> = (props) => {
 
   const loadMore = !initLoading
     ? (
-    <div
-      style={{
-        textAlign: 'center',
-        marginTop: 12,
-        height: 32,
-        lineHeight: '32px',
-      }}
-    >
-      <Button onClick={onLoadMore}>loading more</Button>
-    </div>
+      <div
+        style={{
+          textAlign: 'center',
+          marginTop: 12,
+          height: 32,
+          lineHeight: '32px'
+        }}>
+        <Button onClick={onLoadMore}>loading more</Button>
+      </div>
       )
     : null
 
@@ -78,63 +77,58 @@ const Association: FC<IAssociationProps> = (props) => {
   return (
     <>
       {value?.map(item => (
-        <Tag key={item.id} onClose={() => onDel(item)} closable>
+        <Tag closable key={item.id} onClose={() => onDel(item)}>
           {item.name}
         </Tag>
       ))}
-      <ModalForm title="关联剧集" trigger={<Button type="link">关联剧集</Button>} submitter={false}>
+      <ModalForm submitter={false} title='关联剧集' trigger={<Button type='link'>关联剧集</Button>}>
         <Row gutter={16}>
           <Col span={12}>
             <Title level={5}>已关联</Title>
             <List
-              className="demo-loadmore-list"
-              loading={initLoading}
-              itemLayout="horizontal"
+              className='demo-loadmore-list'
               dataSource={value}
+              itemLayout='horizontal'
+              loading={initLoading}
               renderItem={item => (
                 <List.Item
                   actions={[
-                    <a key="del" onClick={() => onDel(item)}>
+                    <a key='del' onClick={() => onDel(item)}>
                       取消
-                    </a>,
-                  ]}
-                >
-                  <Skeleton avatar title={false} loading={initLoading} active>
+                    </a>
+                  ]}>
+                  <Skeleton active avatar loading={initLoading} title={false}>
                     <List.Item.Meta title={item.name} />
                   </Skeleton>
                 </List.Item>
-              )}
-            />
+              )} />
           </Col>
           <Col span={12}>
             <Search
-              placeholder="请输入名称"
-              onSearch={(wd) => {
+              enterButton
+              onSearch={wd => {
                 getList({ wd })
                 setWd(wd)
               }}
-              enterButton
-            />
+              placeholder='请输入名称' />
             <List
-              className="demo-loadmore-list"
-              loading={initLoading}
-              itemLayout="horizontal"
-              loadMore={loadMore}
+              className='demo-loadmore-list'
               dataSource={data}
+              itemLayout='horizontal'
+              loadMore={loadMore}
+              loading={initLoading}
               renderItem={item => (
                 <List.Item
                   actions={[
-                    <a key="add" onClick={() => onAdd(item)}>
+                    <a key='add' onClick={() => onAdd(item)}>
                       关联
-                    </a>,
-                  ]}
-                >
-                  <Skeleton avatar title={false} loading={initLoading} active>
+                    </a>
+                  ]}>
+                  <Skeleton active avatar loading={initLoading} title={false}>
                     <List.Item.Meta title={item.name} />
                   </Skeleton>
                 </List.Item>
-              )}
-            />
+              )} />
           </Col>
         </Row>
       </ModalForm>

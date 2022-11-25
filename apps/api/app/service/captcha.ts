@@ -12,7 +12,7 @@ export default class Captcha extends Service {
       size: 4, // 字符长度
       noise: 2, // 干扰度
       background: '#f0f1f5', // 背景颜色
-      color: true,
+      color: true
     })
 
     if (!token) {
@@ -21,7 +21,7 @@ export default class Captcha extends Service {
       await app.redis.set(`captcha:${newToken}`, text, app.config.base.redis.mode, 600)
       return {
         token: newToken,
-        image: data,
+        image: data
       }
     }
 
@@ -29,7 +29,7 @@ export default class Captcha extends Service {
       await app.redis.set(`captcha:${token}`, text, app.config.base.redis.mode, 600)
       return {
         token,
-        image: data,
+        image: data
       }
     }
   }

@@ -1,4 +1,4 @@
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.vueApp.directive('onClickOutside', {
     mounted(el, binding) {
       const capture = !binding.modifiers.bubble
@@ -12,6 +12,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
     unmounted(el) {
       (el as any).__onClickOutside_stop()
-    },
+    }
   })
 })

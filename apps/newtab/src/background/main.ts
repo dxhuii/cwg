@@ -41,12 +41,12 @@ onMessage('get-current-tab', async () => {
   try {
     const tab = await browser.tabs.get(previousTabId)
     return {
-      title: tab?.title,
+      title: tab?.title
     }
   }
   catch {
     return {
-      title: undefined,
+      title: undefined
     }
   }
 })

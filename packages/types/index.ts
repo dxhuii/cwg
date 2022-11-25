@@ -448,6 +448,11 @@ export interface IDigg extends Omit<IDate, 'updated_at'>, Omit<IId, 'status' | '
   ip?: number
 }
 
+export interface ICaptcha {
+  token: string
+  image: string
+}
+
 export interface ISts {
   credentials: {
     sessionToken: string

@@ -5,28 +5,28 @@ import { useField } from 'vee-validate'
 const props = defineProps({
   type: {
     type: String,
-    default: 'text',
+    default: 'text'
   },
   value: {
     type: String,
-    default: '',
+    default: ''
   },
   name: {
     type: String,
-    required: true,
+    required: true
   },
   label: {
     type: String,
-    required: true,
+    required: true
   },
   successMessage: {
     type: String,
-    default: '',
+    default: ''
   },
   placeholder: {
     type: String,
-    default: '',
-  },
+    default: ''
+  }
 })
 
 // use `toRef` to create reactive references to `name` prop which is passed to `useField`
@@ -41,9 +41,9 @@ const {
   errorMessage,
   handleBlur,
   handleChange,
-  meta,
+  meta
 } = useField(name, undefined, {
-  initialValue: props.value,
+  initialValue: props.value
 })
 </script>
 

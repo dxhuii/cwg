@@ -5,7 +5,7 @@ import type { IList } from '@cwg/types'
 export async function list(options?: Record<string, any>) {
   return request<{ data: IList[] }>('/backend/list/list', {
     method: 'GET',
-    params: { ...(options || {}) },
+    params: { ...(options || {}) }
   })
 }
 
@@ -14,7 +14,7 @@ export async function listAdd(body: IList, options?: Record<string, any>) {
   return request<{ data: IList[]; status: number; message: string }>('/backend/list/add', {
     method: 'POST',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 /** 获取栏目详情 GET /backend/list/:id */
@@ -22,10 +22,10 @@ export async function listDeatil(
   params: {
     id?: string
   },
-  options?: Record<string, any>,
+  options?: Record<string, any>
 ) {
   return request<{ data: IList }>(`/backend/list/${params.id}`, {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   })
 }

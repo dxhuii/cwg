@@ -9,7 +9,7 @@ export default (app: Context & Application) => {
     static async query(params) {
       const { orderBy = 'rank', order = 'ASC' } = params
       const result = await Play.findAll({
-        order: [[orderBy, order]],
+        order: [[orderBy, order]]
       })
       return result
     }

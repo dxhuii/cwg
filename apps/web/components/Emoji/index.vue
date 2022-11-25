@@ -30,10 +30,10 @@ onMounted(() => {
     const tabBox = document.querySelectorAll('.emoji-box')
     const top = face.value?.getBoundingClientRect().top
     const firstHeight = tabBox[0].getBoundingClientRect().height + tablist[0].getBoundingClientRect().height
-    tabBox.forEach((item) => {
+    tabBox.forEach(item => {
       arr.value.push(item.getBoundingClientRect().bottom - top! - firstHeight)
     })
-    tablist.forEach((item) => {
+    tablist.forEach(item => {
       tabArr.value.push(item.getBoundingClientRect().top - top!)
     })
   }

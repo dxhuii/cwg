@@ -11,7 +11,7 @@ onClickOutside(
   modalRef,
   () => {
     emit('close')
-  },
+  }
 )
 </script>
 

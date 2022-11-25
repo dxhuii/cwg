@@ -6,7 +6,7 @@ export async function commentAdd(body: IComments, options?: Record<string, any>)
   return request<{ data: IComments; status: number; message: string }>('/backend/comment/add', {
     method: 'POST',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -15,7 +15,7 @@ export async function commentDelete(body: { id: number }, options?: Record<strin
   return request<{ data: IComments; status: number; message: string }>('/backend/comment/delete', {
     method: 'DELETE',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -28,13 +28,13 @@ export async function commentList(
     /** 页面的容量 */
     pageSize?: number
   },
-  options?: Record<string, any>,
+  options?: Record<string, any>
 ) {
   return request<IListResponse<ICommentTable>>('/backend/comment/list', {
     method: 'GET',
     params: {
-      ...params,
+      ...params
     },
-    ...(options || {}),
+    ...(options || {})
   })
 }

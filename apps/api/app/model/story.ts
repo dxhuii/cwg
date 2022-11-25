@@ -39,9 +39,9 @@ export default (app: Context & Application) => {
       const result = await Story.findAll({
         attributes: ['id', 'name'],
         where: {
-          status: 'normal',
+          status: 'normal'
         },
-        order: [[orderBy, order]],
+        order: [[orderBy, order]]
       })
       return result
     }
@@ -49,7 +49,7 @@ export default (app: Context & Application) => {
     static async get({ id, attributes }) {
       const condition: any = {
         attributes,
-        where: { id, status: 'normal' },
+        where: { id, status: 'normal' }
       }
       const result = await Story.findOne(condition)
       return result

@@ -25,13 +25,13 @@ export default (app: Context & Application) => {
             as: 'repty',
             include: [
               { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' },
-              { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' },
-            ],
-          },
+              { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' }
+            ]
+          }
         ],
         offset: pageSize * (current - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' },
+        where: { status: 'normal' }
       }
       const { count, rows } = await Comments.findAndCountAll(condition)
 
@@ -39,7 +39,7 @@ export default (app: Context & Application) => {
         data: rows,
         current,
         pageSize,
-        total: count,
+        total: count
       }
     }
 
@@ -55,10 +55,10 @@ export default (app: Context & Application) => {
             as: 'repty',
             include: [
               { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' },
-              { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' },
-            ],
-          },
-        ],
+              { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' }
+            ]
+          }
+        ]
       }
 
       const result = await Comments.findOne(condition)
@@ -105,11 +105,11 @@ export default (app: Context & Application) => {
         order: [order],
         include: [
           { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' },
-          { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' },
+          { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'reply_user' }
         ],
         offset: pageSize * (pageNo - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal', aid: id },
+        where: { status: 'normal', aid: id }
       }
       const { count, rows } = await Repty.findAndCountAll(condition)
 
@@ -118,8 +118,8 @@ export default (app: Context & Application) => {
         pages: {
           pageNo,
           pageSize,
-          total: count,
-        },
+          total: count
+        }
       }
     }
 

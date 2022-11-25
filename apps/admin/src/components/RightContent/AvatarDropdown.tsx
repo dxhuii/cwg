@@ -31,8 +31,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       history.replace({
         pathname: '/login',
         search: stringify({
-          redirect: pathname + search,
-        }),
+          redirect: pathname + search
+        })
       })
     }
   }
@@ -41,12 +41,11 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const loading = (
     <span className={`${styles.action} ${styles.account}`}>
       <Spin
-        size="small"
+        size='small'
         style={{
           marginLeft: 8,
-          marginRight: 8,
-        }}
-      />
+          marginRight: 8
+        }} />
     </span>
   )
 
@@ -64,16 +63,16 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
           {
             key: 'center',
             icon: <UserOutlined />,
-            label: '个人中心',
+            label: '个人中心'
           },
           {
             key: 'settings',
             icon: <SettingOutlined />,
-            label: '个人设置',
+            label: '个人设置'
           },
           {
-            type: 'divider' as const,
-          },
+            type: 'divider' as const
+          }
         ]
       : []),
     {
@@ -86,18 +85,17 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
               setInitialState(s => ({ ...s, currentUser: undefined }))
             })
             loginOut()
-          }}
-        >
+          }}>
           退出登录
         </a>
-      ),
-    },
+      )
+    }
   ]
 
   return (
     <HeaderDropdown menu={{ items: menuItems }}>
       <span className={`${styles.action} ${styles.account}`}>
-        <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
+        <Avatar alt='avatar' className={styles.avatar} size='small' src={currentUser.avatar} />
         <span className={`${styles.name} anticon`}>{currentUser.username}</span>
       </span>
     </HeaderDropdown>

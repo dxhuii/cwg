@@ -13,6 +13,6 @@ export default function useList() {
 
   return {
     categoryList: idToStr(categoryList) as IList[],
-    getCategoryList,
+    getCategoryList
   }
 }

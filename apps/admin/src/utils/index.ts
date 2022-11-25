@@ -10,7 +10,7 @@ import type { IList, IMcat } from '@cwg/types'
 
 export const findMcat = (mcat: IMcat[], find: any, format = false) => {
   const arr: IMcat[] = []
-  mcat.forEach((item) => {
+  mcat.forEach(item => {
     if (find.includes(String(item.id)))
       arr.push(item)
   })
@@ -26,13 +26,13 @@ export const findMcat = (mcat: IMcat[], find: any, format = false) => {
 type IValue = number | string
 export const getListFormat = (list: IList[]) => {
   const data: { value: IValue; label: string; children?: { value: IValue; label: string }[] }[] = []
-  list.forEach((item) => {
+  list.forEach(item => {
     if (item.pid === '0')
       data.push({ value: +item.id!, label: item.name!, children: [] })
   })
-  list.forEach((item) => {
+  list.forEach(item => {
     if (item.pid !== '0') {
-      data.forEach((i) => {
+      data.forEach(i => {
         if (String(i.value) === item.pid)
           i.children!.push({ value: +item.id!, label: item.name! })
       })
@@ -49,11 +49,11 @@ export const getListFormat = (list: IList[]) => {
 
 export const getList = <T extends IList>(list: T[]) => {
   const data: ({ sub?: T[] } & T)[] = []
-  list.forEach((item) => {
+  list.forEach(item => {
     if (+item.pid! === 0)
       data.push({ ...item, sub: [] })
   })
-  data.forEach((item) => {
+  data.forEach(item => {
     const arr = list.filter(s => +s.pid! === +item.id!)
     if (arr.length)
       item.sub = arr
@@ -70,11 +70,11 @@ export const getList = <T extends IList>(list: T[]) => {
 
 export const getListMcat = (list: IList[], sub: IMcat[]) => {
   const data: ({ sub?: IMcat[] } & IList)[] = []
-  list.forEach((item) => {
+  list.forEach(item => {
     if (item.pid === '0')
       data.push({ ...item, sub: [] })
   })
-  data.forEach((item) => {
+  data.forEach(item => {
     const arr = sub.filter(s => s.cid === item.id)
     if (arr.length)
       item.sub = arr
@@ -106,7 +106,7 @@ export const isRealNum = (val: any) => {
  * @returns 返回id转成string
  */
 export const idToStr = (data: any[]) => {
-  data.forEach((item) => {
+  data.forEach(item => {
     if (isRealNum(item.id))
       item.id = String(item.id)
 
@@ -165,7 +165,7 @@ export const modelEnName = {
   [modelName.DETAILEDLIST]: 'detailedlist',
   [modelName.ACOTR]: 'actor',
   [modelName.USER]: 'user',
-  [modelName.LINK]: 'link',
+  [modelName.LINK]: 'link'
 }
 
 export const modelType = {
@@ -186,7 +186,7 @@ export const modelType = {
   [modelName.DETAILEDLIST]: '清单',
   [modelName.ACOTR]: '演员',
   [modelName.USER]: '用户',
-  [modelName.LINK]: '链接',
+  [modelName.LINK]: '链接'
 }
 
 export const sidObj = [
@@ -207,7 +207,7 @@ export const sidObj = [
   { label: '清单', value: modelName.DETAILEDLIST },
   { label: '演员', value: modelName.ACOTR },
   { label: '用户', value: modelName.USER },
-  { label: '链接', value: modelName.LINK },
+  { label: '链接', value: modelName.LINK }
 ]
 /**
  * 格式模型
@@ -215,12 +215,12 @@ export const sidObj = [
  */
 export const sidEnum = () => {
   let obj = {}
-  sidObj.forEach((item) => {
+  sidObj.forEach(item => {
     obj = {
       ...obj,
       [item.value!]: {
-        text: item.label,
-      },
+        text: item.label
+      }
     }
   })
   return obj
@@ -233,7 +233,7 @@ export const statusType = {
   check: { text: '审核', status: 'Processing' },
   reject: { text: '拒绝', status: 'Warning' },
   ignore: { text: '忽略', status: 'Warning' },
-  delete: { text: '删除', status: 'Default' },
+  delete: { text: '删除', status: 'Default' }
 }
 
 const arrToObj = (arr: string) => {
@@ -245,11 +245,11 @@ const arrToObj = (arr: string) => {
 }
 
 export const areaEnum = arrToObj(
-  '中国大陆,中国香港,中国台湾,欧美,美国,日本,韩国,印度,英国,法国,德国,泰国,伊朗,瑞典,巴西,丹麦,新加坡,意大利,西班牙,加拿大,爱尔兰,俄罗斯,马来西亚,澳大利亚',
+  '中国大陆,中国香港,中国台湾,欧美,美国,日本,韩国,印度,英国,法国,德国,泰国,伊朗,瑞典,巴西,丹麦,新加坡,意大利,西班牙,加拿大,爱尔兰,俄罗斯,马来西亚,澳大利亚'
 )
 
 export const languageEnum = arrToObj('国语,日语,英语,粤语,韩语,闽南语')
 
 export const yearEnum = arrToObj(
-  '2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1990,1980,1970,1960,1950',
+  '2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1990,1980,1970,1960,1950'
 )

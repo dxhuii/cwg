@@ -40,9 +40,9 @@ export default (app: Context & Application) => {
       const result = await Star.findAll({
         attributes: ['id', 'name'],
         where: {
-          status: 'normal',
+          status: 'normal'
         },
-        order: [[orderBy, order]],
+        order: [[orderBy, order]]
       })
       return result
     }
@@ -50,7 +50,7 @@ export default (app: Context & Application) => {
     static async get({ id, attributes }) {
       const condition: any = {
         attributes,
-        where: { id, status: 'normal' },
+        where: { id, status: 'normal' }
       }
       const result = await Star.findOne(condition)
       return result
@@ -61,8 +61,8 @@ export default (app: Context & Application) => {
         attributes: ['name'],
         where: {
           [Op.or]: [{ name: { [Op.like]: `%%${name}%%` } }, { letters: { [Op.like]: `%%${name}%%` } }],
-          status: 'normal',
-        },
+          status: 'normal'
+        }
       }
       const result = await Star.findOne(condition)
       return result

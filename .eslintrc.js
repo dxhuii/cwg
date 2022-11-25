@@ -45,6 +45,7 @@ module.exports = {
     //     allowArrayStart: true,
     //   },
     // ],
+    'vue/v-on-event-hyphenation': ['error', 'never'],
     // 关闭组件命名规则
     'vue/multi-word-component-names': 'off',
     'vue/custom-event-name-casing': ['error', 'camelCase', {

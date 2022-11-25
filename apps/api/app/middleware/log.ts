@@ -4,7 +4,7 @@ export default () => {
   return async (ctx: Context, next) => {
     const token = await ctx.getToken()
     const level0 = {
-      username: null,
+      username: null
     }
 
     if (token) {

@@ -4,42 +4,42 @@ const plugin: EggPlugin = {
   // static: true,
   validate: {
     enable: true,
-    package: 'egg-validate',
+    package: 'egg-validate'
   },
 
   mysql: {
     enable: true,
-    package: 'egg-mysql',
+    package: 'egg-mysql'
   },
 
   sequelize: {
     enable: true,
-    package: 'egg-sequelize',
+    package: 'egg-sequelize'
   },
 
   redis: {
     enable: true,
-    package: 'egg-redis',
+    package: 'egg-redis'
   },
 
   jwt: {
     enable: true,
-    package: 'egg-jwt',
+    package: 'egg-jwt'
   },
   cors: {
     enable: true,
-    package: 'egg-cors',
+    package: 'egg-cors'
   },
 
   io: {
     enable: true,
-    package: 'egg-socket.io',
+    package: 'egg-socket.io'
   },
 
   nunjucks: {
     enable: true,
-    package: 'egg-view-nunjucks',
-  },
+    package: 'egg-view-nunjucks'
+  }
 }
 
 export default plugin

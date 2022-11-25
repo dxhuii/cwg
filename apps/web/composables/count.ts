@@ -11,6 +11,6 @@ export function useCount() {
   return {
     count,
     inc,
-    dec,
+    dec
   }
 }

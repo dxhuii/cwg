@@ -20,7 +20,7 @@ export default class Feed extends Controller {
     const params = ctx.request.query || {}
     const result = await service.feed.list({
       ...params,
-      attributes: ['id', 'sid', 'type', 'time', 'created_at'],
+      attributes: ['id', 'sid', 'type', 'time', 'created_at']
     })
 
     ctx.helper.success(ctx, { data: result })

@@ -13,6 +13,6 @@ export default function useList() {
 
   return {
     linkCategory: idToStr(linkCategory) as ILinkCategory[],
-    getLinkCategorylist,
+    getLinkCategorylist
   }
 }

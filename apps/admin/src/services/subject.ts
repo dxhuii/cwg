@@ -7,7 +7,7 @@ export async function subjectDetail(options?: Record<string, any>) {
     data: ISubject
   }>('/backend/subject/:id', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -16,14 +16,14 @@ export async function subjectName(
   params: {
     name: string
   },
-  options?: Record<string, any>,
+  options?: Record<string, any>
 ) {
   return request<{
     data: ISubject
   }>('/backend/subject/getName', {
     method: 'GET',
     params,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -36,14 +36,14 @@ export async function subjectList(
     /** 页面的容量 */
     pageSize?: number
   },
-  options?: Record<string, any>,
+  options?: Record<string, any>
 ) {
   return request<IListResponse<ISubject>>('/backend/subject/list', {
     method: 'GET',
     params: {
-      ...params,
+      ...params
     },
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -52,7 +52,7 @@ export async function subjectAdd(body: ISubject, options?: Record<string, any>) 
   return request<{ data: ISubject; status: number; message: string }>('/backend/subject/add', {
     method: 'POST',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -60,6 +60,6 @@ export async function subjectAdd(body: ISubject, options?: Record<string, any>) 
 export async function subjectDelete(options?: Record<string, any>) {
   return request<Record<string, any>>('/backend/subject/delete', {
     method: 'DELETE',
-    ...(options || {}),
+    ...(options || {})
   })
 }

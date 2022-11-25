@@ -21,6 +21,6 @@ export default (app: Context & Application) => {
     reply_count: { type: INTEGER, defaultValue: 0, comment: '回复数' },
     is_sticky: { type: BOOLEAN, defaultValue: false, comment: '是否置顶0:否1:是' },
     agent: { type: STRING, allowNull: false, comment: '请求头' },
-    status: { type: STRING(30), defaultValue: 'normal', comment: '用户状态:normal 正常 disable 禁用 check 审核中 reject 拒绝 ignore 忽略 delete 删除' },
+    status: { type: STRING(30), defaultValue: 'normal', comment: '用户状态:normal 正常 disable 禁用 check 审核中 reject 拒绝 ignore 忽略 delete 删除' }
   }) as BaseModelStatic<CommentsType>
 }

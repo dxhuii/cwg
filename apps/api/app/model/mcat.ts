@@ -11,7 +11,7 @@ export default (app: Context & Application) => {
       const { orderBy = 'rank', order = 'ASC', cid = 1, ids = '' } = params
       const condition: ICondition = {
         limit: 1000,
-        order: [[orderBy, order]],
+        order: [[orderBy, order]]
       }
 
       const where: { [key: string | symbol]: any } = { cid }
@@ -27,7 +27,7 @@ export default (app: Context & Application) => {
     static async queryAll(params) {
       const condition: ICondition = {
         ...params,
-        limit: 1000,
+        limit: 1000
       }
 
       const result = await Mcat.findAll(condition)

@@ -13,13 +13,12 @@ const LoginMessage: React.FC<{
   content: string
 }> = ({ content }) => (
   <Alert
-    style={{
-      marginBottom: 24,
-    }}
     message={content}
-    type="error"
     showIcon
-  />
+    style={{
+      marginBottom: 24
+    }}
+    type='error' />
 )
 
 const Login: React.FC = () => {
@@ -32,7 +31,7 @@ const Login: React.FC = () => {
       flushSync(() => {
         setInitialState(s => ({
           ...s,
-          currentUser: userInfo,
+          currentUser: userInfo
         }))
       })
       /** 此方法会跳转到 redirect 参数所在的位置 */
@@ -71,57 +70,52 @@ const Login: React.FC = () => {
       <div className={styles.content}>
         <LoginForm
           // logo={<img alt="logo" src="/logo.svg" />}
-          title="🔖 🌐 🏘️"
-          subTitle={'CWG'}
           initialValues={{
-            autoLogin: true,
+            autoLogin: true
           }}
-          onFinish={async (values) => {
+          onFinish={async values => {
             await handleSubmit(values as API.LoginParams)
           }}
-        >
-          {status && status !== 200 && <LoginMessage content={'错误的用户名和密码'} />}
+          subTitle='CWG'
+          title='🔖 🌐 🏘️'>
+          {status && status !== 200 ? <LoginMessage content='错误的用户名和密码' /> : null}
           <ProFormText
-            name="username"
             fieldProps={{
               size: 'large',
-              prefix: <UserOutlined className={styles.prefixIcon} />,
+              prefix: <UserOutlined className={styles.prefixIcon} />
             }}
-            placeholder={'用户名'}
+            name='username'
+            placeholder='用户名'
             rules={[
               {
                 required: true,
-                message: '用户名是必填项！',
-              },
-            ]}
-          />
+                message: '用户名是必填项！'
+              }
+            ]} />
           <ProFormText.Password
-            name="password"
             fieldProps={{
               size: 'large',
-              prefix: <LockOutlined className={styles.prefixIcon} />,
+              prefix: <LockOutlined className={styles.prefixIcon} />
             }}
-            placeholder={'密码'}
+            name='password'
+            placeholder='密码'
             rules={[
               {
                 required: true,
-                message: '密码是必填项！',
-              },
-            ]}
-          />
+                message: '密码是必填项！'
+              }
+            ]} />
           <div
             style={{
-              marginBottom: 24,
-            }}
-          >
-            <ProFormCheckbox noStyle name="autoLogin">
+              marginBottom: 24
+            }}>
+            <ProFormCheckbox name='autoLogin' noStyle>
               自动登录
             </ProFormCheckbox>
             <a
               style={{
-                float: 'right',
-              }}
-            >
+                float: 'right'
+              }}>
               忘记密码 ?
             </a>
           </div>

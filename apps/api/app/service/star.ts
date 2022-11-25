@@ -5,7 +5,7 @@ export default class Subject extends Service {
     const { app } = this
     const result = await await app.model.Star.get({
       id,
-      attributes: ['id', 'name'],
+      attributes: ['id', 'name']
     })
     return result
   }
@@ -14,7 +14,7 @@ export default class Subject extends Service {
     const { app } = this
     const result = await app.model.Star.query({
       ...params,
-      attributes: ['id', 'name'],
+      attributes: ['id', 'name']
     })
     return result
   }

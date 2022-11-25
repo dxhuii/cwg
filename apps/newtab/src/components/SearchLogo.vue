@@ -4,7 +4,7 @@ import type { ILogo } from '~/types'
 const emit = defineEmits(['getData'])
 const searchList = [
   { key: 'baidu', src: 'https://cms-1251036128.cos.ap-shanghai.myqcloud.com/assets/baidu.svg', name: '百度' },
-  { key: 'google', src: 'https://cms-1251036128.cos.ap-shanghai.myqcloud.com/assets/google.svg', name: '谷歌' },
+  { key: 'google', src: 'https://cms-1251036128.cos.ap-shanghai.myqcloud.com/assets/google.svg', name: '谷歌' }
 ]
 const data = ref(searchList[0])
 const getData = (item: ILogo) => {

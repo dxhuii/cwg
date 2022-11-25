@@ -37,20 +37,20 @@ export default class Video extends Controller {
     const response = await $fetch(`https://www.iqiyi.com/${id}.html`, {
       headers: {
         Host: 'www.iqiyi.com',
-        Referer: `https://www.iqiyi.com/${id}.html`,
-      },
+        Referer: `https://www.iqiyi.com/${id}.html`
+      }
     })
 
     const $ = load(response)
     albumid = $('a[data-disable-vfrm="true"]').attr('data-album-id')!
     total = $('span.title-update-num').text()
     const request: any = []
-    Array.from({ length: Math.ceil(+total / 200) }, (_, k) => k).forEach((item) => {
+    Array.from({ length: Math.ceil(+total / 200) }, (_, k) => k).forEach(item => {
       request.push($fetch(`https://pcw-api.iqiyi.com/albums/album/avlistinfo?aid=${albumid}&size=200&page=${item + 1}`))
     })
     const datas = await Promise.all(request)
     let listData: any = []
-    datas.forEach((item) => {
+    datas.forEach(item => {
       const { epsodelist = [] } = item.data
       listData = [...listData, ...epsodelist]
     })
@@ -74,7 +74,7 @@ export default class Video extends Controller {
     const { tabs, listData } = JSON.parse(response.match(/"episodeMain":([\s\S]+),"episodeRecommend":/)[1]) || {}
     const video_ids = coverInfo?.video_ids || []
     const result: any = []
-    tabs?.forEach((item) => {
+    tabs?.forEach(item => {
       const end_id = video_ids[item.end]
       const url = `https://v.qq.com/x/cover/${id}/${end_id}.html`
       if (end_id)
@@ -88,7 +88,7 @@ export default class Video extends Controller {
           item
             .match(/"episodeMain":([\s\S]+),"episodeRecommend":/)[1]
             .replace('Array.prototype.slice.call(', '')
-            .replace('),"listMeta":[]', ',"listMeta":[]'),
+            .replace('),"listMeta":[]', ',"listMeta":[]')
         ) || {}
       data = [...data, ...listData?.[index + 1]]
     })
@@ -147,7 +147,7 @@ export default class Video extends Controller {
       const all = Promise.all(request)
       const data = await all
       let listData: any = []
-      data.forEach((item) => {
+      data.forEach(item => {
         listData = [...listData, ...format(item).get()]
       })
       const html = print(listData)
@@ -166,14 +166,14 @@ export default class Video extends Controller {
     const link = `https://m.douban.com/movie/subject/${id}/`
     const channel = await $fetch(`https://m.douban.com/rexxar/api/v2/elessar/channel/${id}`, {
       headers: {
-        Referer: link,
-      },
+        Referer: link
+      }
     })
     const type = channel.uri.split('=')?.[1] || 'tv'
     const detail = await $fetch(`https://m.douban.com/rexxar/api/v2/${type}/${id}?ck=kBgD&for_mobile=1`, {
       headers: {
-        Referer: link,
-      },
+        Referer: link
+      }
     })
     return ctx.helper.success(ctx, { data: detail })
   }

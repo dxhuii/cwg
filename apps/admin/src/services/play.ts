@@ -5,7 +5,7 @@ import type { IPlay } from '@cwg/types'
 export async function playList(options?: Record<string, any>) {
   return request<{ data: IPlay[] }>('/backend/play/list', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -14,7 +14,7 @@ export async function playAdd(body: IPlay, options?: Record<string, any>) {
   return request<{ data: IPlay; status: number; message: string }>('/backend/play/add', {
     method: 'POST',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -23,10 +23,10 @@ export async function playDeatil(
   params: {
     id?: string
   },
-  options?: Record<string, any>,
+  options?: Record<string, any>
 ) {
   return request<{ data: IPlay }>(`/backend/play/${params.id}`, {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   })
 }

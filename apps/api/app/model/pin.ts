@@ -16,12 +16,12 @@ export default (app: Context & Application) => {
         include: [
           { model: model.User, attributes: ['id', 'username', 'avatar'], as: 'user' },
           { model: model.Subject, attributes: ['id', 'name', 'pic'], as: 'subject' },
-          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' },
+          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' }
         ],
         order: [order],
         offset: pageSize * (current - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' },
+        where: { status: 'normal' }
       }
       const { count, rows } = await Pin.findAndCountAll(condition)
 
@@ -29,7 +29,7 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count,
+        total: count
       }
     }
 
@@ -40,9 +40,9 @@ export default (app: Context & Application) => {
         include: [
           { model: model.User, attributes: ['id', 'username', 'avatar'], as: 'user' },
           { model: model.Subject, attributes: ['id', 'name', 'pic'], as: 'subject' },
-          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' },
+          { model: model.Topic, attributes: ['id', 'name', 'icon'], as: 'topic' }
         ],
-        where: { id, status: 'normal' },
+        where: { id, status: 'normal' }
       }
       const result = await Pin.findOne(param)
       return result

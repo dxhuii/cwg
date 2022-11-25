@@ -32,14 +32,12 @@ const Attachment: FC = () => {
             <img
               src={entity.url}
               style={{
-                width: 200,
-              }}
-            />
-          }
-        >
+                width: 200
+              }} />
+          }>
           {entity.file_name}
         </Popover>
-      ),
+      )
     },
     {
       title: '关联',
@@ -49,43 +47,43 @@ const Attachment: FC = () => {
         const name = entity[modelEnName[entity.sid!]]?.name
         const type = modelType[entity.sid!]
         return name ? `${name}${type ? `(${type})` : ''}` : '-'
-      },
+      }
     },
     {
       title: '用户名',
       search: false,
       dataIndex: 'username',
-      render: (_, entity) => entity.user?.username,
+      render: (_, entity) => entity.user?.username
     },
     {
       title: '类型',
       search: false,
-      dataIndex: 'file_type',
+      dataIndex: 'file_type'
     },
     {
       title: '大小',
       search: false,
-      dataIndex: 'file_size',
+      dataIndex: 'file_size'
     },
     {
       title: '路径',
       search: false,
       ellipsis: true,
       tooltip: true,
-      dataIndex: 'file_path',
+      dataIndex: 'file_path'
     },
     {
       title: '更新时间',
       sorter: true,
       dataIndex: 'updated_at',
       valueType: 'dateRange',
-      hideInTable: true,
+      hideInTable: true
     },
     {
       title: '上传时间',
       sorter: true,
       dataIndex: 'created_at',
-      search: false,
+      search: false
     },
     {
       title: '操作',
@@ -93,52 +91,49 @@ const Attachment: FC = () => {
       valueType: 'option',
       render: (_, entity) => [
         <a
-          key="edit"
+          key='edit'
           onClick={() => {
             setModalVisit(true)
             setEditData(entity)
-          }}
-        >
+          }}>
           编辑
         </a>,
-        <Popconfirm key="delete" onConfirm={() => del(entity.id)} title="确定要删除吗？">
+        <Popconfirm key='delete' onConfirm={() => del(entity.id)} title='确定要删除吗？'>
           <a>删除</a>
-        </Popconfirm>,
-      ],
-    },
+        </Popconfirm>
+      ]
+    }
   ]
   return (
     <PageContainer
       extra={
-        <Button type="primary" key="primary" onClick={() => setModalVisit(true)}>
+        <Button key='primary' onClick={() => setModalVisit(true)} type='primary'>
           <PlusOutlined /> 新建
         </Button>
-      }
-    >
+      }>
       <ProTable<IAttachmentTable>
         actionRef={actionRef}
-        rowKey="id"
-        request={async (params) => {
+        columns={columns}
+        request={async params => {
           console.log(params, 'params')
           const { current, pageSize } = params
           const param = {
             current,
-            pageSize,
+            pageSize
           }
           const res = await attachmentList(param)
           return {
             data: res.data?.list,
             total: res.data?.total,
-            success: true,
+            success: true
           }
         }}
-        columns={columns}
+        rowKey='id'
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows)
-          },
-        }}
-      />
+          }
+        }} />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
@@ -146,30 +141,26 @@ const Attachment: FC = () => {
               已选择{' '}
               <a
                 style={{
-                  fontWeight: 600,
-                }}
-              >
+                  fontWeight: 600
+                }}>
                 {selectedRowsState.length}
               </a>{' '}
               项
             </div>
-          }
-        >
-          <Button type="primary">批量审批</Button>
+          }>
+          <Button type='primary'>批量审批</Button>
         </FooterToolbar>
       )}
       <ModalForm<IAttachment>
-        visible={modalVisit}
-        formRef={formRef}
-        title="新建"
         autoFocusFirstInput
+        formRef={formRef}
         modalProps={{
           onCancel: () => {
             formRef.current?.resetFields()
             setEditData(undefined)
-          },
+          }
         }}
-        onFinish={async (values) => {
+        onFinish={async values => {
           console.log(values)
           const res = await attachmentAdd({ ...values, id: editData?.id })
           if (res.status === 200) {
@@ -189,8 +180,9 @@ const Attachment: FC = () => {
           }
         }}
         onVisibleChange={setModalVisit}
-      >
-        <ProFormTextArea name="content" label="内容" rules={[{ required: true }]} />
+        title='新建'
+        visible={modalVisit}>
+        <ProFormTextArea label='内容' name='content' rules={[{ required: true }]} />
       </ModalForm>
     </PageContainer>
   )

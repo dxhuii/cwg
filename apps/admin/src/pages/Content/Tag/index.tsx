@@ -26,30 +26,30 @@ const Tag: FC = () => {
     {
       title: '名称',
       dataIndex: 'name',
-      copyable: true,
+      copyable: true
     },
     {
       title: '模型',
       dataIndex: 'sid',
-      valueEnum: modelType,
+      valueEnum: modelType
     },
     {
       title: '更新时间',
       search: false,
-      dataIndex: 'updated_at',
+      dataIndex: 'updated_at'
     },
     {
       title: '更新时间',
       sorter: true,
       dataIndex: 'updated_at',
       valueType: 'dateRange',
-      hideInTable: true,
+      hideInTable: true
     },
     {
       title: '创建时间',
       sorter: true,
       dataIndex: 'created_at',
-      search: false,
+      search: false
     },
     {
       title: '操作',
@@ -57,58 +57,54 @@ const Tag: FC = () => {
       valueType: 'option',
       render: (_, entity) => [
         <a
-          key="edit"
+          key='edit'
           onClick={() => {
             setModalVisit(true)
             setEditData(entity)
-          }}
-        >
+          }}>
           编辑
         </a>,
-        <Popconfirm key="delete" onConfirm={() => del(entity.id!)} title="确定要删除吗？">
+        <Popconfirm key='delete' onConfirm={() => del(entity.id!)} title='确定要删除吗？'>
           <a>删除</a>
-        </Popconfirm>,
-      ],
-    },
+        </Popconfirm>
+      ]
+    }
   ]
   return (
     <PageContainer
       extra={
         <Button
-          type="primary"
-          key="primary"
+          key='primary'
           onClick={() => {
             setModalVisit(true)
           }}
-        >
+          type='primary'>
           <PlusOutlined /> 新建
         </Button>
-      }
-    >
+      }>
       <ProTable<ITag>
         actionRef={actionRef}
-        rowKey="id"
-        request={async (params) => {
+        columns={columns}
+        request={async params => {
           console.log(params, 'params')
           const { current, pageSize } = params
           const param = {
             current,
-            pageSize,
+            pageSize
           }
           const res = await tagList(param)
           return {
             data: res.data?.list,
             total: res.data?.total,
-            success: true,
+            success: true
           }
         }}
-        columns={columns}
+        rowKey='id'
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows)
-          },
-        }}
-      />
+          }
+        }} />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
@@ -116,26 +112,22 @@ const Tag: FC = () => {
               已选择{' '}
               <a
                 style={{
-                  fontWeight: 600,
-                }}
-              >
+                  fontWeight: 600
+                }}>
                 {selectedRowsState.length}
               </a>{' '}
               项
             </div>
-          }
-        >
-          <Button type="primary">批量审批</Button>
+          }>
+          <Button type='primary'>批量审批</Button>
         </FooterToolbar>
       )}
       <ModalForm<ITag>
-        visible={modalVisit}
-        title="新建"
         autoFocusFirstInput
         modalProps={{
-          onCancel: () => console.log('run'),
+          onCancel: () => console.log('run')
         }}
-        onFinish={async (values) => {
+        onFinish={async values => {
           console.log(values)
           const res = await tagAdd({ ...values, id: editData?.id })
           if (res.status === 200) {
@@ -153,9 +145,10 @@ const Tag: FC = () => {
           }
         }}
         onVisibleChange={setModalVisit}
-      >
-        <ProFormText name="name" label="名称" placeholder="请输入名称" rules={[{ required: true }]} />
-        <ProFormSelect options={Object.keys(modelType).map(item => ({ label: modelType[item], value: item }))} name="sid" label="模型" />
+        title='新建'
+        visible={modalVisit}>
+        <ProFormText label='名称' name='name' placeholder='请输入名称' rules={[{ required: true }]} />
+        <ProFormSelect label='模型' name='sid' options={Object.keys(modelType).map(item => ({ label: modelType[item], value: item }))} />
       </ModalForm>
     </PageContainer>
   )

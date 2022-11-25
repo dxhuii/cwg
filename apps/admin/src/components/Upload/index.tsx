@@ -41,7 +41,7 @@ const UploadImage = forwardRef((props: IUploadImage, ref) => {
     sid = 1,
     value,
     isUrl,
-    multiple = false,
+    multiple = false
   } = props
   const [previewVisible, setPreviewVisible] = useState<boolean>(false)
   const [previewImage, setPreviewImage] = useState<string>('')
@@ -117,7 +117,7 @@ const UploadImage = forwardRef((props: IUploadImage, ref) => {
 
   const getMd5 = (file: RcFile) => {
     // 获取apk的md5
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const fileReader = new FileReader()
       const spark = new SparkMD5() // 创建md5对象（基于SparkMD5）
       fileReader.readAsBinaryString(file) // myfile 对应上传的文件
@@ -157,8 +157,8 @@ const UploadImage = forwardRef((props: IUploadImage, ref) => {
           attachment,
           up: 1,
           aid: currentUser.id,
-          sid,
-        }),
+          sid
+        })
       }
       const usedList = await attachmentList(param)
       if (usedList.data?.list?.length) {
@@ -181,9 +181,9 @@ const UploadImage = forwardRef((props: IUploadImage, ref) => {
               SecurityToken: credentials.sessionToken,
               // 建议返回服务器时间作为签名的开始时间，避免用户浏览器本地时间偏差过大导致签名错误
               StartTime: startTime, // 时间戳，单位秒，如：1580000000
-              ExpiredTime: expiredTime, // 时间戳，单位秒，如：1580000900
+              ExpiredTime: expiredTime // 时间戳，单位秒，如：1580000900
             })
-          },
+          }
         })
         // 分片上传文件
         cos.putObject(
@@ -196,7 +196,7 @@ const UploadImage = forwardRef((props: IUploadImage, ref) => {
             onProgress(progressData) {
               setPercent(progressData.percent)
               console.log('上传中', JSON.stringify(progressData))
-            },
+            }
           },
           async (err, data) => {
             console.log(err, data)
@@ -216,11 +216,11 @@ const UploadImage = forwardRef((props: IUploadImage, ref) => {
                 file_name: file.name,
                 file_type: file.type,
                 file_size: file.size,
-                is_remote: false,
+                is_remote: false
               })
               handleChange(r.data.url)
             }
-          },
+          }
         )
       }
     }
@@ -247,24 +247,23 @@ const UploadImage = forwardRef((props: IUploadImage, ref) => {
   useImperativeHandle(ref, () => ({
     handlePreview,
     handleRemove,
-    getData: () => more,
+    getData: () => more
   }))
 
   const preview = (url: string) => {
     return (
       <Fragment key={url}>
-        <img onClick={e => handlePreview(e, url)} src={url} width="100" />
+        <img onClick={e => handlePreview(e, url)} src={url} width='100' />
         <span onClick={handleRemove}>x</span>
-        {isUrl && (
-          <Input
-            style={{ marginTop: 10 }}
-            value={url}
-            onChange={(e) => {
-              setHttp(e.target.value)
-              onChange && onChange(e.target.value)
-            }}
-          />
-        )}
+        {isUrl
+          ? <Input
+              onChange={e => {
+                setHttp(e.target.value)
+                onChange && onChange(e.target.value)
+              }}
+              style={{ marginTop: 10 }}
+              value={url} />
+          : null}
       </Fragment>
     )
   }
@@ -279,34 +278,33 @@ const UploadImage = forwardRef((props: IUploadImage, ref) => {
             preview(http)
           )
         : (
-      <Upload
-        accept={accept}
-        beforeUpload={beforeUpload}
-        listType={listType}
-        multiple={multiple}
-        onChange={info => console.log(info, 'file')}
-      >
-        {btnName
-          ? (
-          <Button type="primary">
-            {btnName} {percent > 0 && percent < 1 ? `${percent * 100}%` : ''}
-          </Button>
-            )
-          : listType === 'picture-card'
-            ? (
-                uploadButton
-              )
-            : (
-                children
-              )}
-      </Upload>
+          <Upload
+            accept={accept}
+            beforeUpload={beforeUpload}
+            listType={listType}
+            multiple={multiple}
+            onChange={info => console.log(info, 'file')}>
+            {btnName
+              ? (
+                <Button type='primary'>
+                  {btnName} {percent > 0 && percent < 1 ? `${percent * 100}%` : ''}
+                </Button>
+                )
+              : listType === 'picture-card'
+                ? (
+                    uploadButton
+                  )
+                : (
+                    children
+                  )}
+          </Upload>
           )
 
   return (
     <>
       {upload}
-      <Modal visible={previewVisible} footer={null} onCancel={handleCancel} title="图片预览">
-        <img style={{ maxWidth: '100%' }} src={previewImage} alt="图片预览" />
+      <Modal footer={null} onCancel={handleCancel} title='图片预览' visible={previewVisible}>
+        <img alt='图片预览' src={previewImage} style={{ maxWidth: '100%' }} />
       </Modal>
     </>
   )

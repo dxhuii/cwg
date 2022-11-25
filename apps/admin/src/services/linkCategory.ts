@@ -5,7 +5,7 @@ import type { ILinkCategory } from '@cwg/types'
 export async function linkCategorylist(options?: Record<string, any>) {
   return request<{ data: ILinkCategory[] }>('/backend/linkCategory/list', {
     method: 'GET',
-    params: { ...(options || {}) },
+    params: { ...(options || {}) }
   })
 }
 
@@ -14,6 +14,6 @@ export async function linkCategoryAdd(body: ILinkCategory, options?: Record<stri
   return request<{ data: ILinkCategory[]; status: number; message: string }>('/backend/linkCategory/add', {
     method: 'POST',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }

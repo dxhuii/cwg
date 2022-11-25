@@ -20,7 +20,7 @@ export default (app: Context & Application) => {
         comment: '头像地址',
         get() {
           return this.getDataValue('avatar') ?? 'https://tva1.sinaimg.cn/large/006bnWk0gy1h7wtw4aeg5j30b40b4mx5.jpg'
-        },
+        }
       },
       email: { type: STRING(100), comment: '邮箱' },
       mobile: { type: STRING(20), comment: '手机号' },
@@ -46,7 +46,7 @@ export default (app: Context & Application) => {
         comment: '注册IP',
         get() {
           return app.utils.Tool.long2ip(this.getDataValue('register_ip'))
-        },
+        }
       },
       last_login_ip: { type: INTEGER, defaultValue: 0, comment: '最后登录 ip 地址' },
       update_ip: { type: INTEGER, defaultValue: 0, comment: '更新信息 ip 地址' },
@@ -57,7 +57,7 @@ export default (app: Context & Application) => {
         comment: '找回密码时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('expired_at'))
-        },
+        }
       },
       login_at: {
         type: DATE,
@@ -65,7 +65,7 @@ export default (app: Context & Application) => {
         comment: '最后登录时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('expired_at'))
-        },
+        }
       },
       avatar_at: {
         type: DATE,
@@ -73,7 +73,7 @@ export default (app: Context & Application) => {
         comment: '头像修改时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('expired_at'))
-        },
+        }
       },
       joined_at: {
         type: DATE,
@@ -81,7 +81,7 @@ export default (app: Context & Application) => {
         comment: '付费加入时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('expired_at'))
-        },
+        }
       },
       expired_at: {
         type: DATE,
@@ -89,7 +89,7 @@ export default (app: Context & Application) => {
         comment: '付费到期时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('expired_at'))
-        },
+        }
       },
       created_at: {
         type: DATE,
@@ -97,7 +97,7 @@ export default (app: Context & Application) => {
         comment: '创建时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('created_at'))
-        },
+        }
       },
       updated_at: {
         type: DATE,
@@ -105,14 +105,14 @@ export default (app: Context & Application) => {
         comment: '更新时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('created_at'))
-        },
-      },
+        }
+      }
     },
     {
       createdAt: 'created_at',
       updatedAt: 'updated_at',
       deletedAt: false,
-      paranoid: false,
-    },
+      paranoid: false
+    }
   ) as BaseModelStatic<UserType>
 }

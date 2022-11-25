@@ -8,7 +8,7 @@ import { associationAdd, associationDelete } from '@/services/association'
 
 const { Search } = Input
 
-const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boolean) => void }> = (props) => {
+const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boolean) => void }> = props => {
   const { visible, setVisible, id, name } = props
   const [data, setData] = useState<ISubject[]>()
   const [detail, setDetail] = useState<ISubject>()
@@ -21,7 +21,7 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
       const param = {
         current,
         pageSize: 10,
-        filter: JSON.stringify({ ...params, not: params.not || notId }),
+        filter: JSON.stringify({ ...params, not: params.not || notId })
       }
       const res = await subjectList(param)
       const list = res.data?.list || []
@@ -34,7 +34,7 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
         setData(list)
       }
     },
-    [notId],
+    [notId]
   )
 
   const getDetail = useCallback(async () => {
@@ -59,16 +59,15 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
 
   const loadMore = !initLoading
     ? (
-    <div
-      style={{
-        textAlign: 'center',
-        marginTop: 12,
-        height: 32,
-        lineHeight: '32px',
-      }}
-    >
-      <Button onClick={onLoadMore}>loading more</Button>
-    </div>
+      <div
+        style={{
+          textAlign: 'center',
+          marginTop: 12,
+          height: 32,
+          lineHeight: '32px'
+        }}>
+        <Button onClick={onLoadMore}>loading more</Button>
+      </div>
       )
     : null
 
@@ -98,51 +97,48 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
   }
 
   return (
-    <ModalForm visible={visible} title={name} submitter={false} onVisibleChange={setVisible}>
-      <ProCard title="关联" style={{ marginTop: -10 }} size="small" bordered>
+    <ModalForm onVisibleChange={setVisible} submitter={false} title={name} visible={visible}>
+      <ProCard bordered size='small' style={{ marginTop: -10 }} title='关联'>
         {detail?.associate1?.map(item => (
-          <Tag key={item.id} onClose={e => onDel(e, item)} closable>
+          <Tag closable key={item.id} onClose={e => onDel(e, item)}>
             {item.name}
           </Tag>
         ))}
       </ProCard>
-      <ProCard title="被关联" style={{ marginTop: 10 }} size="small" bordered>
+      <ProCard bordered size='small' style={{ marginTop: 10 }} title='被关联'>
         {detail?.associate2?.map(item => (
-          <Tag key={item.id} onClose={e => onDel(e, item)} closable>
+          <Tag closable key={item.id} onClose={e => onDel(e, item)}>
             {item.name}
           </Tag>
         ))}
       </ProCard>
 
       <Search
-        style={{ marginTop: 10 }}
-        placeholder="请输入名称"
-        onSearch={(word) => {
+        enterButton
+        onSearch={word => {
           getList({ wd: word })
           setWd(word)
         }}
-        enterButton
-      />
+        placeholder='请输入名称'
+        style={{ marginTop: 10 }} />
       <List
-        className="demo-loadmore-list"
-        loading={initLoading}
-        itemLayout="horizontal"
-        loadMore={loadMore}
+        className='demo-loadmore-list'
         dataSource={data}
+        itemLayout='horizontal'
+        loadMore={loadMore}
+        loading={initLoading}
         renderItem={item => (
           <List.Item
             actions={[
-              <a key="list-loadmore-edit" onClick={() => onAdd(item)}>
+              <a key='list-loadmore-edit' onClick={() => onAdd(item)}>
                 关联
-              </a>,
-            ]}
-          >
-            <Skeleton avatar title={false} loading={initLoading} active>
+              </a>
+            ]}>
+            <Skeleton active avatar loading={initLoading} title={false}>
               <List.Item.Meta title={item.name} />
             </Skeleton>
           </List.Item>
-        )}
-      />
+        )} />
     </ModalForm>
   )
 }

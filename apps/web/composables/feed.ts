@@ -61,7 +61,7 @@ export const useFeedStore = defineStore('feed', () => {
     feed,
     list,
     onDigg,
-    add,
+    add
   }
 })
 

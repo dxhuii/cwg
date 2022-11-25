@@ -16,7 +16,7 @@ export default (app: Context & Application) => {
         order: [order],
         offset: pageSize * (current - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' },
+        where: { status: 'normal' }
       }
       const { count, rows } = await Topic.findAndCountAll(condition)
 
@@ -24,7 +24,7 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count,
+        total: count
       }
     }
 
@@ -32,7 +32,7 @@ export default (app: Context & Application) => {
       const param: any = {
         attributes,
         include: [{ model: model.User, as: 'user' }],
-        where: { id, status: 'normal' },
+        where: { id, status: 'normal' }
       }
       const result = await Topic.findOne(param)
       return result

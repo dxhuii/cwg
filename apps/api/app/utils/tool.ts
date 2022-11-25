@@ -26,7 +26,7 @@ export default class Tool {
 
   long2ip(longValue) {
     return multipliers
-      .map((multiplier) => {
+      .map(multiplier => {
         return Math.floor((longValue % (multiplier * 0x100)) / multiplier)
       })
       .join('.')

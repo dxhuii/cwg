@@ -17,7 +17,7 @@ export default (app: Context & Application) => {
         order: [[orderBy, order]],
         offset: pageSize * (current - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' },
+        where: { status: 'normal' }
       }
       const { count, rows } = await News.findAndCountAll(condition)
 
@@ -25,18 +25,18 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count,
+        total: count
       }
     }
 
     static async get({ params, attributes = ['id', 'name', 'pic'] }) {
       const condition = {
         attributes,
-        where: { status: 'normal' },
+        where: { status: 'normal' }
       }
       if (params.not_id) {
         params.id = {
-          [Op.not]: params.not_id,
+          [Op.not]: params.not_id
         }
         delete params.not_id
       }
@@ -53,10 +53,10 @@ export default (app: Context & Application) => {
             { name: { [Op.like]: `%%${name}%%` } },
             { letters: { [Op.like]: `%%${name}%%` } },
             { aliases: { [Op.like]: `%%${name}%%` } },
-            { title: { [Op.like]: `%%${name}%%` } },
+            { title: { [Op.like]: `%%${name}%%` } }
           ],
-          status: 'normal',
-        },
+          status: 'normal'
+        }
       }
       const result = await News.findOne(condition)
       return result

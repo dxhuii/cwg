@@ -20,7 +20,7 @@ export default class User extends Service {
 
   public async list(params = {}) {
     const result = await this.app.model.User.query({
-      ...params,
+      ...params
     })
     return result
   }

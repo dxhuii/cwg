@@ -17,7 +17,7 @@ export default (app: Context & Application) => {
         order: [order],
         offset: pageSize * (pageNo - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 1 },
+        where: { status: 1 }
       }
       const { count, rows } = await Digg.findAndCountAll(condition)
 
@@ -26,8 +26,8 @@ export default (app: Context & Application) => {
         pages: {
           pageNo,
           pageSize,
-          total: count,
-        },
+          total: count
+        }
       }
     }
 
@@ -38,7 +38,7 @@ export default (app: Context & Application) => {
 
     static async get(params) {
       const param: ICondition = {
-        where: params,
+        where: params
       }
       const result = await Digg.findOne(param)
       return result

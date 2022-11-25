@@ -21,15 +21,15 @@ export default (app: Context & Application) => {
             attributes: ['id', 'name', 'pic', 'up', 'comment_count', 'collect_count', 'forward_count', 'lists_count'],
             where: { sid: { [Op.eq]: col('feed.sid') } },
             required: false,
-            as: 'subject',
+            as: 'subject'
           },
           { model: model.Collect, attributes: ['id', 'content', 'tags', 'rating', 'interest'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'collect' },
-          { model: model.Pin, attributes: ['id', 'content'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'pin' },
+          { model: model.Pin, attributes: ['id', 'content'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'pin' }
         ],
         order: [order],
         offset: pageSize * (current - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' },
+        where: { status: 'normal' }
       }
 
       const { count, rows } = await Feed.findAndCountAll(condition)
@@ -38,7 +38,7 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count,
+        total: count
       }
     }
 
@@ -53,10 +53,10 @@ export default (app: Context & Application) => {
             attributes: ['id', 'name', 'pic', 'up', 'comment_count', 'collect_count', 'forward_count', 'lists_count'],
             where: { sid: { [Op.eq]: col('feed.sid') } },
             required: false,
-            as: 'subject',
+            as: 'subject'
           },
           { model: model.Collect, attributes: ['id', 'content', 'tags', 'rating', 'interest'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'collect' },
-          { model: model.Pin, attributes: ['id', 'content'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'pin' },
+          { model: model.Pin, attributes: ['id', 'content'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'pin' }
           // { model: model.Role, attributes: ['role_id'], as: 'role' },
           // { model: model.Story, attributes: ['story_id'], as: 'story' },
           // { model: model.Star, attributes: ['star_id'], as: 'star' },
@@ -64,7 +64,7 @@ export default (app: Context & Application) => {
           // { model: model.Lines, attributes: ['lines_id'], as: 'lines' },
           // { model: model.Picture, attributes: ['picture_id'], as: 'pic' },
         ],
-        where: { id, status: 'normal' },
+        where: { id, status: 'normal' }
       }
       const result = await Feed.findOne(param)
       return result

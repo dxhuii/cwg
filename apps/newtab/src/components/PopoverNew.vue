@@ -16,7 +16,7 @@ const vOnClickOutside = {
   },
   unmounted(el: any) {
     (el as any).__onClickOutside_stop()
-  },
+  }
 }
 
 const dropdownHandler: OnClickOutsideHandler = () => {

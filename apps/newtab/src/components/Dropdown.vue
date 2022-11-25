@@ -9,14 +9,20 @@ const dropdown = ref(false)
 const cur = ref(menu[0].key)
 onMounted(() => {
   if (trigger === 'hover') {
-    useEventListener(refReference, 'mouseenter', () => { dropdown.value = true })
+    useEventListener(refReference, 'mouseenter', () => {
+      dropdown.value = true
+    })
     // useEventListener(refReference, 'mouseleave', () => { dropdown.value = false })
-    useEventListener(refFloating, 'mouseenter', () => { dropdown.value = true })
-    useEventListener(refFloating, 'mouseleave', () => { dropdown.value = false })
+    useEventListener(refFloating, 'mouseenter', () => {
+      dropdown.value = true
+    })
+    useEventListener(refFloating, 'mouseleave', () => {
+      dropdown.value = false
+    })
   }
 })
 
-const dropdownHandler: OnClickOutsideHandler = (event) => {
+const dropdownHandler: OnClickOutsideHandler = event => {
   console.log(event)
   dropdown.value = false
 }

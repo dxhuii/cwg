@@ -4,7 +4,7 @@ const menu = [
   { name: '最新', icon: 'i-carbon-update-now', link: '/' },
   { name: '热门', icon: 'i-carbon-fire', link: '/hot' },
   { name: '关注', icon: 'i-carbon-user-favorite', link: '/follow' },
-  { name: '话题', icon: 'i-carbon-hashtag', link: '/topic' },
+  { name: '话题', icon: 'i-carbon-hashtag', link: '/topic' }
 ]
 </script>
 

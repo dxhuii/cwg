@@ -16,6 +16,6 @@ export default (app: Context & Application) => {
     api: { type: STRING, allowNull: false, comment: 'api地址' },
     platform: { type: STRING, allowNull: false, comment: '系统' },
     language: { type: STRING, allowNull: false, comment: '语言' },
-    ip: { type: INTEGER, defaultValue: 0, comment: 'IP' },
+    ip: { type: INTEGER, defaultValue: 0, comment: 'IP' }
   }) as BaseModelStatic<LogType>
 }

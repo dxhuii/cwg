@@ -28,26 +28,26 @@ const Setting = () => {
   const columns: ProColumns<IPlay>[] = [
     {
       title: '名称',
-      dataIndex: 'name',
+      dataIndex: 'name'
     },
     {
       title: '英文名',
-      dataIndex: 'title',
+      dataIndex: 'title'
     },
     {
       title: '排序',
-      dataIndex: 'rank',
+      dataIndex: 'rank'
     },
     {
       title: '显示',
       dataIndex: 'display',
-      valueType: 'switch',
+      valueType: 'switch'
     },
     {
       title: '状态',
       dataIndex: 'status',
       valueType: 'select',
-      valueEnum: statusType,
+      valueEnum: statusType
     },
     {
       title: '操作',
@@ -56,44 +56,28 @@ const Setting = () => {
       valueType: 'option',
       render: (text, record, _, action) => [
         <a
-          key="editable"
+          key='editable'
           onClick={() => {
             action?.startEditable?.(record.id!)
-          }}
-        >
+          }}>
           编辑
         </a>,
         <a
-          key="delete"
+          key='delete'
           onClick={() => {
             setDataSource(dataSource.filter(item => item.id !== record.id))
-          }}
-        >
+          }}>
           删除
-        </a>,
-      ],
-    },
+        </a>
+      ]
+    }
   ]
   return (
     <PageContainer>
       <EditableProTable<IPlay>
-        columns={columns}
         actionRef={actionRef}
-        request={async () => {
-          return {
-            data: play,
-            success: true,
-          }
-        }}
-        rowKey="id"
-        pagination={false}
-        search={false}
-        dateFormatter="string"
-        options={false}
-        value={play}
-        recordCreatorProps={{
-          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as IPlay),
-        }}
+        columns={columns}
+        dateFormatter='string'
         editable={{
           type: 'multiple',
           editableKeys,
@@ -101,7 +85,7 @@ const Setting = () => {
             if (typeof data.id === 'string')
               delete data.id
 
-            playAdd({ ...data }).then((res) => {
+            playAdd({ ...data }).then(res => {
               if (res.status === 200) {
                 if (data.id)
                   message.success('修改成功')
@@ -116,9 +100,22 @@ const Setting = () => {
               }
             })
           },
-          onChange: setEditableRowKeys,
+          onChange: setEditableRowKeys
         }}
-      />
+        options={false}
+        pagination={false}
+        recordCreatorProps={{
+          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as IPlay)
+        }}
+        request={async () => {
+          return {
+            data: play,
+            success: true
+          }
+        }}
+        rowKey='id'
+        search={false}
+        value={play} />
     </PageContainer>
   )
 }

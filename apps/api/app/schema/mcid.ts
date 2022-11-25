@@ -14,8 +14,8 @@ export default (app: Context & Application) => {
       id: { autoIncrement: true, type: INTEGER, allowNull: false, primaryKey: true },
       aid: { type: INTEGER, defaultValue: 0, comment: '关联内容id' },
       mid: { type: SMALLINT, defaultValue: 0, comment: '小分类id' },
-      sid: { type: SMALLINT, defaultValue: 0, comment: '模型 id' },
+      sid: { type: SMALLINT, defaultValue: 0, comment: '模型 id' }
     },
-    { timestamps: false },
+    { timestamps: false }
   ) as BaseModelStatic<McidType>
 }

@@ -5,22 +5,22 @@ import { useField } from 'vee-validate'
 const props = defineProps({
   value: {
     type: Boolean,
-    default: false,
+    default: false
   },
   name: {
     type: String,
-    required: true,
+    required: true
   },
   label: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 })
 const name = toRef(props, 'name')
 const {
-  value,
+  value
 } = useField(name, undefined, {
-  initialValue: props.value,
+  initialValue: props.value
 })
 </script>
 

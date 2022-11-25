@@ -33,7 +33,7 @@ export default (app: Context & Application) => {
         comment: '创建时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('created_at'))
-        },
+        }
       },
       updated_at: {
         type: DATE,
@@ -41,14 +41,14 @@ export default (app: Context & Application) => {
         comment: '更新时间',
         get() {
           return app.utils.Tool.formatDate(this.getDataValue('updated_at'))
-        },
-      },
+        }
+      }
     },
     {
       createdAt: 'created_at',
       updatedAt: 'updated_at',
       deletedAt: false,
-      paranoid: false,
-    },
+      paranoid: false
+    }
   ) as BaseModelStatic<TopicType>
 }

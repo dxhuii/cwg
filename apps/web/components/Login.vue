@@ -24,7 +24,7 @@ function onInvalidSubmit() {
 // https://vee-validate.logaretm.com/v4/guide/validation#validation-schemas-with-yup
 const schema = Yup.object().shape({
   username: Yup.string().required('请输入用户名'),
-  password: Yup.string().min(8, '密码长度必须大于8位').required('请输入密码'),
+  password: Yup.string().min(8, '密码长度必须大于8位').required('请输入密码')
 })
 </script>
 
@@ -34,7 +34,7 @@ const schema = Yup.object().shape({
       :validation-schema="schema"
       class="p-4 pt-0"
       @submit="onSubmit"
-      @invalid-submit="onInvalidSubmit"
+      @invalidSubmit="onInvalidSubmit"
     >
       <TextInput
         name="username"

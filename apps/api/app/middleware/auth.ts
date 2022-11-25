@@ -1,12 +1,12 @@
 import type { Context } from 'egg'
 
-export default (level) => {
+export default level => {
   return async (ctx: Context, next: () => Promise<any>) => {
     const token = await ctx.getToken()
 
     const level0 = {
       username: null,
-      admin: 0,
+      admin: 0
     }
 
     if (token) {

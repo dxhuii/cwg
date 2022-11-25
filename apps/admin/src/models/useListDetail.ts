@@ -12,6 +12,6 @@ export default function useListDetail() {
 
   return {
     categoryDetail,
-    getCategoryDetail,
+    getCategoryDetail
   }
 }

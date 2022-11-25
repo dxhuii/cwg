@@ -14,14 +14,14 @@ export default {
     ctx.body = {
       data,
       status: 200,
-      message: message || ctx.errCodes[status],
+      message: message || ctx.errCodes[status]
     }
   },
   // 处理失败请求后的响应
   fail(ctx: Context, { message = '', status = 500 }: IFail) {
     ctx.body = {
       status: status || 500,
-      message: message || ctx.errCodes[status],
+      message: message || ctx.errCodes[status]
     }
   },
   /**
@@ -35,17 +35,17 @@ export default {
     const meta = Object.assign(
       {},
       {
-        timestamp: Date.now(),
+        timestamp: Date.now()
       },
-      metadata,
+      metadata
     )
     // 格式化返回数据
     return {
       meta,
       data: {
         action,
-        payload,
-      },
+        payload
+      }
     }
   },
   md5(data) {
@@ -57,7 +57,7 @@ export default {
   // 汉字转拼音
   h2p(data) {
     return pinyin(data, {
-      style: pinyin.STYLE_NORMAL, // 设置拼音风格
+      style: pinyin.STYLE_NORMAL // 设置拼音风格
     })
       .join('')
       .toLowerCase()
@@ -83,7 +83,7 @@ export default {
   parseSocketMsg(action, payload = {}, metadata = {}) {
     return {
       meta: { timestamp: Date.now(), ...metadata },
-      data: { action, payload },
+      data: { action, payload }
     }
-  },
+  }
 }

@@ -33,36 +33,36 @@ const LinkCategory = () => {
           pre[cur.id!] = cur.name
           return pre
         },
-        { 0: '无' },
+        { 0: '无' }
       )
   }, [linkCategory])
 
   const columns: ProColumns<ILinkCategory>[] = [
     {
       title: '名称',
-      dataIndex: 'name',
+      dataIndex: 'name'
     },
     {
       title: '父类',
       dataIndex: 'pid',
       valueType: 'select',
-      valueEnum: cateEnum,
+      valueEnum: cateEnum
     },
     {
       title: '目录',
-      dataIndex: 'dir',
+      dataIndex: 'dir'
     },
     {
       title: '密码',
-      dataIndex: 'password',
+      dataIndex: 'password'
     },
     {
       title: '简介',
-      dataIndex: 'content',
+      dataIndex: 'content'
     },
     {
       title: '排序',
-      dataIndex: 'rank',
+      dataIndex: 'rank'
     },
     {
       title: '状态',
@@ -70,8 +70,8 @@ const LinkCategory = () => {
       valueType: 'select',
       valueEnum: {
         0: { text: '正常', status: 'Success' },
-        1: { text: '禁用', status: 'Error' },
-      },
+        1: { text: '禁用', status: 'Error' }
+      }
     },
     {
       title: '操作',
@@ -80,43 +80,28 @@ const LinkCategory = () => {
       valueType: 'option',
       render: (text, record, _, action) => [
         <a
-          key="editable"
+          key='editable'
           onClick={() => {
             action?.startEditable?.(record.id!)
-          }}
-        >
+          }}>
           编辑
         </a>,
         <a
-          key="delete"
+          key='delete'
           onClick={() => {
             setDataSource(dataSource.filter(item => item.id !== record.id))
-          }}
-        >
+          }}>
           删除
-        </a>,
-      ],
-    },
+        </a>
+      ]
+    }
   ]
 
   const expandedRowRender = (record: { sub?: ILinkCategory[] } & ILinkCategory) => {
     return (
       <EditableProTable<ILinkCategory>
-        rowKey="id"
-        columns={columns}
-        showHeader={false}
-        search={false}
-        options={false}
-        pagination={false}
         bordered={false}
-        request={async () => ({
-          data: record.sub,
-          success: true,
-        })}
-        value={record.sub}
-        recordCreatorProps={{
-          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ILinkCategory),
-        }}
+        columns={columns}
         editable={{
           type: 'multiple',
           editableKeys,
@@ -124,7 +109,7 @@ const LinkCategory = () => {
             if (typeof data.id === 'string')
               delete data.id
 
-            linkCategoryAdd({ ...data }).then((res) => {
+            linkCategoryAdd({ ...data }).then(res => {
               if (res.status === 200) {
                 if (data.id)
                   message.success('修改成功')
@@ -140,34 +125,29 @@ const LinkCategory = () => {
             })
             console.log(rowKey, data, row)
           },
-          onChange: setEditableRowKeys,
+          onChange: setEditableRowKeys
         }}
-      />
+        options={false}
+        pagination={false}
+        recordCreatorProps={{
+          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ILinkCategory)
+        }}
+        request={async () => ({
+          data: record.sub,
+          success: true
+        })}
+        rowKey='id'
+        search={false}
+        showHeader={false}
+        value={record.sub} />
     )
   }
   return (
     <PageContainer>
       <EditableProTable<ILinkCategory>
-        columns={columns}
         actionRef={actionRef}
-        request={async () => {
-          return {
-            data: getList(linkCategory),
-            success: true,
-          }
-        }}
-        rowKey="id"
-        pagination={false}
-        expandable={{
-          expandedRowRender: record => expandedRowRender(record),
-        }}
-        search={false}
-        dateFormatter="string"
-        options={false}
-        value={getList<ILinkCategory>(linkCategory)}
-        recordCreatorProps={{
-          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ILinkCategory),
-        }}
+        columns={columns}
+        dateFormatter='string'
         editable={{
           type: 'multiple',
           editableKeys,
@@ -175,7 +155,7 @@ const LinkCategory = () => {
             if (typeof data.id === 'string')
               delete data.id
 
-            linkCategoryAdd({ ...data }).then((res) => {
+            linkCategoryAdd({ ...data }).then(res => {
               if (res.status === 200) {
                 if (data.id)
                   message.success('修改成功')
@@ -191,9 +171,25 @@ const LinkCategory = () => {
             })
             console.log(rowKey, data, row)
           },
-          onChange: setEditableRowKeys,
+          onChange: setEditableRowKeys
         }}
-      />
+        expandable={{
+          expandedRowRender: record => expandedRowRender(record)
+        }}
+        options={false}
+        pagination={false}
+        recordCreatorProps={{
+          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ILinkCategory)
+        }}
+        request={async () => {
+          return {
+            data: getList(linkCategory),
+            success: true
+          }
+        }}
+        rowKey='id'
+        search={false}
+        value={getList<ILinkCategory>(linkCategory)} />
     </PageContainer>
   )
 }

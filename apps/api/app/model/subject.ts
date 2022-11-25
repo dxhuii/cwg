@@ -81,9 +81,9 @@ export default (app: Context & Application) => {
         attributes: ['title', 'name', 'display', 'rank'],
         where: {
           status: 'normal',
-          display: true,
+          display: true
         },
-        order: [[orderBy, order]],
+        order: [[orderBy, order]]
       })
       return result
     }
@@ -106,7 +106,7 @@ export default (app: Context & Application) => {
         order: [[orderBy, order]],
         include: [{ model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' }],
         offset: pageSize * (current - 1),
-        limit: app.utils.Tool.toInt(pageSize),
+        limit: app.utils.Tool.toInt(pageSize)
       }
 
       const where: { [key: string | symbol]: any } = {}
@@ -120,7 +120,7 @@ export default (app: Context & Application) => {
           { tag: { [Op.like]: `%%${wd}%%` } },
           { director: { [Op.like]: `%%${wd}%%` } },
           { tag: { [Op.like]: `%%${wd}%%` } },
-          { title: { [Op.like]: `%%${wd}%%` } },
+          { title: { [Op.like]: `%%${wd}%%` } }
         ]
       }
 
@@ -129,7 +129,7 @@ export default (app: Context & Application) => {
 
       if (not) {
         where.id = {
-          [Op.not]: not,
+          [Op.not]: not
         }
       }
 
@@ -156,7 +156,7 @@ export default (app: Context & Application) => {
 
       if (weekday) {
         where.weekday = {
-          [Op.contains]: [weekday],
+          [Op.contains]: [weekday]
         }
       }
 
@@ -167,19 +167,19 @@ export default (app: Context & Application) => {
         const now = new Date().getTime()
         if (+filmtime === 1) {
           where.filmtime = {
-            [Op.lte]: now,
+            [Op.lte]: now
           }
         }
         else {
           const arr = filmtime.trim().split('|')
           if (arr[1]) {
             where.filmtime = {
-              [Op.between]: [new Date(arr[0]).getTime(), new Date(arr[1]).getTime()],
+              [Op.between]: [new Date(arr[0]).getTime(), new Date(arr[1]).getTime()]
             }
           }
           else {
             where.filmtime = {
-              [Op.gt]: now,
+              [Op.gt]: now
             }
           }
         }
@@ -192,12 +192,12 @@ export default (app: Context & Application) => {
         const arr = hits.split(',')
         if (arr.length > 1) {
           where.hits = {
-            [Op.between]: [arr[0], arr[1]],
+            [Op.between]: [arr[0], arr[1]]
           }
         }
         else {
           where.hits = {
-            [Op.gt]: arr[0],
+            [Op.gt]: arr[0]
           }
         }
       }
@@ -206,12 +206,12 @@ export default (app: Context & Application) => {
         const arr = gold.split(',')
         if (arr.length > 1) {
           where.gold = {
-            [Op.between]: [arr[0], arr[1]],
+            [Op.between]: [arr[0], arr[1]]
           }
         }
         else {
           where.gold = {
-            [Op.gt]: arr[0],
+            [Op.gt]: arr[0]
           }
         }
       }
@@ -220,12 +220,12 @@ export default (app: Context & Application) => {
         const arr = up.split(',')
         if (arr.length > 1) {
           where.up = {
-            [Op.between]: [arr[0], arr[1]],
+            [Op.between]: [arr[0], arr[1]]
           }
         }
         else {
           where.up = {
-            [Op.gt]: arr[0],
+            [Op.gt]: arr[0]
           }
         }
       }
@@ -234,12 +234,12 @@ export default (app: Context & Application) => {
         const arr = down.split(',')
         if (arr.length > 1) {
           where.down = {
-            [Op.between]: [arr[0], arr[1]],
+            [Op.between]: [arr[0], arr[1]]
           }
         }
         else {
           where.down = {
-            [Op.gt]: arr[0],
+            [Op.gt]: arr[0]
           }
         }
       }
@@ -249,19 +249,19 @@ export default (app: Context & Application) => {
         const getTime = time => new Date(time).getTime()
         if (arr.length > 1) {
           where.created_at = {
-            [Op.between]: [getTime(arr[0]), getTime(arr[1])],
+            [Op.between]: [getTime(arr[0]), getTime(arr[1])]
           }
         }
         else {
           where.created_at = {
-            [Op.gt]: getTime(arr[0]),
+            [Op.gt]: getTime(arr[0])
           }
         }
       }
 
       if (day) {
         where.created_at = {
-          [Op.gt]: dayjs().subtract(day, 'day').valueOf(),
+          [Op.gt]: dayjs().subtract(day, 'day').valueOf()
         }
       }
 
@@ -293,14 +293,14 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count,
+        total: count
       }
     }
 
     static async views(id) {
       const condition: ICondition = {
         attributes: ['hits'],
-        where: { id, status: 'normal' },
+        where: { id, status: 'normal' }
       }
       const result = await Subject.findOne(condition)
       return result
@@ -314,10 +314,10 @@ export default (app: Context & Application) => {
             { name: { [Op.like]: `%%${name}%%` } },
             { letters: { [Op.like]: `%%${name}%%` } },
             { aliases: { [Op.like]: `%%${name}%%` } },
-            { title: { [Op.like]: `%%${name}%%` } },
+            { title: { [Op.like]: `%%${name}%%` } }
           ],
-          status: 'normal',
-        },
+          status: 'normal'
+        }
       }
       const result = await Subject.findOne(condition)
       return result
@@ -332,11 +332,11 @@ export default (app: Context & Application) => {
           {
             model: model.User,
             attributes: ['id', 'username', 'nickname', 'avatar'],
-            as: 'user',
+            as: 'user'
           },
           {
             model: model.Comments,
-            as: 'comments',
+            as: 'comments'
           },
           {
             model: model.Role,
@@ -346,9 +346,9 @@ export default (app: Context & Application) => {
               {
                 model: model.Star,
                 as: 'star',
-                attributes: ['id', 'name'],
-              },
-            ],
+                attributes: ['id', 'name']
+              }
+            ]
           },
           {
             model: model.Story,
@@ -360,9 +360,9 @@ export default (app: Context & Application) => {
                 as: 'episode',
                 attributes: ['id', 'name', 'title', 'content'],
                 limit: 3,
-                order: [['id', 'DESC']],
-              },
-            ],
+                order: [['id', 'DESC']]
+              }
+            ]
           },
           // { model: model.Music, as: 'music', attributes: ['music_id', 'music_star', 'music_type', 'music_name', 'music_url', 'music_lyric'] },
           // { model: model.Lines, as: 'lines', attributes: ['lines_id', 'lines_role', 'lines_created_at'] },
@@ -389,18 +389,18 @@ export default (app: Context & Application) => {
             attributes: ['id', 'label', 'name'],
             as: 'associate1',
             through: {
-              where: { sid: 1, tsid: 1 },
-            },
+              where: { sid: 1, tsid: 1 }
+            }
           },
           {
             model: model.Subject,
             attributes: ['id', 'label', 'name'],
             as: 'associate2',
             through: {
-              where: { sid: 1, tsid: 1 },
-            },
-          },
-        ],
+              where: { sid: 1, tsid: 1 }
+            }
+          }
+        ]
       }
       const result = await Subject.findOne(condition)
       return result

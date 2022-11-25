@@ -9,7 +9,7 @@ export default class Comments extends Service {
   public async list(params = {}) {
     const result = await this.app.model.Comments.query({
       ...params,
-      attributes: ['id', 'content', 'device', 'created_at', 'is_sticky', 'up', 'down'],
+      attributes: ['id', 'content', 'device', 'created_at', 'is_sticky', 'up', 'down']
     })
     return result
   }
@@ -32,7 +32,7 @@ export default class Comments extends Service {
   public async listReply(params = {}) {
     const result = await this.app.model.Comments.queryRepty({
       ...params,
-      attributes: ['id', 'aid', 'content', 'device', 'created_at', 'is_sticky', 'up', 'down'],
+      attributes: ['id', 'aid', 'content', 'device', 'created_at', 'is_sticky', 'up', 'down']
     })
     return result
   }

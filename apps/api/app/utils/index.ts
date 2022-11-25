@@ -10,7 +10,7 @@ export const starType = {
   company: '公司',
   imdb: 'imdb编号',
   website: '官方网站',
-  url: '引用链接',
+  url: '引用链接'
 }
 
 export const anime = [
@@ -88,7 +88,7 @@ export const anime = [
   '制作助手/制作アシスタント 制作補佐 製作補/Production Assistant',
   '制作协调/制作コーディネーター/Production Coordination',
   '制作协力/制作協力 / 作品協力/Work Assistance',
-  '友情協力/特别鸣谢/Special Thanks',
+  '友情協力/特别鸣谢/Special Thanks'
 ]
 
 export const real = [
@@ -109,7 +109,7 @@ export const real = [
   '主题歌演出//Theme Song Performance',
   '主演//Actor',
   '配角//Supporting Actor',
-  '制作/製作 製作スタジオ/Production',
+  '制作/製作 製作スタジオ/Production'
 ]
 
 export const music = [
@@ -122,7 +122,7 @@ export const music = [
   '录音//',
   '厂牌//Label',
   '原作//Original Creator/Original Work',
-  '脚本/シナリオ/Scenario',
+  '脚本/シナリオ/Scenario'
 ]
 
 export const book = [
@@ -134,7 +134,7 @@ export const book = [
   '连载杂志/掲載誌/',
   '译者//',
   '客串/ゲスト/guest',
-  '人物原案/キャラクター原案/Original Character Design',
+  '人物原案/キャラクター原案/Original Character Design'
 ]
 
 export const game = [
@@ -169,5 +169,5 @@ export const game = [
   '主题歌作词//Theme Song Lyrics',
   '主题歌演出//Theme Song Performance',
   '插入歌演出//Inserted Song Performance',
-  '协力/協力/',
+  '协力/協力/'
 ]

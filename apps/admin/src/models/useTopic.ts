@@ -12,6 +12,6 @@ export default function useList() {
 
   return {
     topicList,
-    getTopicList,
+    getTopicList
   }
 }

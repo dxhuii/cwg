@@ -1,4 +1,4 @@
-import type { ICollect, IDataListResponse, IDigg, IFeed, ISubject, IUser, PageResult } from '@cwg/types'
+import type { ICaptcha, ICollect, IDataListResponse, IDigg, IFeed, ISubject, IUser, PageResult } from '@cwg/types'
 import { fetchCWG as fc } from '@cwg/utils'
 
 /**
@@ -80,7 +80,7 @@ export function logout() {
  * @returns data {token: string; img: string}
  */
 export function captcha() {
-  return fetchCWG(`captcha/init?v=${Math.random()}`)
+  return fetchCWG<ICaptcha>(`captcha/init?v=${Math.random()}`)
 }
 
 /**

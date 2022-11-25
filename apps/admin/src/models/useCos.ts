@@ -12,6 +12,6 @@ export default function useMcat() {
 
   return {
     sts,
-    getSts,
+    getSts
   }
 }

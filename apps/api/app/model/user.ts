@@ -15,12 +15,12 @@ export default (app: Context & Application) => {
         attributes: { exclude: ['password', 'salt', 'pay_password'] },
         include: [
           { model: model.Feed, attributes: ['id', 'type'], as: 'feed' },
-          { model: model.Comments, attributes: ['id'], as: 'comments' },
+          { model: model.Comments, attributes: ['id'], as: 'comments' }
         ],
         order: [[orderBy, order]],
         offset: pageSize * (pageNo - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: { status: 'normal' },
+        where: { status: 'normal' }
       }
       const { count, rows } = await User.findAndCountAll(condition)
 
@@ -29,8 +29,8 @@ export default (app: Context & Application) => {
         pages: {
           pageNo,
           pageSize,
-          total: count,
-        },
+          total: count
+        }
       }
     }
 
@@ -38,11 +38,11 @@ export default (app: Context & Application) => {
       const { id, attributes } = params
       const condition: ICondition = {
         attributes,
-        where: { id },
+        where: { id }
       }
       if (params.not_id) {
         params.id = {
-          [Op.not]: params.not_id,
+          [Op.not]: params.not_id
         }
         delete params.not_id
       }

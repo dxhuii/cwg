@@ -12,7 +12,7 @@ async function stubIndexHtml() {
     'options',
     'popup',
     'background',
-    'newtab',
+    'newtab'
   ]
 
   for (const view of views) {

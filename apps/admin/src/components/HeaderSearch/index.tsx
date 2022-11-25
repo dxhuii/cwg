@@ -20,23 +20,23 @@ export interface HeaderSearchProps {
   value?: string
 }
 
-const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
+const HeaderSearch: React.FC<HeaderSearchProps> = props => {
   const { className, defaultValue, onVisibleChange, placeholder, visible, defaultVisible, ...restProps } = props
 
   const inputRef = useRef<InputRef | null>(null)
 
   const [value, setValue] = useMergedState<string | undefined>(defaultValue, {
     value: props.value,
-    onChange: props.onChange,
+    onChange: props.onChange
   })
 
   const [searchMode, setSearchMode] = useMergedState(defaultVisible ?? false, {
     value: visible,
-    onChange: onVisibleChange,
+    onChange: onVisibleChange
   })
 
   const inputClass = classNames(styles.input, {
-    [styles.show]: searchMode,
+    [styles.show]: searchMode
   })
   return (
     <div
@@ -51,37 +51,33 @@ const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
           if (onVisibleChange)
             onVisibleChange(searchMode)
         }
-      }}
-    >
+      }}>
       <SearchOutlined
-        key="Icon"
+        key='Icon'
         style={{
-          cursor: 'pointer',
-        }}
-      />
+          cursor: 'pointer'
+        }} />
       <AutoComplete
-        key="AutoComplete"
         className={inputClass}
-        value={value}
-        options={restProps.options}
+        key='AutoComplete'
         onChange={completeValue => setValue(completeValue)}
-      >
+        options={restProps.options}
+        value={value}>
         <Input
-          size="small"
-          ref={inputRef}
-          defaultValue={defaultValue}
           aria-label={placeholder}
-          placeholder={placeholder}
-          onKeyDown={(e) => {
+          defaultValue={defaultValue}
+          onBlur={() => {
+            setSearchMode(false)
+          }}
+          onKeyDown={e => {
             if (e.key === 'Enter') {
               if (restProps.onSearch)
                 restProps.onSearch(value)
             }
           }}
-          onBlur={() => {
-            setSearchMode(false)
-          }}
-        />
+          placeholder={placeholder}
+          ref={inputRef}
+          size='small' />
       </AutoComplete>
     </div>
   )

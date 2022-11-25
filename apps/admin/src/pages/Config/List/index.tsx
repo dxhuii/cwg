@@ -27,15 +27,15 @@ const Setting = () => {
   const columns: ProColumns<ISetting>[] = [
     {
       title: 'key',
-      dataIndex: 'key',
+      dataIndex: 'key'
     },
     {
       title: '值',
-      dataIndex: 'value',
+      dataIndex: 'value'
     },
     {
       title: '备注',
-      dataIndex: 'tag',
+      dataIndex: 'tag'
     },
     {
       title: '操作',
@@ -44,44 +44,28 @@ const Setting = () => {
       valueType: 'option',
       render: (text, record, _, action) => [
         <a
-          key="editable"
+          key='editable'
           onClick={() => {
             action?.startEditable?.(record.id!)
-          }}
-        >
+          }}>
           编辑
         </a>,
         <a
-          key="delete"
+          key='delete'
           onClick={() => {
             setDataSource(dataSource.filter(item => item.id !== record.id))
-          }}
-        >
+          }}>
           删除
-        </a>,
-      ],
-    },
+        </a>
+      ]
+    }
   ]
   return (
     <PageContainer>
       <EditableProTable<ISetting>
-        columns={columns}
         actionRef={actionRef}
-        request={async () => {
-          return {
-            data: setting,
-            success: true,
-          }
-        }}
-        rowKey="id"
-        pagination={false}
-        search={false}
-        dateFormatter="string"
-        options={false}
-        value={setting}
-        recordCreatorProps={{
-          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ISetting),
-        }}
+        columns={columns}
+        dateFormatter='string'
         editable={{
           type: 'multiple',
           editableKeys,
@@ -89,7 +73,7 @@ const Setting = () => {
             if (typeof data.id === 'string' && data.id.length === 6)
               delete data.id
 
-            settingAdd({ ...data }).then((res) => {
+            settingAdd({ ...data }).then(res => {
               if (res.status === 200) {
                 if (data.id)
                   message.success('修改成功')
@@ -104,9 +88,22 @@ const Setting = () => {
               }
             })
           },
-          onChange: setEditableRowKeys,
+          onChange: setEditableRowKeys
         }}
-      />
+        options={false}
+        pagination={false}
+        recordCreatorProps={{
+          record: () => ({ id: (Math.random() * 1000000).toFixed(0) } as ISetting)
+        }}
+        request={async () => {
+          return {
+            data: setting,
+            success: true
+          }
+        }}
+        rowKey='id'
+        search={false}
+        value={setting} />
     </PageContainer>
   )
 }

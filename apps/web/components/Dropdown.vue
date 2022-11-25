@@ -24,7 +24,7 @@ onMounted(() => {
   }
 })
 
-const dropdownHandler: OnClickOutsideHandler = (event) => {
+const dropdownHandler: OnClickOutsideHandler = event => {
   console.log(event)
   dropdown.value = false
 }

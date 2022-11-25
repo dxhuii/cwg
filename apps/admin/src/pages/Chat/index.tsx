@@ -8,9 +8,9 @@ const socket = io('http://127.0.0.1:7001', {
   // 实际使用中可以在这里传递参数
   query: {
     room: 'demo',
-    userId: `client_${Math.random()}`,
+    userId: `client_${Math.random()}`
   },
-  transports: ['websocket'],
+  transports: ['websocket']
 })
 
 const Chat = () => {
@@ -45,7 +45,7 @@ const Chat = () => {
     })
   }, [])
   return (
-    <div id="console">
+    <div id='console'>
       chat
       <UploadImage multiple />
     </div>

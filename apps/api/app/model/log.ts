@@ -11,9 +11,9 @@ export default (app: Context & Application) => {
       const result = await Log.findAll({
         attributes: ['id', 'type', 'author'],
         where: {
-          status: 'normal',
+          status: 'normal'
         },
-        order: [[orderBy, order]],
+        order: [[orderBy, order]]
       })
       return result
     }

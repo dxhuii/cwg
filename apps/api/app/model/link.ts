@@ -15,11 +15,11 @@ export default (app: Context & Application) => {
         attributes,
         include: [
           { model: model.User, attributes: ['id', 'username', 'avatar'], as: 'user' },
-          { model: model.List, attributes: ['id', 'name', 'dir'], as: 'list' },
+          { model: model.List, attributes: ['id', 'name', 'dir'], as: 'list' }
         ],
         order: [order],
         offset: pageSize * (current - 1),
-        limit: app.utils.Tool.toInt(pageSize),
+        limit: app.utils.Tool.toInt(pageSize)
       }
 
       const where: { [key: string | symbol]: any } = { status: 'normal' }
@@ -35,7 +35,7 @@ export default (app: Context & Application) => {
         list: rows,
         current,
         pageSize,
-        total: count,
+        total: count
       }
     }
 
@@ -43,7 +43,7 @@ export default (app: Context & Application) => {
       const param: ICondition = {
         attributes,
         include: [{ model: model.User, attributes: ['id', 'username', 'avatar'], as: 'user' }],
-        where: { id, status: 'normal' },
+        where: { id, status: 'normal' }
       }
       const result = await Link.findOne(param)
       return result

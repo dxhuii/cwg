@@ -51,7 +51,7 @@ export default class Subject extends Controller {
               name: info.name,
               count: url.length,
               price: playText[price],
-              urls: url,
+              urls: url
             }
             if (item.title === 'all' || item.title === 'quote') {
               format[item.title] = obj.urls.map(({ path, pic }) => {
@@ -89,7 +89,7 @@ export default class Subject extends Controller {
     const { ctx, service } = this
     const data = await service.subject.list({
       ...ctx.request.query,
-      attributes: ['id', 'mcid', 'name', 'pic', 'language', 'area', 'isend', 'stars', 'serialized', 'hits', 'created_at', 'updated_at', 'status', 'weekday'],
+      attributes: ['id', 'mcid', 'name', 'pic', 'language', 'area', 'isend', 'stars', 'serialized', 'hits', 'created_at', 'updated_at', 'status', 'weekday']
     })
     if (data)
       ctx.helper.success(ctx, { data })

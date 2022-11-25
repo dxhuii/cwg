@@ -9,7 +9,7 @@ export default (app: Context & Application) => {
     static async query(params) {
       const { orderBy = 'rank', order = 'ASC', id, pid } = params
       const param: ICondition = {
-        order: [[orderBy, order]],
+        order: [[orderBy, order]]
       }
       const where: { [key: string | symbol]: any } = {}
 

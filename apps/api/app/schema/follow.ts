@@ -13,6 +13,6 @@ export default (app: Context & Application) => {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
     uid: { type: INTEGER, allowNull: false, comment: '被关联用户 id' },
     tuid: { type: INTEGER, allowNull: false, comment: '关联用户 id' },
-    ip: { type: INTEGER, defaultValue: 0, comment: 'ip' },
+    ip: { type: INTEGER, defaultValue: 0, comment: 'ip' }
   }) as BaseModelStatic<FollowType>
 }

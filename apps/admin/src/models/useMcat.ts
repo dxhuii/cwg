@@ -13,6 +13,6 @@ export default function useMcat() {
 
   return {
     mcat: idToStr(mcat) as IMcat[],
-    getMcat,
+    getMcat
   }
 }

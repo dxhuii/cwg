@@ -2,7 +2,7 @@ import type { IPin, IPinTable } from '@cwg/types'
 import { PlusOutlined } from '@ant-design/icons'
 import type {
   ActionType,
-  ProColumns,
+  ProColumns
 } from '@ant-design/pro-components'
 import {
   FooterToolbar,
@@ -11,7 +11,7 @@ import {
   ProForm,
   ProFormSelect,
   ProFormTextArea,
-  ProTable,
+  ProTable
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import type { FormInstance } from 'antd'
@@ -61,7 +61,7 @@ const Pin: FC = () => {
       dataIndex: 'content',
       copyable: true,
       ellipsis: true,
-      render: content => <Popover content={content}>{content}</Popover>,
+      render: content => <Popover content={content}>{content}</Popover>
     },
     {
       title: '话题',
@@ -72,31 +72,31 @@ const Pin: FC = () => {
           <img src={entity.topic?.icon} style={{ width: 50 }} />
           {entity.topic?.name}
         </>
-      ),
+      )
     },
     {
       title: '用户名',
       search: false,
       dataIndex: 'username',
-      render: (_, entity) => entity.user?.username,
+      render: (_, entity) => entity.user?.username
     },
     {
       title: '更新时间',
       search: false,
-      dataIndex: 'updated_at',
+      dataIndex: 'updated_at'
     },
     {
       title: '更新时间',
       sorter: true,
       dataIndex: 'updated_at',
       valueType: 'dateRange',
-      hideInTable: true,
+      hideInTable: true
     },
     {
       title: '创建时间',
       sorter: true,
       dataIndex: 'created_at',
-      search: false,
+      search: false
     },
     {
       title: '操作',
@@ -104,52 +104,49 @@ const Pin: FC = () => {
       valueType: 'option',
       render: (_, entity) => [
         <a
-          key="edit"
+          key='edit'
           onClick={() => {
             setModalVisit(true)
             setEditData(entity)
-          }}
-        >
+          }}>
           编辑
         </a>,
-        <Popconfirm key="delete" onConfirm={() => del(entity.id)} title="确定要删除吗？">
+        <Popconfirm key='delete' onConfirm={() => del(entity.id)} title='确定要删除吗？'>
           <a>删除</a>
-        </Popconfirm>,
-      ],
-    },
+        </Popconfirm>
+      ]
+    }
   ]
   return (
     <PageContainer
       extra={
-        <Button type="primary" key="primary" onClick={() => setModalVisit(true)}>
+        <Button key='primary' onClick={() => setModalVisit(true)} type='primary'>
           <PlusOutlined /> 新建
         </Button>
-      }
-    >
+      }>
       <ProTable<IPinTable>
         actionRef={actionRef}
-        rowKey="id"
-        request={async (params) => {
+        columns={columns}
+        request={async params => {
           console.log(params, 'params')
           const { current, pageSize } = params
           const param = {
             current,
-            pageSize,
+            pageSize
           }
           const res = await pinList(param)
           return {
             data: res.data?.list,
             total: res.data?.total,
-            success: true,
+            success: true
           }
         }}
-        columns={columns}
+        rowKey='id'
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows)
-          },
-        }}
-      />
+          }
+        }} />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
@@ -157,30 +154,26 @@ const Pin: FC = () => {
               已选择{' '}
               <a
                 style={{
-                  fontWeight: 600,
-                }}
-              >
+                  fontWeight: 600
+                }}>
                 {selectedRowsState.length}
               </a>{' '}
               项
             </div>
-          }
-        >
-          <Button type="primary">批量审批</Button>
+          }>
+          <Button type='primary'>批量审批</Button>
         </FooterToolbar>
       )}
       <ModalForm<IPin>
-        visible={modalVisit}
-        formRef={formRef}
-        title="新建"
         autoFocusFirstInput
+        formRef={formRef}
         modalProps={{
           onCancel: () => {
             formRef.current?.resetFields()
             setEditData(undefined)
-          },
+          }
         }}
-        onFinish={async (values) => {
+        onFinish={async values => {
           console.log(values)
           const res = await pinAdd({ ...values, id: editData?.id })
           if (res.status === 200) {
@@ -200,13 +193,14 @@ const Pin: FC = () => {
           }
         }}
         onVisibleChange={setModalVisit}
-      >
-        <ProFormSelect showSearch name="aid" label="关联内容ID" fieldProps={{ onSearch: onSearchForAid }} />
+        title='新建'
+        visible={modalVisit}>
+        <ProFormSelect fieldProps={{ onSearch: onSearchForAid }} label='关联内容ID' name='aid' showSearch />
         {/* <ProFormSelect showSearch name="tid" label="关联话题ID" fieldProps={{ onSearch: onSearchForTid }} /> */}
-        <Item name="tid" label="关联话题ID">
+        <Item label='关联话题ID' name='tid'>
           <TagForm list={topicList} />
         </Item>
-        <ProFormTextArea name="content" label="内容" rules={[{ required: true }]} />
+        <ProFormTextArea label='内容' name='content' rules={[{ required: true }]} />
       </ModalForm>
     </PageContainer>
   )

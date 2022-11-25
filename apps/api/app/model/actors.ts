@@ -12,7 +12,7 @@ export default (app: Context & Application) => {
         order,
         offset: pageSize * (pageNo - 1),
         limit: app.utils.Tool.toInt(pageSize),
-        where: {},
+        where: {}
       })
 
       return {
@@ -20,8 +20,8 @@ export default (app: Context & Application) => {
         pages: {
           pageNo,
           pageSize,
-          total: count,
-        },
+          total: count
+        }
       }
     }
 
@@ -30,12 +30,12 @@ export default (app: Context & Application) => {
       await Actors.destroy({
         where: {
           aid,
-          type,
-        },
+          type
+        }
       })
       if (aid && type && actors) {
         const arr = actors.split(',')
-        const data = arr.map((item) => {
+        const data = arr.map(item => {
           return { name: item, type, aid }
         })
         await Actors.bulkCreate(data)

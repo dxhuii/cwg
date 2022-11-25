@@ -4,7 +4,7 @@ export default class Link extends Service {
   async get(id) {
     const result = await this.app.model.Link.get({
       id,
-      attributes: ['id', 'name', 'content', 'created_at'],
+      attributes: ['id', 'name', 'content', 'created_at']
     })
     return result
   }

@@ -15,8 +15,8 @@ export default (app: Context & Application) => {
       cid: { type: SMALLINT, defaultValue: 0, comment: '父类id' },
       name: { type: STRING(30), allowNull: false, comment: '名字' },
       title: { type: STRING(30), allowNull: false, comment: '英文名' },
-      rank: { type: SMALLINT, defaultValue: 0, comment: '排序' },
+      rank: { type: SMALLINT, defaultValue: 0, comment: '排序' }
     },
-    { timestamps: false },
+    { timestamps: false }
   ) as BaseModelStatic<McatType>
 }

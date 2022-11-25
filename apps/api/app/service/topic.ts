@@ -4,7 +4,7 @@ export default class Topic extends Service {
   async get(id) {
     const result = await this.app.model.Topic.get({
       id,
-      attributes: ['id', 'cid', 'name'],
+      attributes: ['id', 'cid', 'name']
     })
     return result
   }
@@ -12,7 +12,7 @@ export default class Topic extends Service {
   async list(params = {}) {
     const result = await this.app.model.Topic.query({
       ...params,
-      attributes: ['id', 'cid', 'sid', 'name', 'dir', 'status', 'icon', 'summary', 'pin_count', 'follow_count', 'created_at', 'updated_at'],
+      attributes: ['id', 'cid', 'sid', 'name', 'dir', 'status', 'icon', 'summary', 'pin_count', 'follow_count', 'created_at', 'updated_at']
     })
     return result
   }

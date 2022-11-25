@@ -68,7 +68,7 @@ export const sidName = {
   [modelName.FEED]: 'feed',
   [modelName.TOPIC]: 'topic',
   [modelName.LISTS]: 'lists',
-  [modelName.ACOTR]: 'actors',
+  [modelName.ACOTR]: 'actors'
 }
 // 模型sid英文名
 export const modelEnName = {
@@ -89,7 +89,7 @@ export const modelEnName = {
   [modelName.LISTS]: 'Detailedlist',
   [modelName.ACOTR]: 'Actor',
   [modelName.USER]: 'User',
-  [modelName.LINK]: 'Link',
+  [modelName.LINK]: 'Link'
 }
 
 export enum feedType {

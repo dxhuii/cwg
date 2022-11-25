@@ -7,7 +7,7 @@ const items = [
   { label: '剧集', key: 'subject' },
   { label: '评论', key: 'comment' },
   { label: '动态', key: 'feed' },
-  { label: '退出', key: 'logout' },
+  { label: '退出', key: 'logout' }
 ]
 
 const onOk = async (item: typeof items[0]) => {

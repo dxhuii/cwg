@@ -5,9 +5,9 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    presetIcons(),
+    presetIcons()
   ],
   transformers: [
-    transformerDirectives(),
-  ],
+    transformerDirectives()
+  ]
 })

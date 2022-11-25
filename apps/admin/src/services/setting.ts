@@ -5,7 +5,7 @@ import type { ISetting } from '@cwg/types'
 export async function settingList(options?: Record<string, any>) {
   return request<{ data: ISetting[] }>('/backend/setting/list', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -14,7 +14,7 @@ export async function settingAdd(body: ISetting, options?: Record<string, any>) 
   return request<{ data: ISetting[]; status: number; message: string }>('/backend/setting/add', {
     method: 'POST',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }
 
@@ -23,6 +23,6 @@ export async function feedDelete(body: { id: number }, options?: Record<string, 
   return request<{ data: ISetting; status: number; message: string }>('/backend/feed/delete', {
     method: 'DELETE',
     data: body,
-    ...(options || {}),
+    ...(options || {})
   })
 }

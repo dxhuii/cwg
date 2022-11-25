@@ -12,6 +12,6 @@ export default function useMcatDetail() {
 
   return {
     mcatDetail,
-    getMcatDetail,
+    getMcatDetail
   }
 }

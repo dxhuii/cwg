@@ -10,7 +10,7 @@ export default (app: Context & Application) => {
       const { orderBy = 'rank', order = 'ASC', id, pid, sid } = params
       const param: ICondition = {
         attributes: { exclude: ['seo_title', 'seo_keywords', 'seo_description'] },
-        order: [[orderBy, order]],
+        order: [[orderBy, order]]
       }
       const where: { [key: string | symbol]: any } = {}
 

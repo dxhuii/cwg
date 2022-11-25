@@ -9,7 +9,7 @@ export default class Collect extends Service {
   async list(params = {}) {
     const result = await this.app.model.Collect.query({
       ...params,
-      attributes: ['id', 'cid', 'sid', 'content', 'tags'],
+      attributes: ['id', 'cid', 'sid', 'content', 'tags']
     })
     return result
   }

@@ -23,9 +23,9 @@ export default class Sts extends Service {
         {
           action: allowActions,
           effect: 'allow',
-          resource: [`qcs::cos:${region}:uid/${AppId}:prefix//${AppId}/${ShortBucketName}/${prefix}`],
-        },
-      ],
+          resource: [`qcs::cos:${region}:uid/${AppId}:prefix//${AppId}/${ShortBucketName}/${prefix}`]
+        }
+      ]
     }
     const startTime = Math.round(Date.now() / 1000)
     const result = await new Promise((resolve, reject) => {
@@ -36,14 +36,14 @@ export default class Sts extends Service {
           durationSeconds,
           policy,
           secretId,
-          secretKey,
+          secretKey
         } as GetCredentialOptions & { region: string },
         (err, tempKeys) => {
           if (err)
             reject(err)
 
           resolve(err || { ...tempKeys, region, bucket, startTime })
-        },
+        }
       )
     })
     return result
