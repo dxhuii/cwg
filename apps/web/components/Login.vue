@@ -12,14 +12,6 @@ const onSubmit = async (values: any) => {
   emit('close')
 }
 
-function onInvalidSubmit() {
-  const submitBtn = document.querySelector('.submit-btn') as HTMLDivElement
-  submitBtn.classList.add('invalid')
-  setTimeout(() => {
-    submitBtn.classList.remove('invalid')
-  }, 1000)
-}
-
 // Using yup to generate a validation schema
 // https://vee-validate.logaretm.com/v4/guide/validation#validation-schemas-with-yup
 const schema = Yup.object().shape({
@@ -34,7 +26,6 @@ const schema = Yup.object().shape({
       :validation-schema="schema"
       class="p-4 pt-0"
       @submit="onSubmit"
-      @invalidSubmit="onInvalidSubmit"
     >
       <TextInput
         name="username"

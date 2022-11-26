@@ -312,7 +312,12 @@ importers:
     specifiers: {}
 
   packages/ui:
-    specifiers: {}
+    specifiers:
+      typescript: ^4.9.3
+      vue: ^3.2.45
+    devDependencies:
+      typescript: 4.9.3
+      vue: 3.2.45
 
   packages/utils:
     specifiers:

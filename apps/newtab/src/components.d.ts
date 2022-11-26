@@ -34,6 +34,7 @@ declare module '@vue/runtime-core' {
     Search: typeof import('./components/Search.vue')['default']
     SearchLogo: typeof import('./components/SearchLogo.vue')['default']
     Site: typeof import('./components/Site.vue')['default']
+    TextInput: typeof import('./components/TextInput.vue')['default']
     User: typeof import('./components/User.vue')['default']
   }
 }
