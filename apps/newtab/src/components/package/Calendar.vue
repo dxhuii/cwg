@@ -90,19 +90,21 @@ const nowLunar = computed(() => {
   const date = new Date()
   const now = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
   const lunar = getLunar({ day: now }) // 当前日期
-  const year = lunar.lYear.toString() // 年
+  const year = lunar.cYear.toString() // 年
   const q = +date // 当前时间戳
   const j = +(new Date(year)) // 今年元旦
   const day = Math.ceil((q - j) / (24 * 60 * 60 * 1000)) // 今年第几天
   const w = new Date(`${year}/01/01`).getDay() // 一年的第一天是星期几
   return { ...lunar, day, weeks: Math.ceil((day + w - 1) / 7) }
 })
+
+console.log(nowLunar.value)
 </script>
 
 <template>
   <div>
     <div flex="~ col" h-48 text-shadow-md rounded-2xl p-4 class="bg-gradient-to-rb from-#73b0fe to-#a789fe" @click="open = true">
-      <b text="2xl">{{ nowLunar.lMonth }}月{{ nowLunar.lDay }}日</b>
+      <b text="2xl">{{ nowLunar.cMonth }}月{{ nowLunar.cDay }}日</b>
       <b mt-4 text="xl">{{ nowLunar.ncWeek }}</b>
       <div mt-4 text-sm>
         <span mr-2>{{ nowLunar.gzYear }}({{ nowLunar.Animal }})年</span><span>{{ nowLunar.IMonthCn }}{{ nowLunar.IDayCn }}</span>

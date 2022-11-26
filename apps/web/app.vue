@@ -11,12 +11,10 @@ useHead({
 
 <template>
   <div>
-    <transition name="fade">
-      <NuxtLayout>
-        <NuxtLoadingIndicator />
-        <NuxtPage />
-      </NuxtLayout>
-    </transition>
+    <NuxtLayout>
+      <NuxtLoadingIndicator />
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
 
