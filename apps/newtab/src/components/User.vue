@@ -43,7 +43,7 @@ const exit = async () => {
 
 <template>
   <div>
-    <div class="fixed top-9 right-9 flex justify-center items-center bg-gray-200 cursor-pointer text-gray-500 rounded-full overflow-hidden p-1 px-2" @click="onLogin">
+    <div class="fixed top-9 right-9 flex justify-center items-center bg-gray-200/80 cursor-pointer text-black rounded-full overflow-hidden p-1 px-2" @click="onLogin">
       <img v-if="userInfo?.id" class="w-5 h-5 mr-2 rounded-1" :src="avatar">
       <heroicons-outline-user-circle v-else class="w-6 h-6" />
       {{ userInfo?.id ? userInfo.username : '登录' }}

@@ -16,6 +16,7 @@ module.exports = {
       text: { type: STRING, comment: '图标文字' },
       is_home: { type: BOOLEAN, defaultValue: false, comment: '是否在首页显示' },
       ip: { type: INTEGER, defaultValue: 0, comment: 'IP' },
+      add_count: { type: INTEGER, defaultValue: 0, comment: '添加次数' },
       status: { type: STRING(30), defaultValue: 'normal', comment: '用户状态:normal 正常 disable 禁用 check 审核中 reject 拒绝 ignore 忽略 delete 删除' },
       hits: { type: INTEGER, defaultValue: 0, comment: '总' },
       hits_day: { type: INTEGER, defaultValue: 0, comment: '日' },

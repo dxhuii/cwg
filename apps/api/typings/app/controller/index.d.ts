@@ -13,6 +13,7 @@ import ExportApiFeed from '../../../app/controller/api/feed';
 import ExportApiKeywod from '../../../app/controller/api/keywod';
 import ExportApiLink from '../../../app/controller/api/link';
 import ExportApiLinkCategory from '../../../app/controller/api/linkCategory';
+import ExportApiLinkUser from '../../../app/controller/api/linkUser';
 import ExportApiList from '../../../app/controller/api/list';
 import ExportApiLog from '../../../app/controller/api/log';
 import ExportApiMcat from '../../../app/controller/api/mcat';
@@ -66,6 +67,7 @@ declare module 'egg' {
       keywod: ExportApiKeywod;
       link: ExportApiLink;
       linkCategory: ExportApiLinkCategory;
+      linkUser: ExportApiLinkUser;
       list: ExportApiList;
       log: ExportApiLog;
       mcat: ExportApiMcat;

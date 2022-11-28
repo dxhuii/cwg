@@ -411,6 +411,13 @@ export interface ILinkCategory extends Omit<IId, 'sid' | 'aid' | 'cid'> {
   salt: string
 }
 
+export interface IlinkUser {
+  id: number
+  link: { [key: string]: any }
+  uid: number
+  sid: number
+}
+
 export interface ILink extends IDate, IHits, Omit<IId, 'aid'> {
   name: string
   url: string

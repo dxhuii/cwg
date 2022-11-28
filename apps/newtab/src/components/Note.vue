@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { IBing } from '@cwg/types'
 const props = defineProps<{ bing: IBing; count: number }>()
-defineEmits(['left', 'right'])
+defineEmits<{
+  (e: 'left'): void
+  (e: 'right'): void
+}>()
 const copyright = computed(() => props.bing.copyright.split(/\(© |\)/))
 </script>
 

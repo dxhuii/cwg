@@ -8,7 +8,7 @@ export default (app: Context & Application) => {
   // 清单分类
   const { INTEGER, TEXT, STRING, SMALLINT } = Sequelize
 
-  return model.define('listcategory', {
+  return model.define('list_category', {
     id: { autoIncrement: true, type: INTEGER, allowNull: false, primaryKey: true },
     cid: { type: SMALLINT, allowNull: false, comment: '分类id' },
     uid: { type: INTEGER, allowNull: false, comment: '用户 id' },

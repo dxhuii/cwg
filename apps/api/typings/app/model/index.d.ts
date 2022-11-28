@@ -13,6 +13,7 @@ import ExportFeed from '../../../app/model/feed';
 import ExportFollow from '../../../app/model/follow';
 import ExportLink from '../../../app/model/link';
 import ExportLinkCategory from '../../../app/model/linkCategory';
+import ExportLinkUser from '../../../app/model/linkUser';
 import ExportList from '../../../app/model/list';
 import ExportLog from '../../../app/model/log';
 import ExportMcat from '../../../app/model/mcat';
@@ -44,6 +45,7 @@ declare module 'egg' {
     Follow: ReturnType<typeof ExportFollow>;
     Link: ReturnType<typeof ExportLink>;
     LinkCategory: ReturnType<typeof ExportLinkCategory>;
+    LinkUser: ReturnType<typeof ExportLinkUser>;
     List: ReturnType<typeof ExportList>;
     Log: ReturnType<typeof ExportLog>;
     Mcat: ReturnType<typeof ExportMcat>;

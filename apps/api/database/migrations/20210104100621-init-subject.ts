@@ -4,10 +4,10 @@ module.exports = {
     const { INTEGER, DATE, STRING, NOW, TEXT, BOOLEAN, NULL, JSONB, SMALLINT } = Sequelize
     await queryInterface.createTable('subject', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true, comment: '自增id' },
-      cid: { type: JSONB, allowNull: false, defaultValue: [], comment: '分类id' },
+      cid: { type: STRING, allowNull: false, comment: '分类id' },
       uid: { type: INTEGER, allowNull: false, comment: '用户id' },
       type: { type: SMALLINT, allowNull: false, comment: '类别: 1:动漫、2:电视、3:电影、4:漫画、5:游戏、6:音乐、7:书等' },
-      mcid: { type: JSONB, defaultValue: [], comment: '小分类' },
+      mcid: { type: STRING, comment: '小分类' },
       name: { type: STRING, allowNull: false, comment: '原名' },
       title: { type: STRING, allowNull: false, comment: '中文名' },
       year: { type: STRING(4), comment: '年份' }, // 如 2007
@@ -38,7 +38,7 @@ module.exports = {
       up: { type: INTEGER, defaultValue: 0, comment: '顶' },
       down: { type: INTEGER, defaultValue: 0, comment: '踩' },
       rank: { type: INTEGER, defaultValue: 0, comment: '播放源排序' },
-      weekday: { type: JSONB, defaultValue: [], comment: '星期' },
+      weekday: { type: STRING, comment: '星期' },
       douban: { type: INTEGER, comment: '豆瓣id' },
       imdb: { type: INTEGER, comment: 'IMDB' },
       remark: { type: STRING, comment: '简评' },

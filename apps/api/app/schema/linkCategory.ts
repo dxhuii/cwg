@@ -9,7 +9,7 @@ export default (app: Context & Application) => {
   const { INTEGER, STRING, TEXT, SMALLINT } = Sequelize
 
   return model.define(
-    'linkCategory',
+    'link_category',
     {
       id: { autoIncrement: true, type: INTEGER, allowNull: false, primaryKey: true, comment: '自增id' },
       pid: { type: SMALLINT, defaultValue: 0, comment: '父类id' },

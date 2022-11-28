@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const { INTEGER, STRING, TEXT, SMALLINT } = Sequelize
-    await queryInterface.createTable('linkCategory', {
+    await queryInterface.createTable('link_category', {
       id: { autoIncrement: true, type: INTEGER, allowNull: false, primaryKey: true, comment: '自增id' },
       pid: { type: SMALLINT, defaultValue: 0, comment: '父类id' },
       uid: { type: INTEGER, defaultValue: 0, comment: '用户 id' },
