@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { calendar } from 'js-calendar-converter'
-const open = ref(false)
+import { Dialog } from '@cwg/ui'
+const open = ref()
+
+const openCalendar = () => {
+  open.value.openModal()
+}
 /**
  * 公历转农历
  * @param slotData 当前日期
@@ -103,7 +108,7 @@ console.log(nowLunar.value)
 
 <template>
   <div>
-    <div flex="~ col" h-48 text-shadow-md rounded-2xl p-4 class="bg-gradient-to-rb from-#73b0fe to-#a789fe" @click="open = true">
+    <div flex="~ col" h-48 text-shadow-md rounded-2xl p-4 class="bg-gradient-to-rb from-#73b0fe to-#a789fe" @click="openCalendar">
       <b text="2xl">{{ nowLunar.cMonth }}月{{ nowLunar.cDay }}日</b>
       <b mt-4 text="xl">{{ nowLunar.ncWeek }}</b>
       <div mt-4 text-sm>
@@ -113,8 +118,8 @@ console.log(nowLunar.value)
         本年第{{ nowLunar.weeks }}周，第{{ nowLunar.day }}天
       </div>
     </div>
-    <ModalNew v-model="open" cls="w-248">
-      <div w-240 relative rounded-2xl>
+    <Dialog ref="open" title="日历" cls="w-248">
+      <div relative rounded-2xl>
         <el-calendar>
           <template #date-cell="{ data }">
             <div relative h-full>
@@ -129,7 +134,7 @@ console.log(nowLunar.value)
           </template>
         </el-calendar>
       </div>
-    </ModalNew>
+    </Dialog>
   </div>
 </template>
 

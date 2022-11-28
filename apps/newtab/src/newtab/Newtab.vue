@@ -2,7 +2,6 @@
 import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import type { IBing } from '@cwg/types'
-import { Dialog } from '@cwg/ui'
 import { formatPic } from '~/utils'
 import { getBing } from '~/composables/cwg'
 const bz = ref(0)
@@ -41,7 +40,6 @@ const right = () => {
           <Search />
           <Site />
         </div>
-        <Dialog />
         <Note :bing="bing" :count="bz" @left="left" @right="right" />
         <footer class="flex text-white justify-end items-center text-sm absolute w-[80%] transform -translate-x-1/2 left-1/2 bottom-5">
           <a href="https://www.cangwangge.com" target="_blank">

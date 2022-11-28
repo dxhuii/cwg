@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
 import type { ILink } from '@cwg/types'
+import { Dialog } from '@cwg/ui'
 import { jump } from '~/utils'
 import { getLink } from '~/composables/cwg'
 const data = ref<ILink[]>()
 const enabled = ref(true)
 const dragging = ref(false)
-const open = ref(false)
-const openBookmark = ref(false)
+const open = ref()
+// const openBookmark = ref(false)
 
 watchEffect(async () => {
   const res = await getLink({
@@ -18,13 +19,13 @@ watchEffect(async () => {
 
 const handleClick = (url: string) => {
   if (url === 'add') {
-    open.value = true
+    open.value.openModal()
     return false
   }
-  if (url === 'chrome://bookmarks/') {
-    openBookmark.value = true
-    return false
-  }
+  // if (url === 'chrome://bookmarks/') {
+  //   openBookmark.value = true
+  //   return false
+  // }
   jump(url)
 }
 
@@ -68,7 +69,10 @@ const checkMove = (e: { draggedContext: { futureIndex: any } }) => {
       </template>
     </draggable>
   </div>
-  <AddSite :visible="open" @close="open = false" />
+
+  <Dialog ref="open" title="添加网址" cls="min-w-6xl">
+    <AddSite />
+  </Dialog>
   <!-- <Bookmarks :visible="openBookmark" @close="openBookmark = false" /> -->
   <!-- <History :visible="true" /> -->
 </template>

@@ -7,7 +7,7 @@ import {
   TransitionChild,
   TransitionRoot
 } from '@headlessui/vue'
-const { title, cls = 'w-120' } = defineProps<{ title?: string; cls?: string }>()
+const { title, cls = 'min-w-md ' } = defineProps<{ title?: string; cls?: string }>()
 const emits = defineEmits<{
   (event: 'show'): void
   (event: 'close'): void
@@ -58,7 +58,7 @@ defineExpose({
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="min-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all text-sm" :class="cls"
+              class="transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all text-sm" :class="cls"
             >
               <DialogTitle
                 as="h3"

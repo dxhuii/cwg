@@ -40,21 +40,11 @@ const schema = Yup.object().shape({
       :validation-schema="schema"
       @submit="onSubmit"
     >
-      <TextInput
-        name="username"
-        type="text"
-        placeholder="请输入用户名"
-      />
-      <TextInput
-        name="password"
-        type="password"
-        placeholder="请输入密码"
-      />
-      <div flex justify-end>
-        <button type="submit" w-full flex bg="#1d9bf0" text-sm text-white h-9 px-4 justify-center items-center rounded-full cursor-pointer hover="bg-#1A8CD8" active="bg-#177CC0">
-          登录
-        </button>
-      </div>
+      <TextInput name="username" type="text" placeholder="请输入用户名" />
+      <TextInput name="password" type="password" placeholder="请输入密码" />
+      <button type="submit" w-full flex bg="#1d9bf0" text-sm text-white h-9 px-4 justify-center items-center rounded-full cursor-pointer hover="bg-#1A8CD8" active="bg-#177CC0">
+        登录
+      </button>
     </Form>
   </div>
 </template>
