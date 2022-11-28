@@ -4,7 +4,6 @@
   "private": true,
   "main": "index.ts",
   "devDependencies": {
-    "vue":"^3.2.45",
     "typescript": "^4.9.3"
   }
 }
