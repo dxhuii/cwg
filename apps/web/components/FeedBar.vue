@@ -25,13 +25,13 @@ const onAction = async (type: string) => {
     </div>
     <div flex items-center class="group" title="转发" @click.stop="onAction('forward')">
       <div flex="~" justify="center" items-center w-9 h-9 rounded="full" group-hover="bg-#00ba7c/10 text-#00ba7c">
-        <i i-carbon-arrows-horizontal w-5 h-5 />
+        <i i-carbon-repeat w-5 h-5 />
       </div>
       <div group-hover="text-#00ba7c" ml-1 text="sm">
         {{ data?.[model]?.forward_count || '' }}
       </div>
     </div>
-    <div flex items-center class="group" title="收藏" @click.stop="onAction('like')">
+    <div flex items-center class="group" title="喜欢" @click.stop="onAction('like')">
       <div flex="~" justify="center" items-center w-9 h-9 rounded="full" group-hover="bg-#f91880/10 text-#f91880">
         <i i-carbon-favorite w-5 h-5 />
       </div>
@@ -39,12 +39,12 @@ const onAction = async (type: string) => {
         {{ data?.[model]?.like_count || '' }}
       </div>
     </div>
-    <div flex items-center class="group" title="赞" @click.stop="onAction('up')">
+    <div flex items-center class="group" title="书签" @click.stop="onAction('bookmark')">
       <div flex="~" justify="center" items-center w-9 h-9 rounded="full" group-hover="bg-#f91880/10 text-#f91880">
-        <i i-carbon-thumbs-up w-5 h-5 />
+        <i i-carbon-bookmark w-5 h-5 />
       </div>
       <div group-hover="text-#f91880" ml-1 text="sm">
-        {{ data?.[model]?.up || '' }}
+        {{ data?.[model]?.bookmark_count || '' }}
       </div>
     </div>
     <div flex items-center class="group" title="分享" @click.stop="onAction('share')">

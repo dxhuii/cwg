@@ -5,10 +5,11 @@ import 'egg';
 import ExportHome from '../../../app/controller/home';
 import ExportNews from '../../../app/controller/news';
 import ExportApiAttachment from '../../../app/controller/api/attachment';
+import ExportApiBookmark from '../../../app/controller/api/bookmark';
 import ExportApiCaptcha from '../../../app/controller/api/captcha';
-import ExportApiCollect from '../../../app/controller/api/collect';
 import ExportApiComments from '../../../app/controller/api/comments';
 import ExportApiDigg from '../../../app/controller/api/digg';
+import ExportApiFavorite from '../../../app/controller/api/favorite';
 import ExportApiFeed from '../../../app/controller/api/feed';
 import ExportApiKeywod from '../../../app/controller/api/keywod';
 import ExportApiLink from '../../../app/controller/api/link';
@@ -59,10 +60,11 @@ declare module 'egg' {
     news: ExportNews;
     api: {
       attachment: ExportApiAttachment;
+      bookmark: ExportApiBookmark;
       captcha: ExportApiCaptcha;
-      collect: ExportApiCollect;
       comments: ExportApiComments;
       digg: ExportApiDigg;
+      favorite: ExportApiFavorite;
       feed: ExportApiFeed;
       keywod: ExportApiKeywod;
       link: ExportApiLink;

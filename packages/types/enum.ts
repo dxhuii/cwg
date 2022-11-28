@@ -13,6 +13,12 @@ export enum FeedType {
   add_friend = '将', // 加好友
   feed = '说', // 动态
   up = '赞了',
+  down = '踩了',
+  comment = '评论了',
+  reply = '回复了',
+  collect = '收藏了',
+  share = '分享了',
+  bookmark = '书签',
 }
 
 export enum feedTypeBig {
@@ -27,7 +33,11 @@ export enum feedTypeBig {
   ONHOLD = 'on_hold', // 搁置
   DROPPEND = 'dropped', // 抛弃
   UP = 'up', // 赞
-  COLLECT = 'collect', // 收藏
+  FAVORITE = 'favorite', // 收藏
+  COMMENT = 'comment', // 评论
+  FORWARD = 'forward', // 转发
+  FEED = 'feed', // 动态
+  BOOKMARK = 'bookmark', // 书签
 }
 
 /* 模型sid */
@@ -38,7 +48,7 @@ export enum modelName {
   STORY, // 剧情
   EPISODE, // 剧集
   ROLE, // 角色
-  COLLECT, // 收藏
+  FAVORITE, // 喜欢
   TAG, // 标签
   PIN, // 动态
   FORWARD, // 转发
@@ -50,6 +60,7 @@ export enum modelName {
   ACOTR, // 演员表
   USER, // 用户
   LINK, // 链接
+  BOOKMARK, // 书签
 }
 
 export const sidName = {
@@ -59,7 +70,7 @@ export const sidName = {
   [modelName.STORY]: 'story',
   [modelName.EPISODE]: 'episode',
   [modelName.ROLE]: 'role',
-  [modelName.COLLECT]: 'collect',
+  [modelName.FAVORITE]: 'favorite',
   [modelName.TAG]: 'tag',
   [modelName.PIN]: 'pin',
   [modelName.FORWARD]: 'forward',
@@ -68,7 +79,8 @@ export const sidName = {
   [modelName.FEED]: 'feed',
   [modelName.TOPIC]: 'topic',
   [modelName.LISTS]: 'lists',
-  [modelName.ACOTR]: 'actors'
+  [modelName.ACOTR]: 'actors',
+  [modelName.BOOKMARK]: 'bookmark'
 }
 // 模型sid英文名
 export const modelEnName = {
@@ -78,7 +90,7 @@ export const modelEnName = {
   [modelName.STORY]: 'Story',
   [modelName.EPISODE]: 'Episode',
   [modelName.ROLE]: 'Role',
-  [modelName.COLLECT]: 'Collect',
+  [modelName.FAVORITE]: 'favorite',
   [modelName.TAG]: 'Tag',
   [modelName.PIN]: 'Pins',
   [modelName.FORWARD]: 'Forward',
@@ -89,7 +101,8 @@ export const modelEnName = {
   [modelName.LISTS]: 'Detailedlist',
   [modelName.ACOTR]: 'Actor',
   [modelName.USER]: 'User',
-  [modelName.LINK]: 'Link'
+  [modelName.LINK]: 'Link',
+  [modelName.BOOKMARK]: 'Bookmark'
 }
 
 export enum feedType {
@@ -104,5 +117,6 @@ export enum feedType {
   ONHOLD = 'on_hold', // 搁置
   DROPPEND = 'dropped', // 抛弃
   UP = 'up', // 赞
-  COLLECT = 'collect', // 收藏
+  FAVORITE = 'favorite', // 喜欢
+  BOOKMARK = 'bookmark', // 书签
 }

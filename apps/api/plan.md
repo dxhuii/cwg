@@ -85,7 +85,7 @@
 | association  | 关联表       |
 | attachment   | 附件表       |
 | comments     | 评论表       |
-| collect      | 收藏评价表   |
+| favorite     | 收藏评价表   |
 | feed         | 全站动态     |
 | follow       | 关注         |
 | forward      | 转发         |

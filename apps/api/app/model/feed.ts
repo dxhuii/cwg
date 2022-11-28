@@ -23,7 +23,7 @@ export default (app: Context & Application) => {
             required: false,
             as: 'subject'
           },
-          { model: model.Collect, attributes: ['id', 'content', 'tags', 'rating', 'interest'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'collect' },
+          { model: model.Favorite, attributes: ['id', 'content', 'tags', 'rating', 'interest'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'favorite' },
           { model: model.Pin, attributes: ['id', 'content'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'pin' }
         ],
         order: [order],
@@ -55,7 +55,7 @@ export default (app: Context & Application) => {
             required: false,
             as: 'subject'
           },
-          { model: model.Collect, attributes: ['id', 'content', 'tags', 'rating', 'interest'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'collect' },
+          { model: model.Favorite, attributes: ['id', 'content', 'tags', 'rating', 'interest'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'favorite' },
           { model: model.Pin, attributes: ['id', 'content'], where: { sid: { [Op.eq]: col('feed.sid') } }, required: false, as: 'pin' }
           // { model: model.Role, attributes: ['role_id'], as: 'role' },
           // { model: model.Story, attributes: ['story_id'], as: 'story' },
@@ -92,7 +92,7 @@ export default (app: Context & Application) => {
     static associate() {
       Feed.belongsTo(model.User, { foreignKey: 'uid', as: 'user' })
       Feed.hasOne(model.Subject, { foreignKey: 'id', sourceKey: 'aid', as: 'subject' })
-      Feed.hasOne(model.Collect, { foreignKey: 'id', sourceKey: 'aid', as: 'collect' })
+      Feed.hasOne(model.Favorite, { foreignKey: 'id', sourceKey: 'aid', as: 'favorite' })
       Feed.hasOne(model.Pin, { foreignKey: 'id', sourceKey: 'aid', as: 'pin' })
       // Feed.hasOne(model.Story, { foreignKey: 'story_id', sourceKey: 'story_id', as: 'story' });
       // Feed.hasOne(model.Star, { foreignKey: 'star_id', sourceKey: 'star_id', as: 'star' });

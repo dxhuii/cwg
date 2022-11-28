@@ -1,16 +1,17 @@
 import type { Application, Context } from 'egg'
-import type { CollectType } from '../schema/collect'
-import favorite from '../schema/collect'
+import type { BookmarkType } from '../schema/bookmark'
+import bookmark from '../schema/bookmark'
+import type { ICondition } from '../typings'
 
 export default (app: Context & Application) => {
   // 获取数据类型
   const { model } = app
-  const Collect = favorite(app)
+  const Bookmark = bookmark(app)
 
-  return class extends Collect<CollectType> {
+  return class extends Bookmark<BookmarkType> {
     static async query(params) {
       const { attributes, pageSize, pageNo, order = ['created_at', 'DESC'] } = params
-      const condition: any = {
+      const condition: ICondition = {
         attributes,
         include: [
           { model: model.User, attributes: ['id', 'username', 'nickname', 'avatar'], as: 'user' },
@@ -27,7 +28,7 @@ export default (app: Context & Application) => {
         limit: app.utils.Tool.toInt(pageSize),
         where: { status: 1 }
       }
-      const { count, rows } = await Collect.findAndCountAll(condition)
+      const { count, rows } = await Bookmark.findAndCountAll(condition)
 
       return {
         list: rows,
@@ -45,34 +46,34 @@ export default (app: Context & Application) => {
         where: {}
       }
       condition.where = params
-      const result = await Collect.findOne(condition)
+      const result = await Bookmark.findOne(condition)
       return result
     }
 
     static async add(params) {
-      const result = await Collect.create(params)
+      const result = await Bookmark.create(params)
       return result
     }
 
     static async edit(params) {
-      const result = await Collect.update(params, { where: { id: params.id } })
+      const result = await Bookmark.update(params, { where: { id: params.id } })
       return result
     }
 
     static async delete(params) {
-      const result = await Collect.destroy({ where: { id: params.id } })
+      const result = await Bookmark.destroy({ where: { id: params.id } })
       return result
     }
 
     static async adds(params) {
-      const result = await Collect.bulkCreate(params)
+      const result = await Bookmark.bulkCreate(params)
       return result
     }
 
     static associate() {
       // Collect.hasOne(model.User, { foreignKey: 'id', sourceKey: 'uid', as: 'user' })
-      Collect.hasOne(model.Subject, { foreignKey: 'id', sourceKey: 'aid', as: 'subject' })
-      Collect.belongsTo(model.User, { as: 'user', foreignKey: 'uid' })
+      Bookmark.hasOne(model.Subject, { foreignKey: 'id', sourceKey: 'aid', as: 'subject' })
+      Bookmark.belongsTo(model.User, { as: 'user', foreignKey: 'uid' })
       // Feed.hasOne(model.Role, { foreignKey: 'role_id', sourceKey: 'role_id', as: 'role' });
       // Feed.hasOne(model.Story, { foreignKey: 'story_id', sourceKey: 'story_id', as: 'story' });
       // Feed.hasOne(model.Star, { foreignKey: 'star_id', sourceKey: 'star_id', as: 'star' });

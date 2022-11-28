@@ -82,7 +82,7 @@ export interface IFeed extends IHits, IDate, Omit<IId, 'cid'> {
   subject: ISubject
   user: IUser
   pin: IPin
-  collect: ICollect
+  favorite: IFavorite
 }
 
 export interface IMcat {
@@ -219,12 +219,20 @@ export interface ISetting {
   tag: string
 }
 
-export interface ICollect extends IDate, Omit<IId, 'status'> {
+export interface IFavorite extends IDate, IId, IHits {
   tags: string
   content: string
   ip: number
+  tsid: number
   rating: number
   interest: number
+}
+
+export interface IBookmark extends IDate, IId {
+  tsid: number
+  tags: string
+  content: string
+  ip: number
 }
 
 export interface IFollow extends IDate {

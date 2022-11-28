@@ -11,6 +11,6 @@ module.exports = {
   },
 
   down: async queryInterface => {
-    await queryInterface.dropTable('link')
+    await queryInterface.dropTable('link_user')
   }
 }

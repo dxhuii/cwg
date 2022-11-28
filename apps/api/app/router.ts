@@ -33,10 +33,14 @@ export default (app: Application) => {
   router.get('/api/user/checkExpired', controller.api.user.checkExpired)
   router.get('/api/user/setAdmin', controller.api.user.setAdmin)
   router.get('/api/user/:id', log(), controller.api.user.get)
-  // 收藏
-  router.get('/api/collect/:id', controller.api.collect.get)
-  router.post('/api/collect/add', auth(0), controller.api.collect.add)
-  router.delete('/api/collect/delete', auth(0), controller.api.collect.delete)
+  // 喜欢
+  router.get('/api/favorite/:id', controller.api.favorite.get)
+  router.post('/api/favorite/add', auth(0), controller.api.favorite.add)
+  router.delete('/api/favorite/delete', auth(0), controller.api.favorite.delete)
+  // 书签
+  router.get('/api/bookmark/:id', controller.api.bookmark.get)
+  router.post('/api/bookmark/add', auth(0), controller.api.bookmark.add)
+  router.delete('/api/bookmark/delete', auth(0), controller.api.bookmark.delete)
   // 剧集
   router.get('/api/subject/list', controller.api.subject.list)
   router.post('/api/subject/add', auth(0), controller.api.subject.add)
@@ -77,6 +81,12 @@ export default (app: Application) => {
   router.post('/api/linkCategory/add', auth(100), controller.api.linkCategory.add)
   router.delete('/api/linkCategory/delete', auth(100), controller.api.linkCategory.delete)
   router.get('/api/linkCategory/:id', auth(100), controller.api.linkCategory.get)
+
+  // 用户保存链接数据
+  router.get('/api/linkUser/list', auth(0), controller.api.linkUser.list)
+  router.post('/api/linkUser/add', auth(0), controller.api.linkUser.add)
+  router.delete('/api/linkUser/delete', auth(0), controller.api.linkUser.delete)
+  router.get('/api/linkUser/:id', auth(0), controller.api.linkUser.get)
   // 订阅
   // router.get('/api/remind/list', controller.api.remind.list);
   // router.get('/api/remind/:id', controller.api.remind.get);
