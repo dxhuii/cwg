@@ -21,7 +21,6 @@ declare module '@vue/runtime-core' {
     HeroiconsOutlineLocationMarker: typeof import('~icons/heroicons-outline/location-marker')['default']
     HeroiconsOutlinePhotograph: typeof import('~icons/heroicons-outline/photograph')['default']
     HeroiconsOutlineUserCircle: typeof import('~icons/heroicons-outline/user-circle')['default']
-    HeroiconsOutlineX: typeof import('~icons/heroicons-outline/x')['default']
     History: typeof import('./components/package/History.vue')['default']
     Login: typeof import('./components/Login.vue')['default']
     Logo: typeof import('./components/Logo.vue')['default']

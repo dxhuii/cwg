@@ -7,7 +7,7 @@ import {
   TransitionChild,
   TransitionRoot
 } from '@headlessui/vue'
-const { title, cls = 'min-w-md ' } = defineProps<{ title?: string; cls?: string }>()
+const { title, cls = 'min-w-md' } = defineProps<{ title?: string; cls?: string }>()
 const emits = defineEmits<{
   (event: 'show'): void
   (event: 'close'): void

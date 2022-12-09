@@ -57,6 +57,7 @@ const {
         :placeholder="placeholder"
         border="~ solid gray-200 rounded-md"
         flex-grow
+        outline-none
         px-2 h-10 @input="handleChange" @blur="handleBlur"
       >
     </div>

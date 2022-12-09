@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IUser } from '~~/typings'
+import type { IUser } from '@cwg/types'
 
 const { user } = defineProps<{ user?: IUser }>()
 </script>

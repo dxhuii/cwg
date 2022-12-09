@@ -48,7 +48,7 @@ const exit = async () => {
       <heroicons-outline-user-circle v-else class="w-6 h-6" />
       {{ userInfo?.id ? userInfo.username : '登录' }}
     </div>
-    <Dialog ref="open" title="欢迎来到 NewTab">
+    <Dialog ref="open" title="欢迎来到 NewTab" cls="w-100">
       <Login @success="success" @close="close" />
     </Dialog>
     <Dialog ref="openSet" title="设置" cls="w-248">
