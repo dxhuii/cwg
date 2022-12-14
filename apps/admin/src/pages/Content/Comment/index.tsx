@@ -178,9 +178,9 @@ const Comment: FC = () => {
             return message.error(res.message)
           }
         }}
-        onVisibleChange={setModalVisit}
-        title='新建'
-        visible={modalVisit}>
+        onOpenChange={setModalVisit}
+        open={modalVisit}
+        title='新建'>
         <ProFormText label='名称' name='name' placeholder='请输入名称' rules={[{ required: true }]} />
         <ProFormSelect label='模型' name='sid' options={Object.keys(modelType).map(item => ({ label: modelType[item], value: item }))} />
         <ProFormSelect

@@ -141,8 +141,6 @@ const nowLunar = computed(() => {
   const w = new Date(`${year}/01/01`).getDay() // 一年的第一天是星期几
   return { ...lunar, day, weeks: Math.ceil((day + w - 1) / 7) }
 })
-
-console.log(nowLunar.value)
 </script>
 
 <template>

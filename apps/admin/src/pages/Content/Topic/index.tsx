@@ -211,9 +211,9 @@ const Topic: FC = () => {
             return false
           }
         }}
-        onVisibleChange={setModalVisit}
-        title='新建'
-        visible={modalVisit}>
+        onOpenChange={setModalVisit}
+        open={modalVisit}
+        title='新建'>
         <ProFormText label='名称' name='name' placeholder='请输入名称' rules={[{ required: true }]} />
         <ProFormSelect label='分类' name='cid' placeholder='请选择分类' rules={[{ required: true }]} valueEnum={cidList} />
         <ProFormText label='目录' name='dir' placeholder='请输入目录' />

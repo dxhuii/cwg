@@ -1,6 +1,6 @@
 {
   "name": "@cwg/admin",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "engines": {
     "node": ">=14.0.0"
@@ -23,10 +23,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
-    "@ant-design/pro-components": "^2.3.35",
+    "@ant-design/pro-components": "^2.3.37",
+    "@ant-design/use-emotion-css": "1.0.4",
     "@cwg/shared": "workspace:*",
     "@cwg/types": "workspace:*",
-    "antd": "4.24.1",
+    "antd": "^5.0.0",
     "classnames": "^2.3.2",
     "cos-js-sdk-v5": "^1.4.13",
     "lodash": "^4.17.21",
@@ -47,7 +48,7 @@
     "cross-env": "^7.0.3",
     "gh-pages": "^4.0.0",
     "typescript-plugin-css-modules": "^4.1.1",
-    "umi-presets-pro": "^1.0.8"
+    "umi-presets-pro": "^2.0.0"
   },
   "browserslist": [
     "> 1%",

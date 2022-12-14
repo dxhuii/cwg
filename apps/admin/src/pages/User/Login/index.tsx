@@ -5,7 +5,7 @@ import { Alert, message } from 'antd'
 import md5 from 'md5'
 import React, { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
-import styles from './index.less'
+import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { login } from '@/services/user'
 import Footer from '@/components/Footer'
 
@@ -24,7 +24,17 @@ const LoginMessage: React.FC<{
 const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({})
   const { initialState, setInitialState } = useModel('@@initialState')
-
+  const containerClassName = useEmotionCss(() => {
+    return {
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      overflow: 'auto',
+      backgroundImage:
+        'url(\'https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr\')',
+      backgroundSize: '100% 100%'
+    }
+  })
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.()
     if (userInfo) {
@@ -66,8 +76,11 @@ const Login: React.FC = () => {
 
   const { status } = userLoginState
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
+    <div className={containerClassName}>
+      <div style={{
+        flex: '1',
+        padding: '32px 0'
+      }}>
         <LoginForm
           // logo={<img alt="logo" src="/logo.svg" />}
           initialValues={{
@@ -82,7 +95,7 @@ const Login: React.FC = () => {
           <ProFormText
             fieldProps={{
               size: 'large',
-              prefix: <UserOutlined className={styles.prefixIcon} />
+              prefix: <UserOutlined />
             }}
             name='username'
             placeholder='用户名'
@@ -95,7 +108,7 @@ const Login: React.FC = () => {
           <ProFormText.Password
             fieldProps={{
               size: 'large',
-              prefix: <LockOutlined className={styles.prefixIcon} />
+              prefix: <LockOutlined />
             }}
             name='password'
             placeholder='密码'

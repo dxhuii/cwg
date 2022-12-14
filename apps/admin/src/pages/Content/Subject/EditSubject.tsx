@@ -63,7 +63,8 @@ const SubjectEdit: FC<IEdit> = props => {
 
   const playEunm = useMemo(() => {
     return play.reduce((obj, item) => {
-      obj[item.title!] = item.name
+      if (item.title)
+        obj[item.title] = item.name
       return obj
     }, {}) as Record<string, string>
   }, [play])
@@ -133,7 +134,8 @@ const SubjectEdit: FC<IEdit> = props => {
           return false
         }
       }}
-      onVisibleChange={setVisible}
+      onOpenChange={setVisible}
+      open={visible}
       request={async () => {
         let data = {} as ISubject
         if (editData?.id) {
@@ -143,7 +145,6 @@ const SubjectEdit: FC<IEdit> = props => {
         return data
       }}
       title={editData?.id ? editData.name : '新建'}
-      visible={visible}
       width={1340}>
       <ProForm.Group size={5}>
         <Item label='分类' name='cid' required={false} rules={[{ required: true }]}>
@@ -160,6 +161,7 @@ const SubjectEdit: FC<IEdit> = props => {
         <ProFormSwitch label='是否完结' name='isend' />
       </ProForm.Group>
       <ProFormCheckbox.Group
+        fieldProps={{ style: { display: 'flex', flexWrap: 'wrap' } }}
         label='小类'
         name='mcid'
         options={mcat.map(item => {
@@ -173,7 +175,7 @@ const SubjectEdit: FC<IEdit> = props => {
               if (name) {
                 const result = await subjectName({ name })
                 if (result.data)
-                  return message.warn('名称已存在')
+                  return message.warning('名称已存在')
               }
             }
           }}

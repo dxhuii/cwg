@@ -12,20 +12,30 @@ export default (app: Context & Application) => {
     'subject',
     {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true, comment: '自增id' },
-      cid: { type: STRING, allowNull: false, comment: '分类id' },
+      cid: {
+        type: STRING,
+        allowNull: false,
+        comment: '分类id',
+        set(value: any[]) {
+          value && this.setDataValue('cid', value.join(','))
+        },
+        get() {
+          const val = this.getDataValue('cid')
+          return val ? val.split(',') : []
+        }
+      },
       sid: { type: SMALLINT, defaultValue: 1, comment: '模型ID' },
       uid: { type: INTEGER, allowNull: false, comment: '用户id' },
       type: { type: SMALLINT, allowNull: false, comment: '类别: 1:动漫、2:电视、3:电影、4:漫画、5:游戏、6:音乐、7:书等' },
       mcid: {
         type: STRING,
         comment: '小分类',
-        set() {
-          const val = this.getDataValue('mcid')
-          val && this.setDataValue('mcid', val.join(','))
+        set(value: string[]) {
+          value && this.setDataValue('mcid', value.join(','))
         },
         get() {
           const val = this.getDataValue('mcid')
-          return val ? val.split(',') : null
+          return val ? val.split(',') : []
         }
       },
       name: { type: STRING, allowNull: false, comment: '原名' },
@@ -61,13 +71,12 @@ export default (app: Context & Application) => {
       weekday: {
         type: STRING,
         comment: '星期',
-        set() {
-          const val = this.getDataValue('weekday')
-          val && this.setDataValue('weekday', val.join(','))
+        set(value: any[]) {
+          value && this.setDataValue('weekday', value.join(','))
         },
         get() {
           const val = this.getDataValue('weekday')
-          return val ? val.split(',') : null
+          return val ? val.split(',') : []
         }
       },
       douban: { type: INTEGER, comment: '豆瓣id' },

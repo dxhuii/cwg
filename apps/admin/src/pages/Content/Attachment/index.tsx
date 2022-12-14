@@ -179,9 +179,9 @@ const Attachment: FC = () => {
             return false
           }
         }}
-        onVisibleChange={setModalVisit}
-        title='新建'
-        visible={modalVisit}>
+        onOpenChange={setModalVisit}
+        open={modalVisit}
+        title='新建'>
         <ProFormTextArea label='内容' name='content' rules={[{ required: true }]} />
       </ModalForm>
     </PageContainer>

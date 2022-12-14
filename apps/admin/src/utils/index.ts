@@ -28,13 +28,13 @@ export const getListFormat = (list: IList[]) => {
   const data: { value: IValue; label: string; children?: { value: IValue; label: string }[] }[] = []
   list.forEach(item => {
     if (item.pid === '0')
-      data.push({ value: +item.id!, label: item.name!, children: [] })
+      data.push({ value: item.id!, label: item.name!, children: [] })
   })
   list.forEach(item => {
     if (item.pid !== '0') {
       data.forEach(i => {
         if (String(i.value) === item.pid)
-          i.children!.push({ value: +item.id!, label: item.name! })
+          i.children!.push({ value: item.id!, label: item.name! })
       })
     }
   })

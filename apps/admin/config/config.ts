@@ -4,7 +4,7 @@ import defaultSettings from './defaultSettings'
 import proxy from './proxy'
 import routes from './routes'
 
-const { REACT_APP_ENV } = process.env
+const { REACT_APP_ENV = 'dev' } = process.env
 
 export default defineConfig({
   hash: true,
@@ -28,11 +28,15 @@ export default defineConfig({
     'root-entry-name': 'variable'
   },
   ignoreMomentLocale: true,
-  proxy: proxy[REACT_APP_ENV || 'dev'],
+  proxy: proxy[REACT_APP_ENV as keyof typeof proxy],
   manifest: {
     basePath: '/'
   },
   // Fast Refresh 热更新
   fastRefresh: true,
-  presets: ['umi-presets-pro']
+  presets: ['umi-presets-pro'],
+  mfsu: {
+    strategy: 'normal'
+  },
+  requestRecord: {}
 })

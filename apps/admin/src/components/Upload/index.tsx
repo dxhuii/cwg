@@ -303,7 +303,7 @@ const UploadImage = forwardRef((props: IUploadImage, ref) => {
   return (
     <>
       {upload}
-      <Modal footer={null} onCancel={handleCancel} title='图片预览' visible={previewVisible}>
+      <Modal footer={null} onCancel={handleCancel} open={previewVisible} title='图片预览'>
         <img alt='图片预览' src={previewImage} style={{ maxWidth: '100%' }} />
       </Modal>
     </>

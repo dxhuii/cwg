@@ -192,9 +192,9 @@ const Pin: FC = () => {
             return false
           }
         }}
-        onVisibleChange={setModalVisit}
-        title='新建'
-        visible={modalVisit}>
+        onOpenChange={setModalVisit}
+        open={modalVisit}
+        title='新建'>
         <ProFormSelect fieldProps={{ onSearch: onSearchForAid }} label='关联内容ID' name='aid' showSearch />
         {/* <ProFormSelect showSearch name="tid" label="关联话题ID" fieldProps={{ onSearch: onSearchForTid }} /> */}
         <Item label='关联话题ID' name='tid'>

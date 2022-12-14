@@ -183,9 +183,9 @@ const Pin: FC = () => {
             return false
           }
         }}
-        onVisibleChange={setModalVisit}
-        title='新建'
-        visible={modalVisit}>
+        onOpenChange={setModalVisit}
+        open={modalVisit}
+        title='新建'>
         <ProFormSelect label='分类' name='cid' placeholder='请选择分类' rules={[{ required: true }]} valueEnum={cidList} />
         <ProFormText label='名称' name='name' placeholder='请输入名称' rules={[{ required: true }]} />
         <ProFormText label='网址' name='url' placeholder='请输入网址' rules={[{ required: true }]} />

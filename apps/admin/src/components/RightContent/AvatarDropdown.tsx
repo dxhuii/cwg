@@ -1,19 +1,57 @@
 import { stringify } from 'querystring'
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
+import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { history, useModel } from '@umijs/max'
 import { Avatar, Spin } from 'antd'
-import type { ItemType } from 'antd/es/menu/hooks/useItems'
-import React from 'react'
+import { setAlpha } from '@ant-design/pro-components'
+import type { MenuInfo } from 'rc-menu/lib/interface'
+import React, { useCallback } from 'react'
 import { flushSync } from 'react-dom'
 import HeaderDropdown from '../HeaderDropdown'
-import styles from './index.less'
 import { outLogin } from '@/services/user'
 
 export interface GlobalHeaderRightProps {
   menu?: boolean
 }
-export interface MenuInfo {
-  key: string
+
+const Name = () => {
+  const { initialState } = useModel('@@initialState')
+  const { currentUser } = initialState || {}
+
+  const nameClassName = useEmotionCss(({ token }) => {
+    return {
+      width: '70px',
+      height: '48px',
+      overflow: 'hidden',
+      lineHeight: '48px',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+      [`@media only screen and (max-width: ${token.screenMD}px)`]: {
+        display: 'none'
+      }
+    }
+  })
+
+  return <span className={`${nameClassName} anticon`}>{currentUser?.username}</span>
+}
+
+const AvatarLogo = () => {
+  const { initialState } = useModel('@@initialState')
+  const { currentUser } = initialState || {}
+
+  const avatarClassName = useEmotionCss(({ token }) => {
+    return {
+      marginRight: '8px',
+      color: token.colorPrimary,
+      verticalAlign: 'top',
+      background: setAlpha(token.colorBgContainer, 0.85),
+      [`@media only screen and (max-width: ${token.screenMD}px)`]: {
+        margin: 0
+      }
+    }
+  })
+
+  return <Avatar alt='avatar' className={avatarClassName} size='small' src={currentUser?.avatar} />
 }
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
@@ -36,10 +74,40 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       })
     }
   }
+  const actionClassName = useEmotionCss(({ token }) => {
+    return {
+      'display': 'flex',
+      'height': '48px',
+      'marginLeft': 'auto',
+      'overflow': 'hidden',
+      'alignItems': 'center',
+      'padding': '0 8px',
+      'cursor': 'pointer',
+      'borderRadius': token.borderRadius,
+      '&:hover': {
+        backgroundColor: token.colorBgTextHover
+      }
+    }
+  })
   const { initialState, setInitialState } = useModel('@@initialState')
 
+  const onMenuClick = useCallback(
+    (event: MenuInfo) => {
+      const { key } = event
+      if (key === 'logout') {
+        flushSync(() => {
+          setInitialState(s => ({ ...s, currentUser: undefined }))
+        })
+        loginOut()
+        return
+      }
+      history.push(`/account/${key}`)
+    },
+    [setInitialState]
+  )
+
   const loading = (
-    <span className={`${styles.action} ${styles.account}`}>
+    <span className={actionClassName}>
       <Spin
         size='small'
         style={{
@@ -57,7 +125,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   if (!currentUser || !currentUser.username)
     return loading
 
-  const menuItems: ItemType[] = [
+  const menuItems = [
     ...(menu
       ? [
           {
@@ -78,25 +146,20 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     {
       key: 'logout',
       icon: <LogoutOutlined />,
-      label: (
-        <a
-          onClick={() => {
-            flushSync(() => {
-              setInitialState(s => ({ ...s, currentUser: undefined }))
-            })
-            loginOut()
-          }}>
-          退出登录
-        </a>
-      )
+      label: '退出登录'
     }
   ]
 
   return (
-    <HeaderDropdown menu={{ items: menuItems }}>
-      <span className={`${styles.action} ${styles.account}`}>
-        <Avatar alt='avatar' className={styles.avatar} size='small' src={currentUser.avatar} />
-        <span className={`${styles.name} anticon`}>{currentUser.username}</span>
+    <HeaderDropdown
+      menu={{
+        selectedKeys: [],
+        onClick: onMenuClick,
+        items: menuItems
+      }}>
+      <span className={actionClassName}>
+        <AvatarLogo />
+        <Name />
       </span>
     </HeaderDropdown>
   )

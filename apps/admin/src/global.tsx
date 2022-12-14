@@ -56,7 +56,7 @@ if (pwa) {
     const btn = (
       <Button
         onClick={() => {
-          notification.close(key)
+          notification.destroy(key)
           reloadSW()
         }}
         type='primary'>

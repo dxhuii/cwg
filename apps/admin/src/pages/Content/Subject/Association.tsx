@@ -97,7 +97,7 @@ const Association: FC<ISubject & { visible: boolean; setVisible: (visible: boole
   }
 
   return (
-    <ModalForm onVisibleChange={setVisible} submitter={false} title={name} visible={visible}>
+    <ModalForm onOpenChange={setVisible} open={visible} submitter={false} title={name}>
       <ProCard bordered size='small' style={{ marginTop: -10 }} title='关联'>
         {detail?.associate1?.map(item => (
           <Tag closable key={item.id} onClose={e => onDel(e, item)}>
