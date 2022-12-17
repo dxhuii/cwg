@@ -1,11 +1,12 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
-import { history, useModel } from '@umijs/max'
+import { Helmet, history, useModel } from '@umijs/max'
 import { Alert, message } from 'antd'
 import md5 from 'md5'
 import React, { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
+import Settings from '../../../../config/defaultSettings'
 import { login } from '@/services/user'
 import Footer from '@/components/Footer'
 
@@ -77,6 +78,11 @@ const Login: React.FC = () => {
   const { status } = userLoginState
   return (
     <div className={containerClassName}>
+      <Helmet>
+        <title>
+          登录页 - {Settings.title}
+        </title>
+      </Helmet>
       <div style={{
         flex: '1',
         padding: '32px 0'
