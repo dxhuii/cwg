@@ -4,7 +4,7 @@ import type { ActionType, ProColumns } from '@ant-design/pro-components'
 import { FooterToolbar, PageContainer, ProTable } from '@ant-design/pro-components'
 import { Link, history } from '@umijs/max'
 import { Button, Popconfirm, Popover } from 'antd'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import type { FC } from 'react'
 import { useRef, useState } from 'react'
 import { userList } from '@/services/user'
@@ -54,7 +54,7 @@ const UserList: FC = () => {
       dataIndex: 'updated_at',
       valueType: 'dateRange',
       hideInTable: true,
-      initialValue: [moment(), moment().add(1, 'day')]
+      initialValue: [dayjs(), dayjs().add(1, 'day')]
     },
     {
       title: '创建时间',

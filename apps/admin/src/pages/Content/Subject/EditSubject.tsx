@@ -19,7 +19,7 @@ import {
 } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import { Button, Cascader, Form, message } from 'antd'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import type { FC } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import useDouban from '@/utils/hooks/useDouban'
@@ -191,7 +191,7 @@ const SubjectEdit: FC<IEdit> = props => {
           fieldProps={{ format: 'HH:mm' }}
           getValueProps={value => {
             return {
-              value: value ? moment(value, 'HH:mm') : null
+              value: value ? dayjs(value, 'HH:mm') : null
             }
           }}
           name='time'

@@ -1,5 +1,5 @@
 import { message } from 'antd'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { useState } from 'react'
 import { getVideo } from '@/services/video'
 
@@ -9,7 +9,7 @@ export default () => {
     setBiliLoading(true)
     if (!id) {
       setBiliLoading(false)
-      return message.warn('B站ID未填')
+      return message.warning('B站ID未填')
     }
     const res = await getVideo({ title: 'biliinfo', id })
     setBiliLoading(false)
@@ -26,12 +26,12 @@ export default () => {
     params.area = areas[0].name
     params.mcid = findMcid(styles.map((item: { name: string }) => item.name))
     params.filmtime = publish.pub_date ? publish.pub_date : null
-    const day = moment(params.filmtime).day()
+    const day = dayjs(params.filmtime).day()
     params.weekday = params.filmtime ? [String(day === 0 ? 7 : day)] : null
     params.broadcast = episode_index.id !== 0
     params.isend = episode_index.is_new === 1
     params.serialized = +episode_index.index || null
-    params.year = `${moment(publish.pub_date).year()}`
+    params.year = `${dayjs(publish.pub_date).year()}`
     params.tag = `${params.name}${params.foreign ? `,${params.foreign}` : ''}${
       params.aliases && params.aliases !== params.name ? `,${params.aliases}` : ''
     }`

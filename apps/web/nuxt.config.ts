@@ -24,8 +24,7 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
-    '@nuxt/image-edge',
-    '@kevinmarrec/nuxt-pwa'
+    '@nuxt/image-edge'
   ],
   experimental: {
     reactivityTransform: true,
@@ -44,24 +43,5 @@ export default defineNuxtConfig({
   },
   typescript: {
     shim: false
-  },
-  pwa: {
-    meta: {
-      name: 'AlbionStatus - Albion Online server status',
-      author: 'Developmint',
-      description: 'AlbionStatus is the only reliable Albion Online server status tracker. Find out if Albion is down'
-        + ' in a splitsecond, no matter if the downtime is caused by the daily maintenance or an outage.',
-      ogSiteName: 'AlbionStatus',
-      ogHost: 'https://albionstatus.com',
-      twitterSite: '@AlbionStatus',
-      twitterCard: 'summary'
-    },
-    manifest: {
-      lang: 'en',
-      short_name: 'AlbionStatus',
-      start_url: '/',
-      display: 'standalone',
-      background_color: '#FFFFFF'
-    }
   }
 })

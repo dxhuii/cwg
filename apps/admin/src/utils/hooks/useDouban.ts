@@ -1,5 +1,5 @@
 import { message } from 'antd'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { useState } from 'react'
 import { getVideo } from '@/services/video'
 
@@ -9,7 +9,7 @@ export default () => {
     setDoubanLoading(true)
     if (!id) {
       setDoubanLoading(false)
-      return message.warn('豆瓣ID未填')
+      return message.warning('豆瓣ID未填')
     }
     const res = await getVideo({ title: 'douban', id })
     setDoubanLoading(false)
@@ -47,7 +47,7 @@ export default () => {
         total: episodes_count || null,
         tag: `${title}${aka.length ? `,${aka.join(',')}` : ''}`,
         gold: rating.value || null,
-        weekday: filmtime ? [String(moment(filmtime).day())] : null
+        weekday: filmtime ? [String(dayjs(filmtime).day())] : null
       }
       return params
     }
