@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ISubject } from '~~/typings'
+import type { ISubject } from '@cwg/types'
 
 const { subject } = defineProps<{ subject: ISubject }>()
 </script>

@@ -21,12 +21,12 @@ const model = sidName[sid]
   <div flex justify="between">
     <div flex="~ col">
       <div>
-        <b text="warm-gray-700" @click.stop="go('user', data.user?.id)">{{ data.user?.nickname }}</b>
+        <b text="warm-gray-700" hover="text-#1d9bf0" @click.stop="go('user', data.user?.id)">{{ data.user?.nickname }}</b>
         <span mx-1>{{ FeedType[data.type] }}</span>
         <span text="warm-gray-700" @click.stop="go(model, data?.[model]?.id)">{{ data?.[model]?.name || '动态' }}</span>
       </div>
       <div text="gray-500 sm">
-        <span>{{ data.time }}</span>
+        <span hover="text-#1d9bf0" @click.stop="go('feed', data?.id)">{{ data.time }}</span>
         <span mx-1>·</span>
         <span>web</span>
       </div>

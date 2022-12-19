@@ -3,8 +3,6 @@ import { ErrorMessage, Field, FieldArray, Form } from 'vee-validate'
 import * as yup from 'yup'
 const emit = defineEmits(['open', 'onImage'])
 const { $Toast } = useNuxtApp()
-const preview = ref(false)
-const previewPic = ref()
 
 const initialData = {
   image: [
@@ -43,16 +41,10 @@ function onSubmit(values: any) {
   else
     emit('onImage', values)
 }
-
-const onPreview = (src: string) => {
-  preview.value = true
-  emit('open', true)
-  previewPic.value = src
-}
 </script>
 
 <template>
-  <div>
+  <div w-150 bg="white" p-2 pb-4 border="~ b #eff3f4">
     <Form
       :initial-values="initialData"
       :validation-schema="schema"
@@ -74,10 +66,9 @@ const onPreview = (src: string) => {
                 placeholder="请输入图片地址"
                 border="~ solid gray-200 rounded-md" w-full px-2 h-10
               />
-              <img v-if="(field.value as any).url" :src="(field.value as any).url" class="w-10 h-10 ml-2" @click.stop="onPreview((field.value as any).url)">
               <div i-carbon-close cursor-pointer ml-2 text-lg @click="remove(idx)" />
             </div>
-            <ErrorMessage :name="`image[${idx}].url`" />
+            <ErrorMessage :name="`image[${idx}].url`" text-red />
           </div>
         </fieldset>
         <button mx-4 relative z-2 h-8 inline-flex items-center @click="push({ url: '' })">
@@ -90,12 +81,5 @@ const onPreview = (src: string) => {
         </button>
       </div>
     </Form>
-    <Modal
-      v-model="preview"
-      title="查看图片"
-      cls="z-30"
-    >
-      <img :src="previewPic" class="w-full">
-    </Modal>
   </div>
 </template>

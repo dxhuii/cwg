@@ -1,5 +1,5 @@
 import { Controller } from 'egg'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 
 export default class User extends Controller {
   // 用户登入

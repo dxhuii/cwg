@@ -1,5 +1,5 @@
 import type { Application, Context } from 'egg'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 import type { ICondition, IParams } from '../typings'
 import type { SubjectType } from '../schema/subject'
 import subject from '../schema/subject'

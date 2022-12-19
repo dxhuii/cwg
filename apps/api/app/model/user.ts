@@ -40,13 +40,13 @@ export default (app: Context & Application) => {
         attributes,
         where: { id }
       }
+      const where: { [key: string | symbol]: any } = {}
       if (params.not_id) {
-        params.id = {
+        where.id = {
           [Op.not]: params.not_id
         }
-        delete params.not_id
       }
-      condition.where = params
+      condition.where = where
       const result = await User.findOne(condition)
       return result
     }

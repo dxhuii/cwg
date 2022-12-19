@@ -1,11 +1,11 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2020",
     "module": "commonjs",
     "strict": true,
     "noImplicitAny": false,
-    "experimentalDecorators": true,
+    "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "charset": "utf8",
     "allowJs": false,
@@ -21,6 +21,11 @@
     "skipDefaultLibCheck": true,
     "inlineSourceMap": true,
     "importHelpers": true,
+    "resolveJsonModule": true,
+    // Enables experimental support for ES7 decorators.
+    "experimentalDecorators": true,
+    "useUnknownInCatchVariables": true,
+    "incremental": true,
     "types": ["node"],
     "paths": {
       "@root/*": ["./*"],

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IPin } from '~~/typings'
+import type { IPin } from '@cwg/types'
 
 const { pin } = defineProps<{ pin: IPin }>()
 </script>

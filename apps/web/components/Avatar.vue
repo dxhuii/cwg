@@ -5,7 +5,7 @@ const { user } = defineProps<{ user?: IUser }>()
 </script>
 
 <template>
-  <div w-12 h-12 rounded="full">
+  <div w-12 h-12 rounded="full" @click.stop="go('user', user?.id)">
     <NuxtImg
       v-if="user?.avatar"
       width="48"

@@ -1,16 +1,33 @@
 <script setup lang="ts">
+import { Dialog } from '@cwg/ui'
 import type { IUser } from '@cwg/types'
+const open = ref()
+const reg = ref()
 
-const isLogin = ref(false)
-const isReg = ref(false)
+const openLogin = () => {
+  open.value.openModal()
+}
+
+const openReg = () => {
+  reg.value.openModal()
+}
+
 const userInfo = ref<IUser>()
-const getUser = async () => {
+const success = async () => {
   const res = await getUserInfo()
   userInfo.value = res.data
 }
 
+const close = () => {
+  open.value.closeModal()
+}
+
+const closeReg = () => {
+  reg.value.closeModal()
+}
+
 watchEffect(() => {
-  getUser()
+  success()
 })
 
 const items = [
@@ -57,23 +74,17 @@ const onOk = async (item: typeof items[0]) => {
             />
           </Dropdown>
         </div>
-        <div v-else @click="isLogin = true">
+        <div v-else cursor-pointer @click="openLogin">
           登录
         </div>
       </div>
-      <Modal
-        v-model="isLogin"
-        title="登录"
-      >
-        <Login :get-user="getUser" @close="isLogin = false" @reg="{ isLogin = false; isReg = true }" />
-      </Modal>
+      <Dialog ref="open" title="欢迎来到 NewTab" cls="w-100">
+        <Login @success="success" @close="close" @reg="openReg" />
+      </Dialog>
 
-      <Modal
-        v-model="isReg"
-        title="注册"
-      >
-        <Reg :get-user="getUser" @close="isReg = false" @login="isLogin = true; isReg = false" />
-      </Modal>
+      <Dialog ref="reg" title="注册" cls="w-100">
+        <Reg @success="success" @close="closeReg" @login="openLogin" />
+      </Dialog>
     </div>
   </div>
 </template>

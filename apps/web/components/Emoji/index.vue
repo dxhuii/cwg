@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import emojis from './emojis.json'
-const { open } = defineProps<{ open: boolean }>()
 const tab = ref(0)
 const arr = ref<number[]>([])
 const tabArr = ref<number[]>([])
@@ -25,23 +24,21 @@ const onTab = (index: number) => {
 }
 
 onMounted(() => {
-  if (open) {
-    const tablist = document.querySelectorAll('.emoji-title')
-    const tabBox = document.querySelectorAll('.emoji-box')
-    const top = face.value?.getBoundingClientRect().top
-    const firstHeight = tabBox[0].getBoundingClientRect().height + tablist[0].getBoundingClientRect().height
-    tabBox.forEach(item => {
-      arr.value.push(item.getBoundingClientRect().bottom - top! - firstHeight)
-    })
-    tablist.forEach(item => {
-      tabArr.value.push(item.getBoundingClientRect().top - top!)
-    })
-  }
+  const tablist = document.querySelectorAll('.emoji-title')
+  const tabBox = document.querySelectorAll('.emoji-box')
+  const top = face.value?.getBoundingClientRect().top
+  const firstHeight = tabBox[0].getBoundingClientRect().height + tablist[0].getBoundingClientRect().height
+  tabBox.forEach(item => {
+    arr.value.push(item.getBoundingClientRect().bottom - top! - firstHeight)
+  })
+  tablist.forEach(item => {
+    tabArr.value.push(item.getBoundingClientRect().top - top!)
+  })
 })
 </script>
 
 <template>
-  <div w-72 bg-white absolute top-10 z-20>
+  <div w-72 bg-white>
     <div flex border="~ b #eff3f4" cursor-pointer>
       <div v-for="(item, i) in emojis" :key="i" w-9 leading-9 text-center text-2xl relative :class="{ grayscale: tab === i }" @click="onTab(i)">
         {{ item.name }}

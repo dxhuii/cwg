@@ -2,26 +2,13 @@
 import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import type { ICaptcha } from '@cwg/types'
-const props = defineProps({
-  getUser: {
-    type: Function,
-    default: () => {}
-  }
-})
-const emit = defineEmits(['close', 'login', 'getUser'])
+import { TextInput } from '@cwg/ui'
+const emit = defineEmits(['close', 'login', 'success'])
 const code = ref<ICaptcha>()
 const onSubmit = async (values: any) => {
   await reg({ ...values, token: code.value?.token })
-  await props.getUser()
+  await emit('success')
   await emit('close')
-}
-
-function onInvalidSubmit() {
-  const submitBtn = document.querySelector('.submit-btn') as HTMLDivElement
-  submitBtn.classList.add('invalid')
-  setTimeout(() => {
-    submitBtn.classList.remove('invalid')
-  }, 1000)
 }
 
 // Using yup to generate a validation schema
@@ -48,43 +35,13 @@ watchEffect(() => {
 
 <template>
   <div>
-    <Form
-      :validation-schema="schema"
-      class="p-4 pt-0"
-      @submit="onSubmit"
-      @invalidSubmit="onInvalidSubmit"
-    >
-      <TextInput
-        name="username"
-        type="text"
-        label="用户名"
-        placeholder="请输入用户名"
-      />
-      <TextInput
-        name="email"
-        type="email"
-        label="邮箱"
-        placeholder="请输入邮箱"
-      />
-      <TextInput
-        name="password"
-        type="password"
-        label="密码"
-        placeholder="请输入密码"
-      />
-      <TextInput
-        name="confirm_password"
-        type="password"
-        label="确认密码"
-        placeholder="请再次输入密码"
-      />
+    <Form :validation-schema="schema" class="pt-4 pt-0" @submit="onSubmit">
+      <TextInput name="username" type="text" placeholder="请输入用户名" />
+      <TextInput name="email" type="email" placeholder="请输入邮箱" />
+      <TextInput name="password" type="password" placeholder="请输入密码" />
+      <TextInput name="confirm_password" type="password" placeholder="请再次输入密码" />
       <div class="flex mt-4 items-start">
-        <TextInput
-          name="captcha"
-          type="text"
-          label="验证码"
-          placeholder="请输入验证码"
-        />
+        <TextInput name="captcha" type="text" placeholder="请输入验证码" />
         <div pb="1" pl="4" @click="getCode" v-html="code?.image" />
       </div>
       <button type="submit" mt-2 w-full flex bg="#1d9bf0" text-sm text-white h-9 px-4 justify-center items-center rounded-full cursor-pointer hover="bg-#1A8CD8" active="bg-#177CC0">

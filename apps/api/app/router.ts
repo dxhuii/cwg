@@ -6,7 +6,7 @@ export default (app: Application) => {
   const { router, controller, middleware, io } = app
 
   const auth = middleware.auth
-  const log = middleware.log
+  // const log = middleware.log
 
   // socket.io
   io.of('/').route('chat', io.controller.chat.ping)
@@ -32,7 +32,7 @@ export default (app: Application) => {
   router.post('/api/user/sendMail', controller.api.user.sendMail)
   router.get('/api/user/checkExpired', controller.api.user.checkExpired)
   router.get('/api/user/setAdmin', controller.api.user.setAdmin)
-  router.get('/api/user/:id', log(), controller.api.user.get)
+  router.get('/api/user/:id', controller.api.user.get)
   // 喜欢
   router.get('/api/favorite/:id', controller.api.favorite.get)
   router.post('/api/favorite/add', auth(0), controller.api.favorite.add)

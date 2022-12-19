@@ -1,19 +1,33 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
+import CryptoJS from 'crypto-js'
 import * as Yup from 'yup'
-import md5 from 'md5'
+import { TextInput } from '@cwg/ui'
+import { login } from '~/composables/cwg'
+const emit = defineEmits<{
+  (e: 'close'): void
+  (e: 'reg'): void
+  (e: 'success'): void
+}>()
 
-const props = defineProps<{ getUser: () => void }>()
-const emit = defineEmits(['close', 'reg', 'getUser'])
-const onSubmit = async (values: any) => {
-  const res = await login({ ...values, password: md5(values.password!) })
-  localStorage.token = res.data
-  props.getUser()
-  emit('close')
+const onSubmit = async (data: any) => {
+  const md5 = CryptoJS.MD5(data.password).toString()
+  data.password = md5
+  const user = await login(data)
+  if (user) {
+    localStorage.setItem('token', user.data)
+    setTimeout(() => {
+      emit('success')
+      emit('close')
+    }, 300)
+  }
 }
 
-// Using yup to generate a validation schema
-// https://vee-validate.logaretm.com/v4/guide/validation#validation-schemas-with-yup
+const onReg = () => {
+  emit('close')
+  emit('reg')
+}
+
 const schema = Yup.object().shape({
   username: Yup.string().required('请输入用户名'),
   password: Yup.string().min(8, '密码长度必须大于8位').required('请输入密码')
@@ -22,31 +36,20 @@ const schema = Yup.object().shape({
 
 <template>
   <div>
+    <div flex mb-4 pb-4 border="b border gray-200">
+      <div w-full h-10 flex justify="center" items-center rounded-md border="~ black" hover:bg-gray-200 cursor-pointer @click="onReg">
+        <div i-carbon-email inline-flex w-6 h-6 mr-2 /> 通过邮箱注册
+      </div>
+    </div>
     <Form
       :validation-schema="schema"
-      class="p-4 pt-0"
       @submit="onSubmit"
     >
-      <TextInput
-        name="username"
-        type="text"
-        label="用户名"
-        placeholder="请输入用户名"
-      />
-      <TextInput
-        name="password"
-        type="password"
-        label="密码"
-        placeholder="请输入密码"
-      />
-      <div flex justify-end>
-        <button type="submit" w-20 flex bg="#1d9bf0" text-sm text-white h-9 px-4 justify-center items-center rounded-full cursor-pointer hover="bg-#1A8CD8" active="bg-#177CC0">
-          登录
-        </button>
-      </div>
-      <div class="flex justify-end mt-4">
-        还没有注册？点击<a text="#1d9bf0" cursor-pointer @click="emit('reg')">注册</a>
-      </div>
+      <TextInput name="username" type="text" placeholder="请输入用户名" />
+      <TextInput name="password" type="password" placeholder="请输入密码" />
+      <button type="submit" w-full flex bg="#1d9bf0" text-sm text-white h-9 px-4 justify-center items-center rounded-full cursor-pointer hover="bg-#1A8CD8" active="bg-#177CC0">
+        登录
+      </button>
     </Form>
   </div>
 </template>

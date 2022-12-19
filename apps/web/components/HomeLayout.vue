@@ -32,4 +32,3 @@ const menu = [
     </div>
   </div>
 </template>
-
