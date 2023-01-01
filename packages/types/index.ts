@@ -486,9 +486,9 @@ export interface PageResult<T> extends IResponse {
 
 export interface IDataListResponse<T> {
   list?: T[]
-  current?: number | string
-  pageSize?: number | string
-  total?: number
+  current: number | string
+  pageSize: number | string
+  total: number
 }
 
 export interface IListResponse<T> extends IResponse {

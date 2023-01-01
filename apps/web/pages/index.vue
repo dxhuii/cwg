@@ -1,13 +1,30 @@
 <script setup lang="ts">
+const current = ref<number>(1)
+const el = ref<HTMLElement>()
+const wY = ref(0)
 const feed = useFeedStore()
 await feed.list()
 const feedList = $computed(() => feed.feedList)
+const { y } = useWindowScroll()
+
+watchEffect(async () => {
+  const windowH = process.client ? document.documentElement.clientHeight || document.body.clientHeight : 0
+  if (el.value) {
+    if (windowH > el.value.getBoundingClientRect().bottom && !feed.feedMore) {
+      console.log('到底了')
+      await feed.list({ current: current.value + 1 })
+      console.log('加载完成')
+      current.value++
+    }
+  }
+  wY.value = y.value
+})
 </script>
 
 <template>
   <div>
     <HomeLayout>
-      <div pos="relative">
+      <div ref="el" pos="relative">
         <Chat />
         <DynamicScroller
           :items="feedList"
@@ -25,7 +42,7 @@ const feedList = $computed(() => feed.feedList)
               ]"
               :data-index="index"
             >
-              <Feed :data="item" />
+              <Feed :data="item" />{{ current }}
             </DynamicScrollerItem>
           </template>
         </DynamicScroller>

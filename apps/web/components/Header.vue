@@ -45,6 +45,10 @@ const onOk = async (item: typeof items[0]) => {
       userInfo.value = undefined
   }
 }
+
+defineExpose({
+  openLogin
+})
 </script>
 
 <template>

@@ -4,6 +4,7 @@ import { sidName } from '@cwg/types/enum'
 
 export const useFeedStore = defineStore('feed', () => {
   const feedData = ref<IFeed>()
+  const feedMore = ref<boolean>(false)
   const feedList = ref<(IFeed & { [key: string]: any })[]>()
   async function feed(id: string) {
     try {
@@ -16,11 +17,13 @@ export const useFeedStore = defineStore('feed', () => {
     }
   }
 
-  async function list(params = {}) {
+  async function list(params?: { current?: number }) {
     try {
       const { data } = await getFeedList(params)
       if (data)
-        feedList.value = data.list
+        feedList.value = params?.current ? feedList.value?.concat(data.list || []) : data.list!
+      if (!data.list?.length)
+        feedMore.value = true
     }
     catch (error) {
       feedList.value = []
@@ -58,6 +61,7 @@ export const useFeedStore = defineStore('feed', () => {
   return {
     feedData,
     feedList,
+    feedMore,
     feed,
     list,
     onDigg,
