@@ -1,4 +1,4 @@
-import type { ICaptcha, ICollect, IDataListResponse, IDigg, IFeed, ISubject, IUser, PageResult } from '@cwg/types'
+import type { ICaptcha, IDataListResponse, IDigg, IFavorite, IFeed, ISubject, IUser, PageResult } from '@cwg/types'
 import { fetchCWG as fc } from '@cwg/utils'
 
 /**
@@ -9,12 +9,12 @@ import { fetchCWG as fc } from '@cwg/utils'
  * @returns Promise
  */
 async function fetchCWG<T>(url: string, params: Record<string, string | number | undefined> = {}, method: 'POST' | 'GET' = 'GET', isCache = false): Promise<PageResult<T>> {
-  const { $getAuth, $Toast } = useNuxtApp()
+  const { $getAuth } = useNuxtApp()
   const baseURL = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/api/' : 'https://d.vv.chat/api/'
-  const res = await fc(url, params, method, baseURL, $getAuth, isCache)
+  const res = await fc(url, params, method, baseURL, $getAuth!, isCache)
+  Toast.warning(res.message)
   if (res.status !== 200) {
-    console.log(res)
-    $Toast?.show?.(res.message, { position: 'top', type: 'warning' })
+    Toast.warning(res.message)
     return Promise.reject(res)
   }
   else {
@@ -112,10 +112,10 @@ export function getFeed(id: string) {
 /**
  * 添加收藏
  * @param 参数
- * @returns ICollect
+ * @returns IFavorite
  */
 export function addCollect(params = {}) {
-  return fetchCWG<ICollect>('favorite/add', params, 'POST')
+  return fetchCWG<IFavorite>('favorite/add', params, 'POST')
 }
 
 /**
@@ -135,4 +135,3 @@ export function addDigg(params = {}) {
 export function addPin(params = {}) {
   return fetchCWG<IFeed>('pin/add', params, 'POST')
 }
-

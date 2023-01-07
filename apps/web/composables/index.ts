@@ -1,3 +1,4 @@
+import { useToast } from 'vue-toastification'
 export const go = (name: string, id?: string | number) => {
   const router = useRouter()
   if (id)
@@ -6,3 +7,4 @@ export const go = (name: string, id?: string | number) => {
 
 export const isDark = useDark()
 export const toggleDark = useToggle(isDark)
+export const Toast = useToast()

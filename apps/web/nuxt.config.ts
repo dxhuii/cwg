@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     '@unocss/reset/tailwind.css'
   ],
   build: {
-    transpile: ['@headlessui/vue']
+    transpile: ['@headlessui/vue', 'vue-toastification']
   },
   /**
    * 在 package.json 中包含 workspaces 字段

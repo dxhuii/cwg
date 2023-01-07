@@ -2,7 +2,6 @@
 import { ErrorMessage, Field, FieldArray, Form } from 'vee-validate'
 import * as yup from 'yup'
 const emit = defineEmits(['open', 'onImage'])
-const { $Toast } = useNuxtApp()
 
 const initialData = {
   image: [
@@ -37,7 +36,7 @@ const isRepeat = (arr: { url: string }[]) => {
 
 function onSubmit(values: any) {
   if (isRepeat(values.image))
-    $Toast?.show?.('图片地址不能重复', { position: 'top', type: 'warning' })
+    Toast.warning('图片地址不能重复')
   else
     emit('onImage', values)
 }

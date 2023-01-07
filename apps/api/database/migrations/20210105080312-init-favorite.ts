@@ -27,6 +27,6 @@ module.exports = {
   },
 
   down: async queryInterface => {
-    await queryInterface.dropTable('collect')
+    await queryInterface.dropTable('favorite')
   }
 }

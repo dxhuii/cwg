@@ -9,8 +9,8 @@ export interface IDate {
 }
 
 export interface IResponse {
-  status?: number
-  message?: string
+  status: number
+  message: string
 }
 
 export interface IPages {

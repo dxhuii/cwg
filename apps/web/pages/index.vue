@@ -23,8 +23,6 @@ watchEffect(async () => {
     wY.value = y.value
   }
 })
-
-console.log(feedLists)
 </script>
 
 <template>

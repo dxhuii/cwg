@@ -9,5 +9,3 @@ declare module 'webext-bridge' {
   }
 }
 
-
-declare module '@meforma/vue-toaster'

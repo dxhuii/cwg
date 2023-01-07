@@ -1,6 +1,6 @@
 import type { IBing, IDataListResponse, ILink, IList, IUser, PageResult } from '@cwg/types'
 import { fetchCWG as fc } from '@cwg/utils'
-import { Toaster } from './toaster'
+import { Toast } from './toast'
 
 /**
  * 封装请求
@@ -14,7 +14,7 @@ async function fetchCWG<T>(url: string, params: Record<string, string | number |
   const token = localStorage.getItem('token')
   const res = await fc(url, params, method, baseURL, token!, isCache)
   if (res.status !== 200) {
-    Toaster?.show?.(res.message, { position: 'top', type: 'warning' })
+    Toast.warning(res.message)
     return Promise.reject(res)
   }
   else {
