@@ -1,10 +1,14 @@
 <script setup lang="ts">
-const current = ref<number>(1)
+definePageMeta({
+  keepalive: true
+})
+const page = useState('page', () => 1)
 const el = ref<HTMLElement>()
 const wY = ref(0)
 const feed = useFeedStore()
-await feed.list()
-const feedList = $computed(() => feed.feedList)
+await feed.list({ current: page.value })
+const feedList = $computed(() => feed.feedList || [])
+const feedLists = $computed(() => feed.feedLists?.[`list_${page.value}`])
 const { y } = useWindowScroll()
 
 watchEffect(async () => {
@@ -12,13 +16,15 @@ watchEffect(async () => {
   if (el.value) {
     if (windowH > el.value.getBoundingClientRect().bottom && !feed.feedMore) {
       console.log('到底了')
-      await feed.list({ current: current.value + 1 })
+      await feed.list({ current: page.value + 1 })
       console.log('加载完成')
-      current.value++
+      page.value++
     }
+    wY.value = y.value
   }
-  wY.value = y.value
 })
+
+console.log(feedLists)
 </script>
 
 <template>
@@ -42,7 +48,7 @@ watchEffect(async () => {
               ]"
               :data-index="index"
             >
-              <Feed :data="item" />{{ current }}
+              <Feed :data="item" />
             </DynamicScrollerItem>
           </template>
         </DynamicScroller>

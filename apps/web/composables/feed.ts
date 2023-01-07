@@ -3,9 +3,11 @@ import type { IDigg, IFeed, IPin } from '@cwg/types'
 import { sidName } from '@cwg/types/enum'
 
 export const useFeedStore = defineStore('feed', () => {
-  const feedData = ref<IFeed>()
-  const feedMore = ref<boolean>(false)
-  const feedList = ref<(IFeed & { [key: string]: any })[]>()
+  const feedData = useState<IFeed>()
+  const feedMore = useState(() => false)
+  const feedList = useState<(IFeed & { [key: string]: any })[]>()
+  const feedLists = useState<{ [key: string]: (IFeed & { [key: string]: any })[] }>()
+
   async function feed(id: string) {
     try {
       const { data } = await getFeed(id)
@@ -17,16 +19,23 @@ export const useFeedStore = defineStore('feed', () => {
     }
   }
 
-  async function list(params?: { current?: number }) {
-    try {
-      const { data } = await getFeedList(params)
-      if (data)
-        feedList.value = params?.current ? feedList.value?.concat(data.list || []) : data.list!
+  async function list({ current = 1 }) {
+    const name = `list_${current}`
+    const list = feedLists.value?.[name]
+    if (list) {
+      feedList.value = list
+      feedLists.value = { [name]: list }
+    }
+    else {
+      const { data } = await getFeedList({ current })
+      if (data) {
+        const list = current !== 1 ? feedList.value?.concat(data.list || []) : data.list!
+        feedList.value = list
+        feedLists.value = { [name]: list }
+      }
+
       if (!data.list?.length)
         feedMore.value = true
-    }
-    catch (error) {
-      feedList.value = []
     }
   }
 
@@ -62,6 +71,7 @@ export const useFeedStore = defineStore('feed', () => {
     feedData,
     feedList,
     feedMore,
+    feedLists,
     feed,
     list,
     onDigg,
