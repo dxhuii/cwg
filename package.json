@@ -9,7 +9,7 @@
     "start:api": "pnpm api dev",
     "start:newtab": "pnpm newtab dev",
     "build:newtab": "pnpm newtab build",
-    "debug": "pnpm --filter=@cwg/api debug",
+    "debug": "pnpm api debug",
     "web": "pnpm --filter=@cwg/web",
     "admin": "pnpm --filter=@cwg/admin",
     "api": "pnpm --filter=@cwg/api",
