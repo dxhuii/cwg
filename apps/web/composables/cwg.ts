@@ -12,7 +12,6 @@ async function fetchCWG<T>(url: string, params: Record<string, string | number |
   const { $getAuth } = useNuxtApp()
   const baseURL = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/api/' : 'https://d.vv.chat/api/'
   const res = await fc(url, params, method, baseURL, $getAuth!, isCache)
-  Toast.warning(res.message)
   if (res.status !== 200) {
     Toast.warning(res.message)
     return Promise.reject(res)

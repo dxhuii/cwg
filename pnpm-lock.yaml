@@ -242,6 +242,7 @@ importers:
       '@cwg/utils': workspace:*
       '@iconify-json/bx': ^1.1.5
       '@iconify-json/carbon': ^1.1.11
+      '@iconify-json/ri': ^1.1.4
       '@iconify-json/twemoji': ^1.1.7
       '@nuxt/image-edge': 1.0.0-27840416.dc1ed65
       '@nuxtjs/color-mode': ^3.2.0
@@ -262,6 +263,7 @@ importers:
     devDependencies:
       '@iconify-json/bx': 1.1.5
       '@iconify-json/carbon': 1.1.11
+      '@iconify-json/ri': 1.1.4
       '@iconify-json/twemoji': 1.1.7
       '@nuxt/image-edge': 1.0.0-27840416.dc1ed65
       '@nuxtjs/color-mode': 3.2.0
@@ -3643,6 +3645,12 @@ packages:
 
   /@iconify-json/carbon/1.1.11:
     resolution: {integrity: sha512-IHkHSNmTM6q6b8DuKSzd+AEMYPZywSxcb+37kZU7ywtcwsGen3aVEvWFykopIWjjwj3xdZ/5UdwJRqhZDQMlNg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/ri/1.1.4:
+    resolution: {integrity: sha512-gAk2gQBVghgbMLOmbUCc3l4COMMH5sR3HhBqpjaPUFBbC4WsNNRyOD4RZgjlanU7DTgFrj4NarY5K2EkXaVxuw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

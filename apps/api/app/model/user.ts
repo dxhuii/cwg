@@ -35,10 +35,9 @@ export default (app: Context & Application) => {
     }
 
     static async get(params) {
-      const { id, attributes } = params
+      const { attributes } = params
       const condition: ICondition = {
-        attributes,
-        where: { id }
+        attributes
       }
       const where: { [key: string | symbol]: any } = {}
       if (params.not_id) {
@@ -46,6 +45,12 @@ export default (app: Context & Application) => {
           [Op.not]: params.not_id
         }
       }
+      if (params.username)
+        where.username = params.username
+
+      if (params.id)
+        where.id = params.id
+
       condition.where = where
       const result = await User.findOne(condition)
       return result

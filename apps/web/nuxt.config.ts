@@ -1,7 +1,8 @@
 import { searchForWorkspaceRoot } from 'vite'
 export default defineNuxtConfig({
   css: [
-    '@unocss/reset/tailwind.css'
+    '@unocss/reset/tailwind.css',
+    'vue-toastification/dist/index.css'
   ],
   build: {
     transpile: ['@headlessui/vue', 'vue-toastification']

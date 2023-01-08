@@ -8,7 +8,6 @@ const wY = ref(0)
 const feed = useFeedStore()
 await feed.list({ current: page.value })
 const feedList = $computed(() => feed.feedList || [])
-const feedLists = $computed(() => feed.feedLists?.[`list_${page.value}`])
 const { y } = useWindowScroll()
 
 watchEffect(async () => {
@@ -26,32 +25,28 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div>
-    <HomeLayout>
-      <div ref="el" pos="relative">
-        <Chat />
-        <DynamicScroller
-          :items="feedList"
-          :buffer="500"
-          :min-item-size="50"
-          :prerender="20"
-          :page-mode="true"
+  <div ref="el" pos="relative">
+    <Chat />
+    <DynamicScroller
+      :items="feedList"
+      :buffer="500"
+      :min-item-size="50"
+      :prerender="20"
+      :page-mode="true"
+    >
+      <template #default="{ item, index, active }">
+        <DynamicScrollerItem
+          :item="item"
+          :active="active"
+          :size-dependencies="[
+            item.name,
+          ]"
+          :data-index="index"
         >
-          <template #default="{ item, index, active }">
-            <DynamicScrollerItem
-              :item="item"
-              :active="active"
-              :size-dependencies="[
-                item.name,
-              ]"
-              :data-index="index"
-            >
-              <Feed :data="item" />
-            </DynamicScrollerItem>
-          </template>
-        </DynamicScroller>
-      </div>
-    </HomeLayout>
+          <Feed :data="item" />
+        </DynamicScrollerItem>
+      </template>
+    </DynamicScroller>
   </div>
 </template>
 
